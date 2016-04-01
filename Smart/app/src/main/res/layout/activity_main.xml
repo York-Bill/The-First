@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+  >
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.Toolbar
+                app:title="SmartE"
+                android:id="@+id/toolbar"
+                app:titleTextColor="#ffffff"
+                android:layout_width="match_parent"
+                android:elevation="5dp"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                />
+            <android.support.v4.view.ViewPager
+                android:background="#efefef"
+                android:elevation="-3dp"
+                android:layout_weight="9"
+                android:id="@+id/vp_home"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+            </android.support.v4.view.ViewPager>
+            <LinearLayout
+                android:elevation="5dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+                <ImageButton
+                    android:background="@null"
+                    android:id="@+id/ib_1"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+                <ImageButton
+                    android:background="@null"
+                    android:id="@+id/ib_2"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+                <ImageButton
+                    android:background="@null"
+                    android:id="@+id/ib_3"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer" />
+
+</android.support.v4.widget.DrawerLayout>
