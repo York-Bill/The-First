@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,14 +21,19 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.baidu.voicerecognition.android.ui.BaiduASRDigitalDialog;
+import com.baidu.voicerecognition.android.ui.DialogRecognitionListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Random;
 
+import Api_sours.Config;
 import Api_sours.StatusBarUtil;
 import fragement.Activity_3;
 import fragement.Activity_1;
 import fragement.Activity_2;
+import twoCode.activity.CaptureActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,13 +41,31 @@ public class MainActivity extends AppCompatActivity
     View headerView;
     ImageButton im_1,im_2,im_3;
     ImageView menu_bg;
+    DrawerLayout drawer;
     private static final int TAB_COUNT = 3;
+    //语音
+    private DialogRecognitionListener mRecognitionListener;
+    BaiduASRDigitalDialog mDialog=null;
+
+    //
     int[] menubg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+        mRecognitionListener = new DialogRecognitionListener() {
+
+            @Override
+            public void onResults(Bundle results) {
+                ArrayList<String> rs = results != null ? results
+                        .getStringArrayList(RESULTS_RECOGNITION) : null;
+                if (rs != null && rs.size() > 0) {
+                    Toast.makeText(MainActivity.this,rs.get(0),Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        };
         initMenu();
         initArray();
         initWidget();
@@ -155,7 +179,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.menu);
         setSupportActionBar(toolbar);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -184,9 +208,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         //二维码
         if (id == R.id.nav_camera) {
-
+            Intent in=new Intent(MainActivity.this, CaptureActivity.class);
+            startActivityForResult(in,0);
         } else if (id == R.id.nav_gallery) {
-
+            //语音
+            startVoice();
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -196,11 +222,36 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        if(id!=R.id.nav_camera){
+            drawer.closeDrawer(GravityCompat.START);
+        }
         return true;
     }
+    //识别开始
+    private void startVoice() {
+            if (mDialog != null) {
+                mDialog.dismiss();
+            }
+            // 参数，其中apiKey和secretKey为必须配置参数，其他根据实际需要配置
+            Bundle params = new Bundle();
+            // 配置apkKey
+            params.putString(BaiduASRDigitalDialog.PARAM_API_KEY, "hBgoW6nNWAqMbTXWxeDkvlQB");
+            // 配置secretKey
+            params.putString(BaiduASRDigitalDialog.PARAM_SECRET_KEY, "bef55254cb72adad89232aec29d49419");
+            params.putInt(BaiduASRDigitalDialog.PARAM_DIALOG_THEME, BaiduASRDigitalDialog.THEME_BLUE_LIGHTBG);
+            // 创建百度语音识别对话框
+            mDialog = new BaiduASRDigitalDialog(this, params);
+            mDialog.setDialogRecognitionListener(mRecognitionListener);
+            mDialog.getParams().putInt(BaiduASRDigitalDialog.PARAM_PROP, Config.CURRENT_PROP);
+            mDialog.getParams().putString(BaiduASRDigitalDialog.PARAM_LANGUAGE,
+                    Config.getCurrentLanguage());
+            Log.e("DEBUG", "Config.PLAY_START_SOUND = " + Config.PLAY_START_SOUND);
+            mDialog.getParams().putBoolean(BaiduASRDigitalDialog.PARAM_START_TONE_ENABLE, Config.PLAY_START_SOUND);
+            mDialog.getParams().putBoolean(BaiduASRDigitalDialog.PARAM_END_TONE_ENABLE, Config.PLAY_END_SOUND);
+            mDialog.getParams().putBoolean(BaiduASRDigitalDialog.PARAM_TIPS_TONE_ENABLE, Config.DIALOG_TIPS_SOUND);
+            mDialog.show();
+    }
+
     private long exitTime = 0;
     //监听返回键，退出系统
     @Override
