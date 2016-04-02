@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <group>
         <item
             android:id="@+id/nav_camera"
@@ -11,26 +10,26 @@
             android:icon="@drawable/ic_menu_voice"
             android:title="语音助手" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
             android:title="设置" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="分享" />
+
     </group>
 
     <item android:title="你的支持是我们进步的动力">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="分享" />
-            <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
                 android:title="意见反馈" />
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/ic_menu_loginout"
+                android:title="退出登录" />
         </menu>
     </item>
-
 </menu>

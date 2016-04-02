@@ -1,8 +1,13 @@
 package com.example.tyhj.smart;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -37,12 +42,14 @@ import twoCode.activity.CaptureActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-        ViewPager vp_home;
+    ViewPager vp_home;
     View headerView;
     ImageButton im_1,im_2,im_3;
     ImageView menu_bg;
     DrawerLayout drawer;
     private static final int TAB_COUNT = 3;
+    Intent intent_TwoCode,intent_Suggest,intent_Login;
+    Thread thread_voice,thread_TowCode,thread_Suggest,thread_Login;
     //语音
     private DialogRecognitionListener mRecognitionListener;
     BaiduASRDigitalDialog mDialog=null;
@@ -69,6 +76,7 @@ public class MainActivity extends AppCompatActivity
         initMenu();
         initArray();
         initWidget();
+        initThread();
     }
     //初始化数组
     private void initArray() {
@@ -94,6 +102,7 @@ public class MainActivity extends AppCompatActivity
         onClick();
         setIcon();
         initViewPager();
+        initThread();
     }
     //初始化viewpager
     private void initViewPager() {
@@ -206,25 +215,34 @@ public class MainActivity extends AppCompatActivity
     //侧栏菜单的监听
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        //二维码
-        if (id == R.id.nav_camera) {
-            Intent in=new Intent(MainActivity.this, CaptureActivity.class);
-            startActivityForResult(in,0);
-        } else if (id == R.id.nav_gallery) {
-            //语音
-            startVoice();
-        } else if (id == R.id.nav_slideshow) {
+        switch (id){
+            case R.id.nav_camera:
+                new Thread(thread_TowCode).start();
+                intent_TwoCode=new Intent(MainActivity.this, CaptureActivity.class);
+                break;
+            case R.id.nav_gallery:
+                startVoice();
+                new Thread(thread_voice).start();
+                break;
+            case R.id.logout:
+                new Thread(thread_Login).start();
+                intent_Login=new Intent(MainActivity.this,Login.class);
+                break;
+            case R.id.nav_manage:
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+                break;
+            case R.id.nav_share:
+                share();
+                Toast.makeText(MainActivity.this,R.string.share_connction,Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_send:
+                new Thread(thread_Suggest).start();
+                intent_Suggest=new Intent(MainActivity.this,Suggest.class);
+                break;
+            default:
+                break;
         }
-        if(id!=R.id.nav_camera){
-            drawer.closeDrawer(GravityCompat.START);
-        }
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
     //识别开始
@@ -249,7 +267,6 @@ public class MainActivity extends AppCompatActivity
             mDialog.getParams().putBoolean(BaiduASRDigitalDialog.PARAM_START_TONE_ENABLE, Config.PLAY_START_SOUND);
             mDialog.getParams().putBoolean(BaiduASRDigitalDialog.PARAM_END_TONE_ENABLE, Config.PLAY_END_SOUND);
             mDialog.getParams().putBoolean(BaiduASRDigitalDialog.PARAM_TIPS_TONE_ENABLE, Config.DIALOG_TIPS_SOUND);
-            mDialog.show();
     }
 
     private long exitTime = 0;
@@ -280,4 +297,90 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(MainActivity.this,scanResult,Toast.LENGTH_SHORT).show();
         }
     }
+    //线程初始化
+    private void initThread() {
+        thread_voice=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(270);
+                    Message message1=new Message();
+                    message1.what=1;
+                    handler.sendMessage(message1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread_TowCode=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(270);
+                    Message message1=new Message();
+                    message1.what=2;
+                    handler.sendMessage(message1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread_Suggest=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(270);
+                    Message message1=new Message();
+                    message1.what=3;
+                    handler.sendMessage(message1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread_Login=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(270);
+                    Message message1=new Message();
+                    message1.what=4;
+                    handler.sendMessage(message1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+    //复制链接到粘贴板
+    private void share(){
+        ClipboardManager clipboard = (ClipboardManager)
+                getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("simple text", "Hello, World!");
+        clipboard.setPrimaryClip(clip);
+    }
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 1:
+                    mDialog.show();
+                    break;
+                case 2:
+                    startActivityForResult(intent_TwoCode,0);
+                    overridePendingTransition(R.anim.activity_in_right, R.anim.activity_out_left);
+                    break;
+                case 3:
+                    startActivity(intent_Suggest);
+                    overridePendingTransition(R.anim.activity_in_right, R.anim.activity_out_left);
+                    break;
+                case 4:
+                    startActivity(intent_Login);
+                    overridePendingTransition(R.anim.activity_in_left, R.anim.activity_out_right);
+                    MainActivity.this.finish();
+                default:
+                    break;
+            }
+        }
+    };
 }
