@@ -17,7 +17,7 @@
             android:gravity="left"
             android:layout_gravity="left"
             android:src="@drawable/ic_back"
-            android:layout_width="?attr/actionBarSize"
+            android:layout_width="50dp"
             android:layout_height="match_parent" />
         <TextView
             android:layout_gravity="center"
@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
-            android:paddingTop="40dp"
+            android:paddingTop="30dp"
             android:paddingBottom="5dp"
             android:textSize="13sp"
             android:text="联系方式"
@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
-            android:paddingTop="40dp"
+            android:paddingTop="30dp"
             android:paddingBottom="5dp"
             android:textSize="13sp"
             android:text="意见反馈"

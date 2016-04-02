@@ -48,13 +48,11 @@ public class MainActivity extends AppCompatActivity
     ImageView menu_bg;
     DrawerLayout drawer;
     private static final int TAB_COUNT = 3;
-    Intent intent_TwoCode,intent_Suggest,intent_Login;
-    Thread thread_voice,thread_TowCode,thread_Suggest,thread_Login;
+    Intent intent_TwoCode,intent_Suggest,intent_Login,intent_Setting;
+    Thread thread_voice,thread_TowCode,thread_Suggest,thread_Login,thread_Setting;
     //语音
     private DialogRecognitionListener mRecognitionListener;
     BaiduASRDigitalDialog mDialog=null;
-
-    //
     int[] menubg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +126,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
-
     //设置点击事件
     private void onClick() {
         im_1.setOnClickListener(new View.OnClickListener() {
@@ -229,7 +226,8 @@ public class MainActivity extends AppCompatActivity
                 intent_Login=new Intent(MainActivity.this,Login.class);
                 break;
             case R.id.nav_manage:
-
+                new Thread(thread_Setting).start();
+                intent_Setting=new Intent(MainActivity.this,MyLogin.class);
                 break;
             case R.id.nav_share:
                 share();
@@ -351,6 +349,19 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+        thread_Setting=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(270);
+                    Message message1=new Message();
+                    message1.what=5;
+                    handler.sendMessage(message1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
     //复制链接到粘贴板
     private void share(){
@@ -378,6 +389,9 @@ public class MainActivity extends AppCompatActivity
                     startActivity(intent_Login);
                     overridePendingTransition(R.anim.activity_in_left, R.anim.activity_out_right);
                     MainActivity.this.finish();
+                case 5:
+                    startActivity(intent_Setting);
+                    overridePendingTransition(R.anim.activity_in_right, R.anim.activity_out_left);
                 default:
                     break;
             }

@@ -80,6 +80,7 @@ public class Login extends Activity {
             public void onClick(View v) {
                 Intent in=new Intent(Login.this,MainActivity.class);
                 startActivity(in);
+                Login.this.finish();
             }
         });
     }
