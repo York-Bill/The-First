@@ -45,7 +45,7 @@ public class Model_Adapter extends ArrayAdapter<For_Model> {
                 //详情
             }
         });
-        return convertView;
+        return view;
     }
 }
 class ViewH{
