@@ -3,7 +3,7 @@
     <group>
         <item
             android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_menu_twocode"
             android:title="扫一扫" />
         <item
             android:id="@+id/nav_gallery"
@@ -20,7 +20,7 @@
 
     </group>
 
-    <item android:title="你的支持是我们进步的动力">
+    <item android:title="我们的进步源于你的支持">
         <menu>
             <item
                 android:id="@+id/nav_send"

@@ -15,14 +15,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <android.support.v7.widget.Toolbar
-                app:title="SmartE"
+                android:titleTextAppearance="@style/Toolbar.TitleText"
                 android:id="@+id/toolbar"
                 app:titleTextColor="#ffffff"
                 android:layout_width="match_parent"
                 android:elevation="5dp"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/colorPrimary"
-                />
+                >
+                <TextView
+                    android:textColor="#ffffff"
+                    android:text="快速启动"
+                    android:id="@+id/tv_title"
+                    android:textSize="18sp"
+                    android:gravity="center_vertical|left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                </android.support.v7.widget.Toolbar>
             <android.support.v4.view.ViewPager
                 android:background="#efefef"
                 android:elevation="-3dp"

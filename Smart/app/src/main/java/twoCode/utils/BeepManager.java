@@ -36,7 +36,6 @@ public class BeepManager implements MediaPlayer.OnCompletionListener, MediaPlaye
 	private static final String TAG = BeepManager.class.getSimpleName();
 
 	private static final float BEEP_VOLUME = 0.10f;
-	private static final long VIBRATE_DURATION = 200L;
 
 	private final Activity activity;
 	private MediaPlayer mediaPlayer;
@@ -63,12 +62,9 @@ public class BeepManager implements MediaPlayer.OnCompletionListener, MediaPlaye
 	}
 
 	public synchronized void playBeepSoundAndVibrate() {
-		if (playBeep && mediaPlayer != null) {
-			mediaPlayer.start();
-		}
 		if (vibrate) {
 			Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
-			vibrator.vibrate(VIBRATE_DURATION);
+			vibrator.vibrate(80);
 		}
 	}
 

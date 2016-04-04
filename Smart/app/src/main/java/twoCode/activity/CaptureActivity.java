@@ -182,6 +182,8 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	 *            The extras
 	 */
 	public void handleDecode(Result rawResult, Bundle bundle) {
+		inactivityTimer.onActivity();
+		beepManager.playBeepSoundAndVibrate();
 		bundle.putString("result", rawResult.getText());
 		startActivity(new Intent(CaptureActivity.this, ResultActivity.class).putExtras(bundle));
 		CaptureActivity.this.finish();

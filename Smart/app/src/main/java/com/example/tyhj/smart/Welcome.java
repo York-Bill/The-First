@@ -29,9 +29,9 @@ public class Welcome extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.welcome);
         Intent in=new Intent(Welcome.this,MainActivity.class);
         startActivity(in);
+        setContentView(R.layout.welcome);
         init();
     }
 
@@ -82,7 +82,7 @@ public class Welcome extends Activity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if (position == mImags.length - 1) {
                     Intent intent = new Intent(Welcome.this,
-                            Login.class);
+                            MyLogin.class);
                     startActivity(intent);
                     finish();
                 }

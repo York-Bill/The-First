@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <application
         android:allowBackup="true"
-        android:icon="@drawable/icon_logo"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -24,13 +24,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login"/>
         <activity android:name=".Home"/>
         <activity android:name=".MainActivity"
             android:launchMode="singleTask"
             />
         <activity android:name=".Suggest"/>
         <activity android:name=".MyLogin"/>
+        <activity android:name=".ManageMode"/>
         <activity android:name="twoCode.activity.ResultActivity"/>
         <activity android:name="twoCode.activity.CaptureActivity"/>
     </application>

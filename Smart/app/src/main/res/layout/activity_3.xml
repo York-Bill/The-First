@@ -4,9 +4,118 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<TextView
-    android:gravity="center"
-    android:text="activity3"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    <LinearLayout
+        android:elevation="1dp"
+        android:padding="10dp"
+        android:id="@+id/ll_manage_model"
+        android:background="@drawable/ll_press"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <Api_sours.CircularImage
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/model_manage"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:gravity="left|center_vertical"
+            android:text="情景模式"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:elevation="1dp"
+        android:padding="10dp"
+        android:id="@+id/ll_manage_equipment"
+        android:background="@drawable/ll_press"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <Api_sours.CircularImage
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/equipment_manage"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:gravity="left|center_vertical"
+            android:text="智能设备中心"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:elevation="1dp"
+        android:padding="10dp"
+        android:id="@+id/ll_manage_preset"
+        android:background="@drawable/ll_press"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <Api_sours.CircularImage
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_preset"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:gravity="left|center_vertical"
+            android:text="预约定时"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:elevation="1dp"
+        android:padding="10dp"
+        android:id="@+id/ll_manage_collect"
+        android:background="@drawable/ll_press"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <Api_sours.CircularImage
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_collect_manage"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:gravity="left|center_vertical"
+            android:text="收藏管理"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="1dp"
+        android:elevation="1dp"
+        android:padding="10dp"
+        android:id="@+id/ll_manage_contral"
+        android:background="@drawable/ll_press"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <Api_sours.CircularImage
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_manage_control"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:gravity="left|center_vertical"
+            android:text="控制中心"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 </LinearLayout>

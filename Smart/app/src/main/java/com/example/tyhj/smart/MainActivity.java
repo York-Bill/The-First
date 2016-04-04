@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.voicerecognition.android.ui.BaiduASRDigitalDialog;
@@ -44,9 +45,11 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     ViewPager vp_home;
     View headerView;
+    TextView tv_title;
     ImageButton im_1,im_2,im_3;
     ImageView menu_bg;
     DrawerLayout drawer;
+    Toolbar toolbar;
     private static final int TAB_COUNT = 3;
     Intent intent_TwoCode,intent_Suggest,intent_Login,intent_Setting;
     Thread thread_voice,thread_TowCode,thread_Suggest,thread_Login,thread_Setting;
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity
         im_1= (ImageButton) findViewById(R.id.ib_1);
         im_2= (ImageButton) findViewById(R.id.ib_2);
         im_3= (ImageButton) findViewById(R.id.ib_3);
+        tv_title= (TextView) findViewById(R.id.tv_title);
         menu_bg= (ImageView) headerView.findViewById(R.id.menu_bg);
         onClick();
         setIcon();
@@ -111,6 +115,7 @@ public class MainActivity extends AppCompatActivity
                     case 0:
                         return new Activity_1();
                     case 1:
+
                         return new Activity_2();
                     case 2:
                         return new Activity_3();
@@ -123,6 +128,29 @@ public class MainActivity extends AppCompatActivity
             @Override
             public int getCount() {
                 return TAB_COUNT;
+            }
+        });
+        //viewPage滑动事件
+        vp_home.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int index) {
+                if (index == 0) {
+                    tv_title.setText("快速启动");
+                } else if (index == 1) {
+                    tv_title.setText("智能设备");
+                } else if (index == 2) {
+                    tv_title.setText("设置中心");
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
     }
@@ -182,8 +210,9 @@ public class MainActivity extends AppCompatActivity
 
     //初始化侧栏菜单
     private void initMenu() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.menu);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -223,11 +252,11 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.logout:
                 new Thread(thread_Login).start();
-                intent_Login=new Intent(MainActivity.this,Login.class);
+                intent_Login=new Intent(MainActivity.this,MyLogin.class);
                 break;
             case R.id.nav_manage:
                 new Thread(thread_Setting).start();
-                intent_Setting=new Intent(MainActivity.this,MyLogin.class);
+
                 break;
             case R.id.nav_share:
                 share();
@@ -390,7 +419,7 @@ public class MainActivity extends AppCompatActivity
                     overridePendingTransition(R.anim.activity_in_left, R.anim.activity_out_right);
                     MainActivity.this.finish();
                 case 5:
-                    startActivity(intent_Setting);
+
                     overridePendingTransition(R.anim.activity_in_right, R.anim.activity_out_left);
                 default:
                     break;
