@@ -13,7 +13,8 @@ public class MyDateBase extends SQLiteOpenHelper{
     public Context context;
     public String CREAT_TABLE="create table Model ("
             +"id text primary key ,"
-            +"headImage integer)";
+            +"headImage integer,"
+            +"ifCollect integer)";
     public MyDateBase(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
         this.context=context;

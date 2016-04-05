@@ -39,11 +39,11 @@
             <ImageView
                 android:id="@+id/capture_scan_line"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="2dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/scan_line" />
+                android:background="@color/colorPrimary"/>
         </RelativeLayout>
 
         <ImageView

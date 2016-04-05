@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import activity_for_adapter.For_Model;
 import activity_for_adapter.For_ModelHead;
@@ -52,11 +53,11 @@ public class ManageMode extends Activity{
     ImageButton ib_back_manageModel;
     Animation rotate1,rotate2,show1,show2;
     ImageButton ib_back_add_model,ib_save;
-    boolean roteta;
+    boolean roteta,show;
     For_ModelHead fmd;
     Model_HeadImage_Adapter simpleAdapter;
     List<For_ModelHead> list;
-    LinearLayout ll_add,ll_list;
+    LinearLayout ll_add;
     int[] length=GetModelHeadImage.modelhead;
     int width;
     int db_headcount=0;
@@ -98,7 +99,6 @@ public class ManageMode extends Activity{
                 .getSystemService(Context.WINDOW_SERVICE);
         width = wm.getDefaultDisplay().getWidth();
         ib_back_manageModel= (ImageButton) findViewById(R.id.ib_back_manage_model);
-        ll_list= (LinearLayout) findViewById(R.id.ll_list_model);
         image_chose= (ImageView) findViewById(R.id.ib_chose_head);
         gv_image= (GridView) findViewById(R.id.gv_head);
         ib_back_add_model= (ImageButton) findViewById(R.id.ib_back_add_model);
@@ -113,23 +113,34 @@ public class ManageMode extends Activity{
         show2=AnimationUtils.loadAnimation(ManageMode.this, R.anim.noshow);
         rotate1.setFillAfter(true);
         rotate2.setFillAfter(true);
-        image_chose.setBackgroundResource(length[0]);
         myDateBase=new MyDateBase(this,"Model.db",null,1);
         mydb=myDateBase.getWritableDatabase();
     }
     //点击事件
     private void onClik(){
+        image_chose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!show){
+                    gv_image.setVisibility(View.VISIBLE);
+                }else {
+                    gv_image.setVisibility(View.INVISIBLE);
+                }
+                show=!show;
+            }
+        });
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!roteta){
+                    Random random = new Random();
+                    db_headcount = random.nextInt(length.length);
+                    image_chose.setBackgroundResource(length[db_headcount]);
                     ll_add.setVisibility(View.VISIBLE);
-                    ll_list.setVisibility(View.INVISIBLE);
                     ll_add.startAnimation(show1);
                     fab.startAnimation(rotate1);
                 }else{
                     ll_add.setVisibility(View.INVISIBLE);
-                    ll_list.setVisibility(View.VISIBLE);
                     ll_add.startAnimation(show2);
                     fab.startAnimation(rotate2);
                 }
@@ -140,7 +151,6 @@ public class ManageMode extends Activity{
             @Override
             public void onClick(View v) {
                 ll_add.setVisibility(View.INVISIBLE);
-                ll_list.setVisibility(View.VISIBLE);
                 ll_add.startAnimation(show2);
                 fab.startAnimation(rotate2);
                 roteta = !roteta;
@@ -150,7 +160,6 @@ public class ManageMode extends Activity{
             @Override
             public void onClick(View v) {
                 ll_add.setVisibility(View.INVISIBLE);
-                ll_list.setVisibility(View.VISIBLE);
                 ll_add.startAnimation(show2);
                 fab.startAnimation(rotate2);
                 roteta = !roteta;
@@ -163,7 +172,6 @@ public class ManageMode extends Activity{
                 if(!db_name.equals("")&&ifnull(db_name)){
                 InsertIntoDatabase();
                     ll_add.setVisibility(View.INVISIBLE);
-                    ll_list.setVisibility(View.VISIBLE);
                     ll_add.startAnimation(show2);
                     fab.startAnimation(rotate2);
                     roteta = !roteta;
@@ -203,6 +211,7 @@ public class ManageMode extends Activity{
         ContentValues values=new ContentValues();
         values.put("id",db_name);
         values.put("headImage",db_headcount);
+        values.put("ifCollect",0);
         mydb.insert("Model", null, values);
         fm=new For_Model(db_name,db_headcount);
         mylist.add(fm);

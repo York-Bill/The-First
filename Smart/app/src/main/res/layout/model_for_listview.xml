@@ -3,7 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="50dp">
-    <Api_sours.CircularImage
+    <ImageView
         android:layout_gravity="center_vertical"
         android:id="@+id/cl_model"
         android:layout_width="40dp"
@@ -14,7 +14,9 @@
         android:layout_width="0dp"
         android:layout_height="50dp">
         <TextView
-            android:paddingLeft="20dp"
+            android:background="@drawable/tv_press"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="10dp"
             android:textSize="18sp"
             android:gravity="center_vertical"
             android:id="@+id/tv_model_name"
