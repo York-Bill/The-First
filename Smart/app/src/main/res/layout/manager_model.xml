@@ -35,7 +35,6 @@
             />
     </LinearLayout>
         <ListView
-            android:paddingLeft="10dp"
             android:id="@+id/lv_model"
             android:layout_width="match_parent"
             android:layout_height="match_parent">

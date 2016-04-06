@@ -7,10 +7,14 @@ public class For_collect_equipment {
     String id;
     String name;
     int headImage;
-    public For_collect_equipment(String str1, String str, int str2){
+    String type;
+    int ifcollect;
+    public For_collect_equipment(String str1, String str, int str2,String str3,int str4){
         name=str;
         id=str1;
         headImage=str2;
+        type=str3;
+        ifcollect=str4;
     }
 
     public String getName() {
@@ -21,5 +25,13 @@ public class For_collect_equipment {
     }
     public String getId() {
         return id;
+    }
+
+    public int getIfcollect() {
+        return ifcollect;
+    }
+
+    public String getType() {
+        return type;
     }
 }

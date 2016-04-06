@@ -10,6 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.tyhj.smart.R;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import activity_for_adapter.For_collect_equipment;
@@ -24,7 +27,6 @@ public class Collect_equipment_Adapter extends ArrayAdapter<For_collect_equipmen
     ViewH viewH;
     public MyDateBase mydb;
     SQLiteDatabase mysdb;
-    int[] headImages= GetModelHeadImage.modelhead;
     View view;
     int resourseId;
     List<For_collect_equipment> list;
@@ -38,20 +40,26 @@ public class Collect_equipment_Adapter extends ArrayAdapter<For_collect_equipmen
     public View getView(int position, View convertView, ViewGroup parent) {
         For_collect_equipment collect=getItem(position);
         int headimage=collect.getHeadImage();
-        String id=collect.getId();
+        String name=collect.getName();
         if(convertView==null) {
             view = LayoutInflater.from(getContext()).inflate(resourseId, null);
             viewH = new ViewH();
+            viewH.headImage= (ImageView) view.findViewById(R.id.cl_model);
+            viewH.name= (TextView) view.findViewById(R.id.tv_model_name);
             view.setTag(viewH);
         }else{
             view=convertView;
             viewH= (ViewH) view.getTag();
         }
+        viewH.name.setText(name);
+        Picasso.with(getContext())
+                .load(headimage)
+                .into(viewH.headImage);
         return view;
     }
     class ViewH{
         ImageView headImage;
         TextView name;
-        TextView content;
+
     }
 }

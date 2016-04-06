@@ -56,7 +56,6 @@ public class Activity_1 extends Fragment {
         list_model.addHeaderView(headview_model);
         list_model.addFooterView(footview_model);
         list_model.setAdapter(mydp);
-        cursor.close();
         return view;
     }
 
@@ -64,30 +63,18 @@ public class Activity_1 extends Fragment {
         myDateBase=new MyDateBase(getActivity(),"Model.db",null,1);
         mydb=myDateBase.getWritableDatabase();
         cursor=mydb.query("Model", null, null, null, null, null, null);
-        if(cursor.moveToNext()){
-            do{
+        while(cursor.moveToNext()){
                 String name=cursor.getString(0);
                 int headImage=cursor.getInt(1);
                 fm=new For_Model(name,headImage);
                 mylist.add(fm);
-            }while (cursor.moveToNext());
         }
+        cursor.close();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        list_model.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-            }
-        });
     }
 
     @Override

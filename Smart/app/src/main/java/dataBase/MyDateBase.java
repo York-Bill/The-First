@@ -13,18 +13,19 @@ public class MyDateBase extends SQLiteOpenHelper{
     public Context context;
     public String CREAT_TABLE_MODEL="create table Model ("
             +"id text primary key ,"
-            +"headImage integer,"
-            +"ifCollect integer)";
+            +"headImage integer)";
     public  String CREAT_TABLE_ROOM="create table Room(" +
             "id text primary key," +
-            "headImage integer" +
+            "headImage integer," +
             "ifCollect integer)";
     public String CREAT_TABLE_EQUIPMENT="create table Equipment(" +
             "id text primary key," +
             "name text," +
-            "headImage integer" +
+            "headImage integer," +
+            "type text,"+
+            "belong text,"+
             "ifCollect integer)";
-    public MyDateBase(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public MyDateBase(Context context, String name, SQLiteDatabase.CursorFactory factory,int version) {
         super(context, name, factory, version);
         this.context=context;
 

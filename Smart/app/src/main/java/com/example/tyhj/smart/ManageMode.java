@@ -170,7 +170,7 @@ public class ManageMode extends Activity{
             public void onClick(View v) {
                 db_name=add_name.getText().toString();
                 if(!db_name.equals("")&&ifnull(db_name)){
-                InsertIntoDatabase();
+                    InsertIntoDatabase();
                     ll_add.setVisibility(View.INVISIBLE);
                     ll_add.startAnimation(show2);
                     fab.startAnimation(rotate2);
@@ -206,13 +206,9 @@ public class ManageMode extends Activity{
             return true;
         }
     }
-    //插入
+    //插入Model
     private void InsertIntoDatabase() {
-        ContentValues values=new ContentValues();
-        values.put("id",db_name);
-        values.put("headImage",db_headcount);
-        values.put("ifCollect",0);
-        mydb.insert("Model", null, values);
+        mydb.execSQL("insert into Model values (?,?)", new Object[]{db_name,db_headcount});
         fm=new For_Model(db_name,db_headcount);
         mylist.add(fm);
         mydp.notifyDataSetChanged();

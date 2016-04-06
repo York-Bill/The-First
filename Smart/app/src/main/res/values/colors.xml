@@ -4,4 +4,12 @@
     <color name="colorPrimaryDark">#2a9e09</color>
     <color name="colorAccent">#FF4081</color>
     <color name="mytoorbar">#FFFFFF</color>
+    <color name="bg1">#33475f</color>
+    <color name="bg2">#cc0066</color>
+    <color name="bg3">#ffff33</color>
+    <color name="bg4">#33ffff</color>
+    <color name="bg5">#eb4f38</color>
+    <color name="bg6">#00bb9c</color>
+    <color name="bg7">#ff0033</color>
+    <color name="bg8">#3333ff</color>
 </resources>

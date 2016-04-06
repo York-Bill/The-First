@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<Button
+    android:id="@+id/bt_addall"
+    android:textColor="#ffffff"
+    android:gravity="center"
+    android:background="@drawable/bt_press_2"
+    android:padding="10dp"
+    android:text="添加智能电器"
+    android:textSize="18sp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+</LinearLayout>

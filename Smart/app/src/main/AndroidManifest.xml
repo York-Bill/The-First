@@ -31,6 +31,7 @@
         <activity android:name=".Suggest"/>
         <activity android:name=".MyLogin"/>
         <activity android:name=".ManageMode"/>
+        <activity android:name=".Add"/>
         <activity android:name="twoCode.activity.ResultActivity"/>
         <activity android:name="twoCode.activity.CaptureActivity"/>
     </application>

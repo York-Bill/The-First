@@ -34,7 +34,18 @@
     <EditText
         android:layout_marginTop="20dp"
         android:paddingLeft="20dp"
-        android:id="@+id/et_add_name"
+        android:id="@+id/et_add_id"
+        android:gravity="left|center_vertical"
+        android:layout_width="match_parent"
+        android:singleLine="true"
+        android:layout_height="50dp"
+        android:textSize="16sp"
+        android:hint="电器编号"
+        />
+    <EditText
+        android:layout_marginTop="10dp"
+        android:paddingLeft="20dp"
+        android:id="@+id/et_add_name_equipment"
         android:gravity="left|center_vertical"
         android:layout_width="match_parent"
         android:singleLine="true"
@@ -79,7 +90,7 @@
                     android:layout_height="48dp">
             <ImageView
                 android:background="#ffffff"
-                android:id="@+id/ib_chose_head"
+                android:id="@+id/ib_chose_head_addequipment"
                 android:layout_gravity="center"
                 android:layout_width="40dp"
                 android:layout_height="40dp" />

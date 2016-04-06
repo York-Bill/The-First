@@ -6,6 +6,17 @@ import com.example.tyhj.smart.R;
  * Created by Tyhj on 2016/4/4.
  */
 public class GetModelHeadImage {
+        public static int[] bgcolor={
+                R.color.bg1,
+                R.color.bg2,
+                R.color.bg3,
+                R.color.bg4,
+                R.color.bg5,
+                R.color.bg6,
+                R.color.bg7,
+                R.color.bg8,
+
+        };
     public static int[] modelhead={
             R.mipmap.ic_headimage_model_1,
             R.mipmap.ic_headimage_model_102,

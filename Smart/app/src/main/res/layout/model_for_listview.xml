@@ -3,6 +3,12 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="50dp">
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:id="@+id/ll_for_press"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ImageView
         android:layout_gravity="center_vertical"
         android:id="@+id/cl_model"
@@ -14,7 +20,6 @@
         android:layout_width="0dp"
         android:layout_height="50dp">
         <TextView
-            android:background="@drawable/tv_press"
             android:layout_marginLeft="10dp"
             android:paddingLeft="10dp"
             android:textSize="18sp"
@@ -29,4 +34,5 @@
         android:layout_height="wrap_content"
         android:id="@+id/switch1"
         android:layout_gravity="right|center_vertical" />
+    </LinearLayout>
 </LinearLayout>
