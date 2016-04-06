@@ -11,10 +11,19 @@ import android.widget.Toast;
  */
 public class MyDateBase extends SQLiteOpenHelper{
     public Context context;
-    public String CREAT_TABLE="create table Model ("
+    public String CREAT_TABLE_MODEL="create table Model ("
             +"id text primary key ,"
             +"headImage integer,"
             +"ifCollect integer)";
+    public  String CREAT_TABLE_ROOM="create table Room(" +
+            "id text primary key," +
+            "headImage integer" +
+            "ifCollect integer)";
+    public String CREAT_TABLE_EQUIPMENT="create table Equipment(" +
+            "id text primary key," +
+            "name text," +
+            "headImage integer" +
+            "ifCollect integer)";
     public MyDateBase(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
         this.context=context;
@@ -23,9 +32,10 @@ public class MyDateBase extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREAT_TABLE);
+        db.execSQL(CREAT_TABLE_MODEL);
+        db.execSQL(CREAT_TABLE_EQUIPMENT);
+        db.execSQL(CREAT_TABLE_ROOM);
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 

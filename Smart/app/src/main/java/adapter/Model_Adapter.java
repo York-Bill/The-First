@@ -135,9 +135,9 @@ public class Model_Adapter extends ArrayAdapter<For_Model> {
                 .into(viewH.headImage);
         return view;
     }
-}
-class ViewH{
-    ImageView headImage;
-    TextView name;
-    TextView content;
+    class ViewH{
+        ImageView headImage;
+        TextView name;
+        TextView content;
+    }
 }

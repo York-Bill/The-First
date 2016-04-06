@@ -3,13 +3,17 @@ package activity_for_adapter;
 /**
  * Created by Tyhj on 2016/4/3.
  */
-public class For_collect {
+public class For_collect_room {
     String name;
-    public For_collect(String str){
+    int headimage;
+    public For_collect_room(String str){
         this.name=str;
     }
-
     public String getName() {
         return name;
+    }
+
+    public int getHeadimage() {
+        return headimage;
     }
 }

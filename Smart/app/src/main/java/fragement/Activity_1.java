@@ -31,12 +31,12 @@ import dataBase.MyDateBase;
 public class Activity_1 extends Fragment {
     MyDateBase myDateBase;
     public SQLiteDatabase mydb;
-    ListView list_model;
+    ListView list_model,list_collect;
     For_Model fm;
     List<For_Model> mylist;
     Model_Adapter mydp;
     public View view;
-    View headview_model;
+    View headview_model,footview_model,headview_collect;
     Cursor cursor;
     @Nullable
     @Override
@@ -45,9 +45,16 @@ public class Activity_1 extends Fragment {
         list_model= (ListView) view.findViewById(R.id.model);
         mylist=new ArrayList<For_Model>();
         headview_model = LayoutInflater.from(getActivity()).inflate(R.layout.listhead_model, null, true);
+        //添加收藏的东西
+        headview_collect= LayoutInflater.from(getActivity()).inflate(R.layout.listhead_collect, null, true);
+        footview_model = LayoutInflater.from(getActivity()).inflate(R.layout.listfoot_collectlistview, null, true);
+        list_collect= (ListView) footview_model.findViewById(R.id.collect);
+        list_collect.addHeaderView(headview_collect);
+        //
         getModelList();
         mydp=new Model_Adapter(getActivity(),R.layout.model_for_listview,mylist);
         list_model.addHeaderView(headview_model);
+        list_model.addFooterView(footview_model);
         list_model.setAdapter(mydp);
         cursor.close();
         return view;
@@ -81,26 +88,13 @@ public class Activity_1 extends Fragment {
 
             }
         });
-        final SwipeRefreshLayout swiperefresh = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
-        swiperefresh.setColorSchemeResources(
-                android.R.color.holo_blue_light);// 设置刷新动画的颜色
-        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // TODO 自动生成的方法存根
-                swiperefresh.setRefreshing(true);// 开始刷新
-                // 执行刷新后需要完成的操作
+    }
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mylist.clear();
-                        getModelList();
-                        mydp.notifyDataSetChanged();
-                        swiperefresh.setRefreshing(false);// 结束刷新
-                    }
-                }, 1000);// 刷新动画持续2秒
-            }
-        });
+    @Override
+    public void onStart() {
+        super.onStart();
+        mylist.clear();
+        getModelList();
+        mydp.notifyDataSetChanged();
     }
 }

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
+        android:id="@+id/tv_idonotneed"
         android:elevation="5dp"
         android:background="@color/colorPrimary"
         android:orientation="horizontal"
@@ -19,6 +20,7 @@
             android:layout_width="50dp"
             android:layout_height="match_parent" />
         <TextView
+
             android:background="@color/colorPrimary"
             android:textColor="#ffffff"
             android:gravity="left|center_vertical"
@@ -38,7 +40,7 @@
         android:singleLine="true"
         android:layout_height="50dp"
         android:textSize="16sp"
-        android:hint="名称"
+        android:hint="名字"
         />
     <TextView
         android:paddingTop="10dp"
