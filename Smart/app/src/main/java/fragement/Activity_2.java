@@ -46,7 +46,6 @@ import savephoto.GetModelHeadImage;
 public class Activity_2 extends Fragment {
     View view;
     ListView list_room;
-    FloatingActionButton fab;
     Collect_room_Adapter room_adapter;
     List<For_collect_room> list;
     For_collect_room room;
@@ -63,7 +62,6 @@ public class Activity_2 extends Fragment {
 
     private void initWidget() {
         list=new ArrayList<For_collect_room>();
-        fab= (FloatingActionButton) view.findViewById(R.id.fab_equipment);
         list_room= (ListView) view.findViewById(R.id.lv_equipment_room);
         myDateBase=new MyDateBase(getActivity(),"Model.db",null,1);
         mydb=myDateBase.getWritableDatabase();
@@ -79,20 +77,6 @@ public class Activity_2 extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent in=new Intent(getActivity(), Add.class);
-                startActivity(in);
-            }
-        });
-        fab.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Toast.makeText(getActivity(),list.size()+"",Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
     }
     @Override
     public void onStart() {

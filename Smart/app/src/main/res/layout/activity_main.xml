@@ -20,17 +20,33 @@
                 app:titleTextColor="#ffffff"
                 android:layout_width="match_parent"
                 android:elevation="5dp"
+                android:gravity="center_horizontal"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/colorPrimary"
                 >
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
                 <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:textColor="#ffffff"
                     android:text="快速启动"
                     android:id="@+id/tv_title"
                     android:textSize="18sp"
-                    android:gravity="center_vertical|left"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content" />
+                    <ImageButton
+                        android:visibility="invisible"
+                        android:id="@+id/ib_add_room"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_add_room"
+                        android:background="@drawable/bt_press_2"
+                        android:layout_width="?attr/actionBarSize"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
                 </android.support.v7.widget.Toolbar>
             <android.support.v4.view.ViewPager
                 android:background="#efefef"

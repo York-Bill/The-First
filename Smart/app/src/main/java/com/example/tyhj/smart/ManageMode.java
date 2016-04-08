@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -176,9 +177,11 @@ public class ManageMode extends Activity{
                     fab.startAnimation(rotate2);
                     roteta = !roteta;
                 }else if(db_name.equals("")){
-                    Toast.makeText(ManageMode.this,"名字不能为空",Toast.LENGTH_SHORT).show();
+                    Snackbar.make(v, "名字不能为空", Snackbar.LENGTH_SHORT)
+                            .setAction("Action", null).show();
                 }else if(!ifnull(db_name)){
-                    Toast.makeText(ManageMode.this,"该模式已存在",Toast.LENGTH_SHORT).show();
+                    Snackbar.make(v, "该模式已存在", Snackbar.LENGTH_SHORT)
+                            .setAction("Action", null).show();
                 }
             }
         });

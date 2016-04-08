@@ -1,6 +1,7 @@
 package adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.tyhj.smart.ManageMode;
 import com.example.tyhj.smart.R;
 
 import java.util.List;
@@ -33,6 +35,7 @@ public class Activity_3_Adapter extends ArrayAdapter<For_Activity_3> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         for_activity_3=getItem(position);
+        final String name=for_activity_3.getName();
         if(convertView==null){
             view = LayoutInflater.from(getContext()).inflate(resourseId, null);
             viewH = new ViewH();
@@ -47,6 +50,16 @@ public class Activity_3_Adapter extends ArrayAdapter<For_Activity_3> {
         final LinearLayout ll=viewH.ll;
         viewH.name.setText(for_activity_3.getName());
         viewH.head.setBackgroundResource(for_activity_3.getHeadIameg());
+      /*  viewH.ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (name){
+                    case "情景模式":
+                        Intent in=new Intent(getContext(), ManageMode.class);
+                        getContext().startActivity(in);
+                }
+            }
+        });*/
         return view;
     }
     class ViewH{

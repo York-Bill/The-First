@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -73,6 +74,15 @@ public class Activity_3 extends Fragment {
     }
 
     private void setClik() {
-
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 1:
+                        Intent in=new Intent(getContext(), ManageMode.class);
+                        getActivity().startActivity(in);
+                }
+            }
+        });
     }
 }

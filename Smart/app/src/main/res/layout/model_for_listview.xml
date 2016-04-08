@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="60dp">
     <LinearLayout
         android:paddingLeft="10dp"
         android:id="@+id/ll_for_press"
@@ -18,11 +18,12 @@
         android:orientation="vertical"
         android:layout_weight="1"
         android:layout_width="0dp"
-        android:layout_height="50dp">
+        android:layout_height="60dp">
         <TextView
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:paddingLeft="10dp"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:gravity="center_vertical"
             android:id="@+id/tv_model_name"
             android:layout_weight="5"

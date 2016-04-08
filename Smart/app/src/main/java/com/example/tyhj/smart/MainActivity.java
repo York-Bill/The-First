@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity
     TextView tv_title;
     ImageButton im_1,im_2,im_3;
     ImageView menu_bg;
+    ImageButton ib_add_room;
     DrawerLayout drawer;
     Toolbar toolbar;
     private static final int TAB_COUNT = 3;
@@ -94,6 +95,7 @@ public class MainActivity extends AppCompatActivity
     }
     //初始化控件
     private void initWidget() {
+        ib_add_room= (ImageButton) findViewById(R.id.ib_add_room);
         vp_home= (ViewPager) findViewById(R.id.vp_home);
         vp_home.setOffscreenPageLimit(3);
         im_1= (ImageButton) findViewById(R.id.ib_1);
@@ -141,11 +143,14 @@ public class MainActivity extends AppCompatActivity
             public void onPageSelected(int index) {
                 if (index == 0) {
                     toolbar.setVisibility(View.VISIBLE);
+                    ib_add_room.setVisibility(View.INVISIBLE);
                     tv_title.setText("快速启动");
                 } else if (index == 1) {
-                    toolbar.setVisibility(View.GONE);
+                    ib_add_room.setVisibility(View.VISIBLE);
+                    toolbar.setVisibility(View.VISIBLE);
                     tv_title.setText("智能设备");
                 } else if (index == 2) {
+                    ib_add_room.setVisibility(View.INVISIBLE);
                     toolbar.setVisibility(View.GONE);
                     tv_title.setText("设置中心");
                 }
@@ -187,6 +192,13 @@ public class MainActivity extends AppCompatActivity
                         .into(menu_bg);
             }
         });
+        ib_add_room.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   Intent in = new Intent(MainActivity.this, Add.class);
+                   startActivity(in);
+               }
+           });
     }
 
     //设置小图标
