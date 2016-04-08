@@ -45,7 +45,6 @@ import savephoto.GetModelHeadImage;
  */
 public class Activity_2 extends Fragment {
     View view;
-    TextView tv_room,tv_type;
     ListView list_room;
     FloatingActionButton fab;
     Collect_room_Adapter room_adapter;
@@ -64,8 +63,6 @@ public class Activity_2 extends Fragment {
 
     private void initWidget() {
         list=new ArrayList<For_collect_room>();
-        tv_room= (TextView) view.findViewById(R.id.tv_type_room);
-        tv_type= (TextView) view.findViewById(R.id.tv_type_type);
         fab= (FloatingActionButton) view.findViewById(R.id.fab_equipment);
         list_room= (ListView) view.findViewById(R.id.lv_equipment_room);
         myDateBase=new MyDateBase(getActivity(),"Model.db",null,1);
@@ -82,20 +79,6 @@ public class Activity_2 extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        tv_room.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tv_room.setBackgroundResource(R.drawable.text_select);
-                tv_type.setBackgroundColor(Color.parseColor("#00000000"));
-            }
-        });
-        tv_type.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tv_type.setBackgroundResource(R.drawable.text_select);
-                tv_room.setBackgroundColor(Color.parseColor("#00000000"));
-            }
-        });
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -140,10 +140,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onPageSelected(int index) {
                 if (index == 0) {
+                    toolbar.setVisibility(View.VISIBLE);
                     tv_title.setText("快速启动");
                 } else if (index == 1) {
+                    toolbar.setVisibility(View.GONE);
                     tv_title.setText("智能设备");
                 } else if (index == 2) {
+                    toolbar.setVisibility(View.GONE);
                     tv_title.setText("设置中心");
                 }
             }
@@ -222,14 +225,12 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         headerView = navigationView.getHeaderView(0);
-        //StatusBarUtil.setColor(MainActivity.this, );
         StatusBarUtil.setColorForDrawerLayout(MainActivity.this, drawer, Color.parseColor("#2a9e09"), 2);
     }
 
     //侧栏菜单返回键的监听
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -300,9 +301,11 @@ public class MainActivity extends AppCompatActivity
     //监听返回键，退出系统
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-
         if(keyCode == KeyEvent.KEYCODE_BACK){
-
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            } else {
             if((System.currentTimeMillis()- exitTime) > 2000){
                 Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
@@ -310,6 +313,7 @@ public class MainActivity extends AppCompatActivity
                 MainActivity.this.finish();
             }
             return true;
+        }
         }else{
             return super.onKeyDown(keyCode, event);
         }
