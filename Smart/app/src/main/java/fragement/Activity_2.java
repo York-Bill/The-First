@@ -70,7 +70,7 @@ public class Activity_2 extends Fragment {
             room=new For_collect_room(cursor.getString(0),length[cursor.getInt(1)],cursor.getInt(2));
             list.add(room);
         }
-        room_adapter=new Collect_room_Adapter(getActivity(),R.layout.model_for_listview,list);
+        room_adapter=new Collect_room_Adapter(getActivity(),R.layout.room_for_listview,list);
         list_room.setAdapter(room_adapter);
     }
 

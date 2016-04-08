@@ -1,10 +1,13 @@
 package com.example.tyhj.smart;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.os.Vibrator;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,14 +25,9 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Random;
 
-import Api_sours.CircularImage;
-import activity_for_adapter.For_Model;
 import activity_for_adapter.For_ModelHead;
 import activity_for_adapter.For_collect_equipment;
 import adapter.Collect_equipment_Adapter;
@@ -37,31 +35,38 @@ import adapter.Model_HeadImage_Adapter;
 import dataBase.MyDateBase;
 import savephoto.GetModelHeadImage;
 
+import static com.example.tyhj.smart.R.id.bt_toast_auto;
+import static com.example.tyhj.smart.R.id.bt_toast_change;
+
 /**
  * Created by Tyhj on 2016/4/6.
  */
-public class Add extends Activity {
-
-    EditText et_add_name_room;
-    Button ib_save_add_room;
+public class SetRoom extends Activity {
     GridView gv_head;
     int x;
+    EditText et_change_name;
+    View headView;
+    ListView lv_set_room;
     LinearLayout ll_head_room,ll_change;
     boolean bl;
     ImageButton ib_back_add_room;
     ImageView cl;
     MyDateBase myDateBase;
     SQLiteDatabase mydb;
+    For_collect_equipment equipment;
+    List<For_collect_equipment> mylist;
+    Collect_equipment_Adapter collect_equipment_adapter;
     For_ModelHead fmd;
     Model_HeadImage_Adapter simpleAdapter;
     List<For_ModelHead> list;
     int headImage[]= GetModelHeadImage.modelhead;
-    View view;
-    Button add;
+    View footview;
+    Button bt_add_equipment;
+    String roomName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_room);
+        setContentView(R.layout.set_room);
         initwidget();
         onClick();
         setAdapter();
@@ -73,12 +78,6 @@ public class Add extends Activity {
             public void onClick(View v) {
                 ll_head_room.setVisibility(View.INVISIBLE);
                 bl=false;
-            }
-        });
-        ib_save_add_room.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveRoom(v);
             }
         });
         ll_change.setOnClickListener(new View.OnClickListener() {
@@ -96,43 +95,71 @@ public class Add extends Activity {
         ib_back_add_room.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Add.this.finish();
+                SetRoom.this.finish();
+            }
+        });
+        bt_add_equipment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog.Builder di = new AlertDialog.Builder(SetRoom.this);
+                di.setCancelable(true);
+                //布局转view
+                LayoutInflater inflater = LayoutInflater.from(SetRoom.this);
+                View layout = inflater.inflate(R.layout.toast_add_equipment, null);
+                Button bt_manual = (Button) layout.findViewById(R.id.bt_toast_manual);
+                Button bt_auto = (Button) layout.findViewById(bt_toast_auto);
+                di.setView(layout);
+                di.create();
+                final Dialog dialog = di.show();
+                bt_manual.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+                bt_auto.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
             }
         });
     }
 
-    private void saveRoom(View v) {
-        String name=et_add_name_room.getText().toString();
-        if(!name.equals("")&&isnull(name)){
-            mydb.execSQL("insert into Room values(?,?,?)",new Object[]{name,x,0});
-            Toast.makeText(Add.this,"成功",Toast.LENGTH_SHORT).show();
-            Add.this.finish();
-        }else if(name.equals("")){
-            Snackbar.make(v, "房间名字不能为空", Snackbar.LENGTH_SHORT)
-                    .setAction("Action", null).show();
-        }else{
-            Toast.makeText(this,"房间已存在，请重新设置房间名",Toast.LENGTH_SHORT).show();
-        }
-    }
     private void initwidget() {
+        roomName=getIntent().getStringExtra("roomName");
+        lv_set_room= (ListView) findViewById(R.id.lv_set_room);
         ll_change= (LinearLayout) findViewById(R.id.ll_change);
         ll_head_room= (LinearLayout) findViewById(R.id.ll_head_room);
         list=new ArrayList<For_ModelHead>();
-        et_add_name_room= (EditText) findViewById(R.id.et_add_name);
         myDateBase=new MyDateBase(this,"Model.db",null,1);
         mydb=myDateBase.getWritableDatabase();
         List<For_collect_equipment> list=new ArrayList<For_collect_equipment>();
         cl= (ImageView) findViewById(R.id.cl_addall_headImage);
         gv_head= (GridView) findViewById(R.id.gv_head_room);
-        ib_save_add_room= (Button) findViewById(R.id.bt_addRoom);
-        Random random = new Random();
-        view= LayoutInflater.from(this).inflate(R.layout.listfoot_add,null,true);
-        add= (Button) view.findViewById(R.id.bt_addall);
+        headView=LayoutInflater.from(this).inflate(R.layout.listhead_setroom,null,true);
+        et_change_name= (EditText) headView.findViewById(R.id.et_change_name);
+        et_change_name.setText(roomName);
+        footview= LayoutInflater.from(this).inflate(R.layout.listfoot_add,null,true);
+        bt_add_equipment= (Button) footview.findViewById(R.id.bt_addall);
         ib_back_add_room= (ImageButton) findViewById(R.id.ib_back_add_room);
-        x = random.nextInt(headImage.length);
-        Picasso.with(Add.this)
-                .load(headImage[x])
-                .into(cl);
+        mylist=new ArrayList<For_collect_equipment>();
+        Cursor cursor=mydb.rawQuery("select * from Room where id=?",new String[]{roomName});
+        if(cursor.moveToNext()){
+            Picasso.with(SetRoom.this)
+                    .load(headImage[cursor.getInt(1)])
+                    .into(cl);
+        }
+         cursor=mydb.rawQuery("select * from Equipment where belong=?",new String[]{roomName});
+        while (cursor.moveToNext()){
+            equipment=new For_collect_equipment(cursor.getString(0),cursor.getString(1),headImage[cursor.getInt(2)],cursor.getInt(5));
+            mylist.add(equipment);
+        }
+        lv_set_room.addHeaderView(headView);
+        lv_set_room.addFooterView(footview);
+        collect_equipment_adapter=new Collect_equipment_Adapter(this,R.layout.model_for_listview,mylist);
+        lv_set_room.setAdapter(collect_equipment_adapter);
     }
     private boolean isnull(String name) {
         Cursor cursor=mydb.rawQuery("select * from Room where id=?",new String[]{name});
@@ -151,12 +178,12 @@ public class Add extends Activity {
             fmd=new For_ModelHead(i);
             list.add(fmd);
         }
-        simpleAdapter=new Model_HeadImage_Adapter(Add.this, R.layout.headimage_for_gridview,list);
+        simpleAdapter=new Model_HeadImage_Adapter(SetRoom.this, R.layout.headimage_for_gridview,list);
         gv_head.setAdapter(simpleAdapter);
         gv_head.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Picasso.with(Add.this)
+                Picasso.with(SetRoom.this)
                         .load(headImage[position])
                         .into(cl);
                 x = position;
