@@ -12,7 +12,7 @@
         android:background="@color/colorPrimary"
         wave:above_wave_color="#ffffff"
         wave:blow_wave_color="#ffffff"
-        wave:progress="5"
+        wave:progress="20"
         wave:wave_height="little"
         wave:wave_hz="normal"
         wave:wave_length="middle"

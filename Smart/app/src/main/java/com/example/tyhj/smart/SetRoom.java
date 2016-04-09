@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.design.widget.Snackbar;
@@ -34,7 +36,9 @@ import adapter.Collect_equipment_Adapter;
 import adapter.Model_HeadImage_Adapter;
 import dataBase.MyDateBase;
 import savephoto.GetModelHeadImage;
+import twoCode.activity.CaptureActivity;
 
+import static com.example.tyhj.smart.R.id.bt_finish_add_equipment;
 import static com.example.tyhj.smart.R.id.bt_toast_auto;
 import static com.example.tyhj.smart.R.id.bt_toast_change;
 
@@ -43,12 +47,12 @@ import static com.example.tyhj.smart.R.id.bt_toast_change;
  */
 public class SetRoom extends Activity {
     GridView gv_head;
-    int x;
     EditText et_change_name;
     View headView;
     ListView lv_set_room;
     LinearLayout ll_head_room,ll_change;
     boolean bl;
+    int x;
     ImageButton ib_back_add_room;
     ImageView cl;
     MyDateBase myDateBase;
@@ -60,6 +64,7 @@ public class SetRoom extends Activity {
     Model_HeadImage_Adapter simpleAdapter;
     List<For_ModelHead> list;
     int headImage[]= GetModelHeadImage.modelhead;
+    String equipmentName[]=GetModelHeadImage.equipmentName;
     View footview;
     Button bt_add_equipment;
     String roomName;
@@ -77,7 +82,7 @@ public class SetRoom extends Activity {
             @Override
             public void onClick(View v) {
                 ll_head_room.setVisibility(View.INVISIBLE);
-                bl=false;
+                bl = false;
             }
         });
         ll_change.setOnClickListener(new View.OnClickListener() {
@@ -85,10 +90,10 @@ public class SetRoom extends Activity {
             public void onClick(View v) {
                 if (!bl) {
                     ll_head_room.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     ll_head_room.setVisibility(View.INVISIBLE);
                 }
-                bl=!bl;
+                bl = !bl;
             }
         });
 
@@ -105,7 +110,7 @@ public class SetRoom extends Activity {
                 di.setCancelable(true);
                 //布局转view
                 LayoutInflater inflater = LayoutInflater.from(SetRoom.this);
-                View layout = inflater.inflate(R.layout.toast_add_equipment, null);
+                View layout = inflater.inflate(R.layout.toast_the_wey_add_equipment, null);
                 Button bt_manual = (Button) layout.findViewById(R.id.bt_toast_manual);
                 Button bt_auto = (Button) layout.findViewById(bt_toast_auto);
                 di.setView(layout);
@@ -114,20 +119,86 @@ public class SetRoom extends Activity {
                 bt_manual.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        dialog.dismiss();
+                        final AlertDialog.Builder di = new AlertDialog.Builder(SetRoom.this);
+                        di.setCancelable(true);
+                        //布局转view
+                        LayoutInflater inflater = LayoutInflater.from(SetRoom.this);
+                        View layout = inflater.inflate(R.layout.toast_add_equipment, null);
+                        final EditText into = (EditText) layout.findViewById(R.id.et_toast_into_equipment_number);
+                        Button finish = (Button) layout.findViewById(bt_finish_add_equipment);
+                        di.setView(layout);
+                        di.create();
+                        final Dialog dialog1 = di.show();
+                        finish.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Random random = new Random();
+                                x = random.nextInt(equipmentName.length);
+                                String id = into.getText().toString();
+                                if (!haveInternet()) {
+                                    Snackbar.make(v, "网络未连接", Snackbar.LENGTH_SHORT)
+                                            .setAction("Action", null).show();
+                                } else if (id.equals("")) {
+                                    Snackbar.make(v, "电器编号不能为空", Snackbar.LENGTH_SHORT)
+                                            .setAction("Action", null).show();
+                                } else if (!ifHaveNumber()) {
+                                    Snackbar.make(v, "未找到此编号所对应的电器", Snackbar.LENGTH_SHORT)
+                                            .setAction("Action", null).show();
+                                } else if (ifexist(id)) {
+                                    Snackbar.make(v, "已添加过此电器", Snackbar.LENGTH_SHORT)
+                                            .setAction("Action", null).show();
+                                } else{
+                                    mydb.execSQL("insert into Equipment values(?,?,?,?,?,?)",new Object[]{id,equipmentName[x],
+                                    x,equipmentName[x],roomName,0});
+                                    equipment=new For_collect_equipment(id,equipmentName[x], headImage[x],0);
+                                    mylist.add(equipment);
+                                    collect_equipment_adapter.notifyDataSetChanged();
+                                    dialog1.dismiss();
+                                }
+                            }
+                        });
                     }
                 });
                 bt_auto.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        dialog.dismiss();
+                        Intent intent_TwoCode = new Intent(SetRoom.this, CaptureActivity.class);
+                        startActivity(intent_TwoCode);
                     }
                 });
             }
         });
     }
+    //网络
+    private boolean haveInternet() {
+        ConnectivityManager con=(ConnectivityManager)getSystemService(Activity.CONNECTIVITY_SERVICE);
+        boolean wifi=con.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
+        boolean internet=con.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting();
+        if(wifi|internet){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    //编号
+    private boolean ifHaveNumber() {
+        return true;
+    }
+    //第一次添加
+    private boolean ifexist(String str) {
+       Cursor cursor=mydb.rawQuery("select * from Equipment where id=?", new String[]{str});
+        if(cursor.moveToNext()){
+            return true;
+        }else {
+            return false;
+        }
+    }
 
     private void initwidget() {
+        Random random = new Random();
+        x = random.nextInt(equipmentName.length);
         roomName=getIntent().getStringExtra("roomName");
         lv_set_room= (ListView) findViewById(R.id.lv_set_room);
         ll_change= (LinearLayout) findViewById(R.id.ll_change);

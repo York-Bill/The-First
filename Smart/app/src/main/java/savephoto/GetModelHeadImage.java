@@ -17,6 +17,9 @@ public class GetModelHeadImage {
                 R.color.bg8,
 
         };
+        public static String[] equipmentName={
+                "电灯","冰箱","洗衣机","电视机","台灯","吊灯","饮水机","空调","电风扇","窗帘"
+        };
     public static int[] modelhead={
             R.mipmap.ic_headimage_1,
             R.mipmap.ic_headimage_2,
