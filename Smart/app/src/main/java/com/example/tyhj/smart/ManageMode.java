@@ -114,7 +114,7 @@ public class ManageMode extends Activity{
         show2=AnimationUtils.loadAnimation(ManageMode.this, R.anim.noshow);
         rotate1.setFillAfter(true);
         rotate2.setFillAfter(true);
-        myDateBase=new MyDateBase(this,"Model.db",null,1);
+        myDateBase=new MyDateBase(this,GetModelHeadImage.getUserId()+".db",null,1);
         mydb=myDateBase.getWritableDatabase();
     }
     //点击事件

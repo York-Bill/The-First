@@ -4,15 +4,22 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-        <ListView
-            android:id="@+id/lv_equipment_room"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </ListView>
-    <ListView
-        android:visibility="invisible"
-        android:id="@+id/lv_equipment_type"
+    <TextView
+        android:gravity="center_vertical"
+        android:text="我的房间"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="50dp" />
+    <GridView
+        android:verticalSpacing="10dp"
+        android:numColumns="5"
+        android:padding="10dp"
+        android:id="@+id/gv_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </GridView>
+    <ListView
+        android:id="@+id/lv_equipment_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     </ListView>
 </LinearLayout>

@@ -30,6 +30,8 @@
             />
         <activity android:name=".SetRoom"/>
         <activity android:name=".Suggest"/>
+        <activity android:name=".ForgetPas"/>
+        <activity android:name=".Register"/>
         <activity android:name=".MyLogin"/>
         <activity android:name=".ManageMode"/>
         <activity android:name=".Add"/>

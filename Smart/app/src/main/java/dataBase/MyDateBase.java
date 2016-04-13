@@ -25,6 +25,15 @@ public class MyDateBase extends SQLiteOpenHelper{
             "type text,"+
             "belong text,"+
             "ifCollect integer)";
+    public String CREAT_TABLE_USER="create table User(" +
+            "id text primary key," +
+            "name text," +
+            "phoneNumber text," +
+            "password text," +
+            "signTime text," +
+            "isMaster boolean," +
+            "email text," +
+            "headImage integer)";
     public MyDateBase(Context context, String name, SQLiteDatabase.CursorFactory factory,int version) {
         super(context, name, factory, version);
         this.context=context;
@@ -36,6 +45,7 @@ public class MyDateBase extends SQLiteOpenHelper{
         db.execSQL(CREAT_TABLE_MODEL);
         db.execSQL(CREAT_TABLE_EQUIPMENT);
         db.execSQL(CREAT_TABLE_ROOM);
+        db.execSQL(CREAT_TABLE_USER);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

@@ -24,6 +24,7 @@ import java.util.List;
 import activity_for_adapter.For_Model;
 import adapter.Model_Adapter;
 import dataBase.MyDateBase;
+import savephoto.GetModelHeadImage;
 
 /**
  * Created by Tyhj on 2016/3/31.
@@ -36,7 +37,7 @@ public class Activity_1 extends Fragment {
     List<For_Model> mylist;
     Model_Adapter mydp;
     public View view;
-    View headview_model,footview_model,headview_collect;
+    View headview_model,headview_collect;
     Cursor cursor;
     @Nullable
     @Override
@@ -47,20 +48,17 @@ public class Activity_1 extends Fragment {
         headview_model = LayoutInflater.from(getActivity()).inflate(R.layout.listhead_model, null, true);
         //添加收藏的东西
         headview_collect= LayoutInflater.from(getActivity()).inflate(R.layout.listhead_collect, null, true);
-        footview_model = LayoutInflater.from(getActivity()).inflate(R.layout.listfoot_collectlistview, null, true);
-        list_collect= (ListView) footview_model.findViewById(R.id.collect);
         list_collect.addHeaderView(headview_collect);
         //
         getModelList();
         mydp=new Model_Adapter(getActivity(),R.layout.model_for_listview,mylist);
         list_model.addHeaderView(headview_model);
-        list_model.addFooterView(footview_model);
         list_model.setAdapter(mydp);
         return view;
     }
 
     private void getModelList() {
-        myDateBase=new MyDateBase(getActivity(),"Model.db",null,1);
+        myDateBase=new MyDateBase(getActivity(), GetModelHeadImage.getUserId()+".db",null,1);
         mydb=myDateBase.getWritableDatabase();
         cursor=mydb.query("Model", null, null, null, null, null, null);
         while(cursor.moveToNext()){

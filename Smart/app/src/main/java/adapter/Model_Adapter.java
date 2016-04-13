@@ -68,7 +68,7 @@ public class Model_Adapter extends ArrayAdapter<For_Model> {
         viewH.name.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                mydb = new MyDateBase(getContext(), "Model.db", null, 1);
+                mydb = new MyDateBase(getContext(), GetModelHeadImage.getUserId()+".db", null, 1);
                 mysdb = mydb.getWritableDatabase();
                 Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
                 vibrator.vibrate(30);

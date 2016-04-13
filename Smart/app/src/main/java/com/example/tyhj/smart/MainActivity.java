@@ -1,10 +1,12 @@
 package com.example.tyhj.smart;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVUser;
 import com.baidu.voicerecognition.android.ui.BaiduASRDigitalDialog;
 import com.baidu.voicerecognition.android.ui.DialogRecognitionListener;
 import com.squareup.picasso.Picasso;
@@ -39,6 +42,8 @@ import Api_sours.StatusBarUtil;
 import fragement.Activity_3;
 import fragement.Activity_1;
 import fragement.Activity_2;
+import savephoto.DownloadTask;
+import savephoto.GetModelHeadImage;
 import twoCode.activity.CaptureActivity;
 
 public class MainActivity extends AppCompatActivity
@@ -61,6 +66,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(internet()){
+            DownloadTask downloadTask=new DownloadTask(MainActivity.this,GetModelHeadImage.getUserId());
+        }else {
+            Toast.makeText(getApplicationContext(),
+                    "网络出错，请检查网络连接", Toast.LENGTH_SHORT).show();
+        }
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         mRecognitionListener = new DialogRecognitionListener() {
@@ -148,11 +159,11 @@ public class MainActivity extends AppCompatActivity
                 } else if (index == 1) {
                     ib_add_room.setVisibility(View.VISIBLE);
                     toolbar.setVisibility(View.VISIBLE);
-                    tv_title.setText("智能设备");
+                    tv_title.setText("我的收藏");
                 } else if (index == 2) {
                     ib_add_room.setVisibility(View.INVISIBLE);
                     toolbar.setVisibility(View.GONE);
-                    tv_title.setText("设置中心");
+                    tv_title.setText("个人中心");
                 }
             }
 
@@ -266,6 +277,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.logout:
                 new Thread(thread_Login).start();
                 intent_Login=new Intent(MainActivity.this,MyLogin.class);
+                AVUser.logOut();
                 break;
             case R.id.nav_manage:
                 new Thread(thread_Setting).start();
@@ -442,4 +454,12 @@ public class MainActivity extends AppCompatActivity
             }
         }
     };
+    //网络
+    public boolean internet(){
+        ConnectivityManager con=(ConnectivityManager)getSystemService(Activity.CONNECTIVITY_SERVICE);
+        boolean internet=con.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting();
+        boolean wifi=con.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
+        if(internet||wifi) return true;
+        else return false;
+    }
 }

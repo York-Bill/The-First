@@ -6,7 +6,24 @@ import com.example.tyhj.smart.R;
  * Created by Tyhj on 2016/4/4.
  */
 public class GetModelHeadImage {
-        public static int[] bgcolor={
+    private static String userId;
+    private static boolean ifFirst;
+    public static  void setUserId(String userId) {
+        GetModelHeadImage.userId = userId;
+    }
+    public static String getUserId() {
+        return userId;
+    }
+
+    public static void setIfFirst(boolean ifFirst) {
+        GetModelHeadImage.ifFirst = ifFirst;
+    }
+
+    public static boolean isIfFirst() {
+        return ifFirst;
+    }
+
+    public static int[] bgcolor={
                 R.color.bg1,
                 R.color.bg2,
                 R.color.bg3,
@@ -20,6 +37,9 @@ public class GetModelHeadImage {
         public static String[] equipmentName={
                 "电灯","冰箱","洗衣机","电视机","台灯","吊灯","饮水机","空调","电风扇","窗帘"
         };
+    public static int[] userHeadImage={
+        R.drawable.ic_avatar
+    };
     public static int[] modelhead={
             R.mipmap.ic_headimage_1,
             R.mipmap.ic_headimage_2,

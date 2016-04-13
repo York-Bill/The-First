@@ -44,34 +44,35 @@ import savephoto.GetModelHeadImage;
  * Created by Tyhj on 2016/3/31.
  */
 public class Activity_2 extends Fragment {
+    GridView gv_room;
     View view;
     ListView list_room;
-    Collect_room_Adapter room_adapter;
-    List<For_collect_room> list;
-    For_collect_room room;
     int[] length= GetModelHeadImage.modelhead;
     MyDateBase myDateBase;
     SQLiteDatabase mydb;
+    For_collect_room for_collect_room;
+    Collect_room_Adapter collect_room_adapter;
+    List<For_collect_room> list;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.activity_2,null);
         initWidget();
+        collect_room_adapter=new Collect_room_Adapter(getActivity(),R.layout.gridview_for_collect,list);
+        gv_room.setAdapter(collect_room_adapter);
         return view;
     }
-
     private void initWidget() {
         list=new ArrayList<For_collect_room>();
+        gv_room= (GridView) view.findViewById(R.id.gv_room);
         list_room= (ListView) view.findViewById(R.id.lv_equipment_room);
-        myDateBase=new MyDateBase(getActivity(),"Model.db",null,1);
+        myDateBase=new MyDateBase(getActivity(),GetModelHeadImage.getUserId()+".db",null,1);
         mydb=myDateBase.getWritableDatabase();
         Cursor cursor= mydb.rawQuery("select * from Room", null);
         while (cursor.moveToNext()){
-            room=new For_collect_room(cursor.getString(0),length[cursor.getInt(1)],cursor.getInt(2));
-            list.add(room);
+            for_collect_room=new For_collect_room(cursor.getString(0),cursor.getInt(1),cursor.getInt(2));
+            list.add(for_collect_room);
         }
-        room_adapter=new Collect_room_Adapter(getActivity(),R.layout.room_for_listview,list);
-        list_room.setAdapter(room_adapter);
     }
 
     @Override
@@ -81,12 +82,12 @@ public class Activity_2 extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        list.clear();
         Cursor cursor= mydb.rawQuery("select * from Room", null);
+        list.clear();
         while (cursor.moveToNext()){
-            room=new For_collect_room(cursor.getString(0),length[cursor.getInt(1)],cursor.getInt(2));
-            list.add(room);
+            for_collect_room=new For_collect_room(cursor.getString(0),cursor.getInt(1),cursor.getInt(2));
+            list.add(for_collect_room);
         }
-        room_adapter.notifyDataSetChanged();
+        collect_room_adapter.notifyDataSetChanged();
     }
 }

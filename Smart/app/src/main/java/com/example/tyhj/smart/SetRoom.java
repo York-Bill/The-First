@@ -204,7 +204,7 @@ public class SetRoom extends Activity {
         ll_change= (LinearLayout) findViewById(R.id.ll_change);
         ll_head_room= (LinearLayout) findViewById(R.id.ll_head_room);
         list=new ArrayList<For_ModelHead>();
-        myDateBase=new MyDateBase(this,"Model.db",null,1);
+        myDateBase=new MyDateBase(this,GetModelHeadImage.getUserId()+".db",null,1);
         mydb=myDateBase.getWritableDatabase();
         List<For_collect_equipment> list=new ArrayList<For_collect_equipment>();
         cl= (ImageView) findViewById(R.id.cl_addall_headImage);

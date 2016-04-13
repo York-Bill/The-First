@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.AVUser;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import java.util.List;
 
 import Donghua.DepthPageTransformer;
 import Donghua.ZoomOutPageTransformer;
+import savephoto.GetModelHeadImage;
 
 public class Welcome extends Activity {
     ViewPager viewpager;
@@ -26,11 +29,18 @@ public class Welcome extends Activity {
     private List<ImageView> mview = new ArrayList<ImageView>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AVOSCloud.initialize(this, "fsbc53ABzyGIW7BMeCIVhlk4-gzGzoHsz", "i0tswVfwEsaEBR06nKmBRxxV");
+        AVUser user=AVUser.getCurrentUser();
+        if(user!=null){
+            Intent in=new Intent(Welcome.this,MainActivity.class);
+            GetModelHeadImage.setIfFirst(true);
+            startActivity(in);
+        }else {
+            GetModelHeadImage.setIfFirst(false);
+        }
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
-        Intent in=new Intent(Welcome.this,MainActivity.class);
-        startActivity(in);
         setContentView(R.layout.welcome);
         init();
     }
