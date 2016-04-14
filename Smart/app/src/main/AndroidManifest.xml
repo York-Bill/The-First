@@ -29,6 +29,7 @@
             android:launchMode="singleTask"
             />
         <activity android:name=".SetRoom"/>
+        <activity android:name=".MyRoom"/>
         <activity android:name=".Suggest"/>
         <activity android:name=".ForgetPas"/>
         <activity android:name=".Register"/>

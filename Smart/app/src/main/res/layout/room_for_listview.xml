@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
     <ImageView
         android:layout_gravity="center_vertical"
-        android:id="@+id/cl_model"
+        android:id="@+id/cl_room_headImage"
         android:layout_width="40dp"
         android:layout_height="40dp" />
     <LinearLayout
@@ -25,16 +25,10 @@
             android:paddingLeft="10dp"
             android:textSize="17sp"
             android:gravity="center_vertical"
-            android:id="@+id/tv_model_name"
+            android:id="@+id/tv_room_name"
             android:layout_weight="5"
             android:layout_width="match_parent"
             android:layout_height="0dp" />
     </LinearLayout>
-    <ImageView
-        android:layout_marginRight="10dp"
-        android:layout_gravity="center_vertical"
-        android:id="@+id/iv_room_collect"
-        android:layout_width="30dp"
-        android:layout_height="30dp" />
     </LinearLayout>
 </LinearLayout>

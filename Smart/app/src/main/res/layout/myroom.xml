@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/ll_list_model"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:elevation="5dp"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/ib_back_myroom"
+                android:background="@drawable/bt_press_2"
+                android:gravity="left"
+                android:layout_gravity="left"
+                android:src="@drawable/ic_back"
+                android:layout_width="50dp"
+                android:layout_height="match_parent" />
+            <TextView
+                android:background="@color/colorPrimary"
+                android:textColor="#ffffff"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:textSize="16sp"
+                android:text="我的房间"
+                />
+        </LinearLayout>
+        <ListView
+            android:id="@+id/lv_myroom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+    </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:elevation="5dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_manage_add" />
+</android.support.design.widget.CoordinatorLayout >

@@ -22,8 +22,9 @@ public class MyDateBase extends SQLiteOpenHelper{
             "id text primary key," +
             "name text," +
             "headImage integer," +
-            "type text,"+
-            "belong text,"+
+            "type integer,"+
+            "room text,"+
+            "model text,"+
             "ifCollect integer)";
     public String CREAT_TABLE_USER="create table User(" +
             "id text primary key," +

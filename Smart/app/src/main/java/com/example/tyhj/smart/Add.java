@@ -119,7 +119,7 @@ public class Add extends Activity {
         ll_head_room= (LinearLayout) findViewById(R.id.ll_head_room);
         list=new ArrayList<For_ModelHead>();
         et_add_name_room= (EditText) findViewById(R.id.et_add_name);
-        myDateBase=new MyDateBase(this,"Model.db",null,1);
+        myDateBase=new MyDateBase(this,GetModelHeadImage.getUserId()+".db",null,1);
         mydb=myDateBase.getWritableDatabase();
         List<For_collect_equipment> list=new ArrayList<For_collect_equipment>();
         cl= (ImageView) findViewById(R.id.cl_addall_headImage);

@@ -32,12 +32,12 @@ import savephoto.GetModelHeadImage;
 public class Activity_1 extends Fragment {
     MyDateBase myDateBase;
     public SQLiteDatabase mydb;
-    ListView list_model,list_collect;
+    ListView list_model;
     For_Model fm;
     List<For_Model> mylist;
     Model_Adapter mydp;
     public View view;
-    View headview_model,headview_collect;
+    View headview_model;
     Cursor cursor;
     @Nullable
     @Override
@@ -46,10 +46,6 @@ public class Activity_1 extends Fragment {
         list_model= (ListView) view.findViewById(R.id.model);
         mylist=new ArrayList<For_Model>();
         headview_model = LayoutInflater.from(getActivity()).inflate(R.layout.listhead_model, null, true);
-        //添加收藏的东西
-        headview_collect= LayoutInflater.from(getActivity()).inflate(R.layout.listhead_collect, null, true);
-        list_collect.addHeaderView(headview_collect);
-        //
         getModelList();
         mydp=new Model_Adapter(getActivity(),R.layout.model_for_listview,mylist);
         list_model.addHeaderView(headview_model);

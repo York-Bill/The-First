@@ -154,16 +154,12 @@ public class MainActivity extends AppCompatActivity
             public void onPageSelected(int index) {
                 if (index == 0) {
                     toolbar.setVisibility(View.VISIBLE);
-                    ib_add_room.setVisibility(View.INVISIBLE);
-                    tv_title.setText("快速启动");
+                    tv_title.setText("情景模式");
                 } else if (index == 1) {
-                    ib_add_room.setVisibility(View.VISIBLE);
                     toolbar.setVisibility(View.VISIBLE);
                     tv_title.setText("我的收藏");
                 } else if (index == 2) {
-                    ib_add_room.setVisibility(View.INVISIBLE);
                     toolbar.setVisibility(View.GONE);
-                    tv_title.setText("个人中心");
                 }
             }
 

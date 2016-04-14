@@ -9,6 +9,7 @@ public class For_collect_equipment {
     int headImage;
     String type;
     int ifcollect;
+    //0，1，2，6
     public For_collect_equipment(String str1, String str, int str2,int str4){
         name=str;
         id=str1;

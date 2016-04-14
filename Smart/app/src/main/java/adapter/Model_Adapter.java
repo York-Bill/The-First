@@ -77,7 +77,7 @@ public class Model_Adapter extends ArrayAdapter<For_Model> {
                 //布局转view
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 View layout = inflater.inflate(R.layout.toast_manage_model, null);
-                Button bt_change = (Button) layout.findViewById(bt_toast_change);
+                Button bt_change = (Button) layout.findViewById(R.id.bt_toast_change);
                 Button bt_delete = (Button) layout.findViewById(R.id.bt_toast_delete);
                 di.setView(layout);
                 di.create();

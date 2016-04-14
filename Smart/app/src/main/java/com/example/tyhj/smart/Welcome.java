@@ -34,6 +34,7 @@ public class Welcome extends Activity {
         if(user!=null){
             Intent in=new Intent(Welcome.this,MainActivity.class);
             GetModelHeadImage.setIfFirst(true);
+            GetModelHeadImage.setUserId(user.getUsername());
             startActivity(in);
         }else {
             GetModelHeadImage.setIfFirst(false);

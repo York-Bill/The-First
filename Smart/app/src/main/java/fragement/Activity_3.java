@@ -16,7 +16,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.tyhj.smart.ManageMode;
+import com.example.tyhj.smart.MyRoom;
 import com.example.tyhj.smart.R;
+import com.example.tyhj.smart.SetRoom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +58,8 @@ public class Activity_3 extends Fragment {
         list.add(for_activity_3);
         for_activity_3=new For_Activity_3("智能设备中心",R.drawable.equipment_manage);
         list.add(for_activity_3);
+        for_activity_3=new For_Activity_3("我的房间",R.drawable.ic_room_manage);
+        list.add(for_activity_3);
         for_activity_3=new For_Activity_3("预约定时",R.drawable.ic_preset);
         list.add(for_activity_3);
         for_activity_3=new For_Activity_3("收藏管理",R.drawable.ic_collect_manage);
@@ -63,6 +67,8 @@ public class Activity_3 extends Fragment {
         for_activity_3=new For_Activity_3("控制中心",R.drawable.ic_manage_control);
         list.add(for_activity_3);
         for_activity_3=new For_Activity_3("个人设置",R.drawable.ic_myset);
+        list.add(for_activity_3);
+        for_activity_3=new For_Activity_3("检查更新",R.drawable.ic_myset);
         list.add(for_activity_3);
         activity_3_adapter=new Activity_3_Adapter(getActivity(),R.layout.list_for_activity3,list);
     }
@@ -81,6 +87,11 @@ public class Activity_3 extends Fragment {
                     case 1:
                         Intent in=new Intent(getContext(), ManageMode.class);
                         getActivity().startActivity(in);
+                        break;
+                    case 3:
+                        Intent in1=new Intent(getActivity(), MyRoom.class);
+                        getActivity().startActivity(in1);
+                        break;
                 }
             }
         });

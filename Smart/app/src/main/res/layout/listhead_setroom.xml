@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
     <EditText
         android:layout_marginTop="10dp"
+        android:background="@null"
         android:paddingLeft="20dp"
         android:id="@+id/et_change_name"
         android:gravity="left|center_vertical"

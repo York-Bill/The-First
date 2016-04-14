@@ -1,44 +1,33 @@
 package adapter;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.tyhj.smart.R;
-import com.example.tyhj.smart.SetRoom;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import activity_for_adapter.For_collect_room;
-import dataBase.MyDateBase;
 import savephoto.GetModelHeadImage;
-
-import static com.example.tyhj.smart.R.id.bt_toast_change;
 
 /**
  * Created by Tyhj on 2016/4/6.
  */
-public class Collect_room_Adapter extends ArrayAdapter<For_collect_room> {
+public class Room_Adapter extends ArrayAdapter<For_collect_room> {
     View view;
     int resourseId;
     int[] headimage=GetModelHeadImage.modelhead;
     List<For_collect_room> list;
-    public Collect_room_Adapter(Context context, int resource, List<For_collect_room> objects) {
+    public Room_Adapter(Context context, int resource, List<For_collect_room> objects) {
         super(context, resource, objects);
         resourseId=resource;
         list=objects;
@@ -53,8 +42,8 @@ public class Collect_room_Adapter extends ArrayAdapter<For_collect_room> {
         if(convertView==null) {
             view = LayoutInflater.from(getContext()).inflate(resourseId, null);
             viewH = new ViewH();
-            viewH.headImage= (ImageView) view.findViewById(R.id.cl_collect_headimage);
-            viewH.name= (TextView) view.findViewById(R.id.tv_roomName);
+            viewH.headImage= (ImageView) view.findViewById(R.id.cl_room_headImage);
+            viewH.name= (TextView) view.findViewById(R.id.tv_room_name);
             view.setTag(viewH);
         }else{
             view=convertView;

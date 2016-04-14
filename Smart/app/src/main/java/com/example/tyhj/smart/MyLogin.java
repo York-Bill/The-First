@@ -188,7 +188,7 @@ public class MyLogin extends Activity {
                                 public void done(AVUser user, AVException e) {
                                     if (e == null) {
                                         Intent in=new Intent(MyLogin.this,MainActivity.class);
-                                        savaUserMessage();
+                                        GetModelHeadImage.setUserId(et_number_1.getText().toString());
                                         startActivity(in);
                                         MyLogin.this.finish();
                                     } else {
@@ -204,18 +204,6 @@ public class MyLogin extends Activity {
             }
         });
     }
-    //
-    private void savaUserMessage() {
-        GetModelHeadImage.setUserId(et_number_1.getText().toString());
-        mydateBase=new MyDateBase(this,GetModelHeadImage.getUserId()+".db",null,1);
-        SQLiteDatabase sqLiteDatabase=mydateBase.getWritableDatabase();
-        sqLiteDatabase.execSQL("insert into quick_login values (?,?,?)",new Object[]{
-                et_number_1.getText().toString(),
-                et_password_1.getText().toString(),
-                headImage
-        });
-    }
-
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {

@@ -11,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.design.widget.Snackbar;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -52,7 +53,8 @@ public class SetRoom extends Activity {
     ListView lv_set_room;
     LinearLayout ll_head_room,ll_change;
     boolean bl;
-    int x;
+    int x,z;
+    int y,b;
     ImageButton ib_back_add_room;
     ImageView cl;
     MyDateBase myDateBase;
@@ -78,6 +80,12 @@ public class SetRoom extends Activity {
     }
 
     private void onClick() {
+        lv_set_room.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
+            }
+        });
         ll_head_room.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +108,10 @@ public class SetRoom extends Activity {
         ib_back_add_room.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(b!=z) mydb.execSQL("update Room set headImage=? where id=?",new Object[]{b,roomName});
+                if(!et_change_name.getText().toString().equals(roomName))
+                    mydb.execSQL("update Room set id=? where id=?",new Object[]{et_change_name.getText().toString(),roomName});
+                mydb.execSQL("update Equipment set room=? where room=?",new Object[]{et_change_name.getText().toString(),roomName});
                 SetRoom.this.finish();
             }
         });
@@ -149,8 +161,8 @@ public class SetRoom extends Activity {
                                     Snackbar.make(v, "已添加过此电器", Snackbar.LENGTH_SHORT)
                                             .setAction("Action", null).show();
                                 } else{
-                                    mydb.execSQL("insert into Equipment values(?,?,?,?,?,?)",new Object[]{id,equipmentName[x],
-                                    x,equipmentName[x],roomName,0});
+                                    mydb.execSQL("insert into Equipment values(?,?,?,?,?,?,?)",new Object[]{id,equipmentName[x],
+                                    x,y,roomName," ",0});
                                     equipment=new For_collect_equipment(id,equipmentName[x], headImage[x],0);
                                     mylist.add(equipment);
                                     collect_equipment_adapter.notifyDataSetChanged();
@@ -199,6 +211,7 @@ public class SetRoom extends Activity {
     private void initwidget() {
         Random random = new Random();
         x = random.nextInt(equipmentName.length);
+        y=random.nextInt(4)+1;
         roomName=getIntent().getStringExtra("roomName");
         lv_set_room= (ListView) findViewById(R.id.lv_set_room);
         ll_change= (LinearLayout) findViewById(R.id.ll_change);
@@ -216,15 +229,18 @@ public class SetRoom extends Activity {
         bt_add_equipment= (Button) footview.findViewById(R.id.bt_addall);
         ib_back_add_room= (ImageButton) findViewById(R.id.ib_back_add_room);
         mylist=new ArrayList<For_collect_equipment>();
+        z=0;
         Cursor cursor=mydb.rawQuery("select * from Room where id=?",new String[]{roomName});
         if(cursor.moveToNext()){
             Picasso.with(SetRoom.this)
                     .load(headImage[cursor.getInt(1)])
                     .into(cl);
+            z=cursor.getInt(1);
+            b=z;
         }
-         cursor=mydb.rawQuery("select * from Equipment where belong=?",new String[]{roomName});
+         cursor=mydb.rawQuery("select * from Equipment where room=?",new String[]{roomName});
         while (cursor.moveToNext()){
-            equipment=new For_collect_equipment(cursor.getString(0),cursor.getString(1),headImage[cursor.getInt(2)],cursor.getInt(5));
+            equipment=new For_collect_equipment(cursor.getString(0),cursor.getString(1),headImage[cursor.getInt(2)],cursor.getInt(6));
             mylist.add(equipment);
         }
         lv_set_room.addHeaderView(headView);
@@ -257,8 +273,20 @@ public class SetRoom extends Activity {
                 Picasso.with(SetRoom.this)
                         .load(headImage[position])
                         .into(cl);
-                x = position;
+                b = position;
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            if(b!=z) mydb.execSQL("update Room set headImage=? where id=?",new Object[]{b,roomName});
+            if(!et_change_name.getText().toString().equals(roomName))
+                mydb.execSQL("update Room set id=? where id=?",new Object[]{et_change_name.getText().toString(),roomName});
+            mydb.execSQL("update Equipment set room=? where room=?",new Object[]{et_change_name.getText().toString(),roomName});
+            SetRoom.this.finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
