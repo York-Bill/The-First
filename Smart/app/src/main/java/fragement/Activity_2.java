@@ -117,10 +117,10 @@ public class Activity_2 extends Fragment {
         //1
         Cursor cursor= mydb.rawQuery("select * from Equipment where ifCollect=? and type=?", new String[]{"1","1"});
         while (cursor.moveToNext()){
-            for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6));
+            for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list1.add(for_collect_equipment1);
         }
-        collect_equipment_adapter1=new Collect_equipment_Adapter(getActivity(),R.layout.model_for_listview,flist1);
+        collect_equipment_adapter1=new Collect_equipment_Adapter(getActivity(),R.layout.equipment_for_listview,flist1);
         //lv_equipmentType_1.addHeaderView(headview1);
         lv_equipmentType_1.setAdapter(collect_equipment_adapter1);
         ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_1);
@@ -129,11 +129,11 @@ public class Activity_2 extends Fragment {
         //2
         cursor= mydb.rawQuery("select * from Equipment where ifCollect=? and type=?", new String[]{"1","2"});
         while (cursor.moveToNext()){
-            for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6));
+            for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list2.add(for_collect_equipment1);
 
         }
-        collect_equipment_adapter2=new Collect_equipment_Adapter(getActivity(),R.layout.model_for_listview,flist2);
+        collect_equipment_adapter2=new Collect_equipment_Adapter(getActivity(),R.layout.equipment_for_listview,flist2);
         lv_equipmentType_2.setAdapter(collect_equipment_adapter2);
         ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_2);
 
@@ -141,20 +141,20 @@ public class Activity_2 extends Fragment {
         //3
         cursor= mydb.rawQuery("select * from Equipment where ifCollect=? and type=?", new String[]{"1","3"});
         while (cursor.moveToNext()){
-            for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6));
+            for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list3.add(for_collect_equipment1);
         }
-        collect_equipment_adapter3=new Collect_equipment_Adapter(getActivity(),R.layout.model_for_listview,flist3);
+        collect_equipment_adapter3=new Collect_equipment_Adapter(getActivity(),R.layout.equipment_for_listview,flist3);
         lv_equipmentType_3.setAdapter(collect_equipment_adapter3);
         ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_3);
 
         //4
         cursor= mydb.rawQuery("select * from Equipment where ifCollect=? and type=?", new String[]{"1","4"});
         while (cursor.moveToNext()){
-            for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6));
+            for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list4.add(for_collect_equipment1);
         }
-        collect_equipment_adapter4=new Collect_equipment_Adapter(getActivity(),R.layout.model_for_listview,flist4);
+        collect_equipment_adapter4=new Collect_equipment_Adapter(getActivity(),R.layout.equipment_for_listview,flist4);
         lv_equipmentType_4.setAdapter(collect_equipment_adapter4);
         ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_4);
         cursor.close();
@@ -315,22 +315,22 @@ public class Activity_2 extends Fragment {
         }
         cursor= mydb.rawQuery("select * from Equipment where ifCollect=? and type=?", new String[]{"1","1"});
         while (cursor.moveToNext()){
-            for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6));
+            for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list1.add(for_collect_equipment1);
         }
         cursor= mydb.rawQuery("select * from Equipment where ifCollect=? and type=?", new String[]{"1","2"});
         while (cursor.moveToNext()){
-            for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6));
+            for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list2.add(for_collect_equipment1);
         }
         cursor= mydb.rawQuery("select * from Equipment where ifCollect=? and type=?", new String[]{"1","3"});
         while (cursor.moveToNext()){
-            for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6));
+            for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list3.add(for_collect_equipment1);
         }
         cursor= mydb.rawQuery("select * from Equipment where ifCollect=? and type=?", new String[]{"1","4"});
         while (cursor.moveToNext()){
-            for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6));
+            for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list4.add(for_collect_equipment1);
         }
         collect_room_adapter.notifyDataSetChanged();

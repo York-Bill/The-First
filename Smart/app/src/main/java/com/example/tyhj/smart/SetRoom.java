@@ -163,7 +163,7 @@ public class SetRoom extends Activity {
                                 } else{
                                     mydb.execSQL("insert into Equipment values(?,?,?,?,?,?,?)",new Object[]{id,equipmentName[x],
                                     x,y,roomName," ",0});
-                                    equipment=new For_collect_equipment(id,equipmentName[x], headImage[x],0);
+                                    equipment=new For_collect_equipment(id,equipmentName[x], headImage[x],0,roomName);
                                     mylist.add(equipment);
                                     collect_equipment_adapter.notifyDataSetChanged();
                                     dialog1.dismiss();
@@ -240,7 +240,7 @@ public class SetRoom extends Activity {
         }
          cursor=mydb.rawQuery("select * from Equipment where room=?",new String[]{roomName});
         while (cursor.moveToNext()){
-            equipment=new For_collect_equipment(cursor.getString(0),cursor.getString(1),headImage[cursor.getInt(2)],cursor.getInt(6));
+            equipment=new For_collect_equipment(cursor.getString(0),cursor.getString(1),headImage[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             mylist.add(equipment);
         }
         lv_set_room.addHeaderView(headView);

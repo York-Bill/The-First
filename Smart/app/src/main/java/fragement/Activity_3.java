@@ -68,7 +68,7 @@ public class Activity_3 extends Fragment {
         list.add(for_activity_3);
         for_activity_3=new For_Activity_3("个人设置",R.drawable.ic_myset);
         list.add(for_activity_3);
-        for_activity_3=new For_Activity_3("检查更新",R.drawable.ic_myset);
+        for_activity_3=new For_Activity_3("检查更新",R.drawable.ic_refresh_set);
         list.add(for_activity_3);
         activity_3_adapter=new Activity_3_Adapter(getActivity(),R.layout.list_for_activity3,list);
     }
