@@ -13,9 +13,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.tyhj.smart.ManageMode;
 import com.example.tyhj.smart.R;
 
 import java.util.ArrayList;
@@ -38,18 +42,24 @@ public class Activity_1 extends Fragment {
     Model_Adapter mydp;
     public View view;
     View headview_model;
+    LinearLayout ivIffind;
+    Button btAddModel;
     Cursor cursor;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.activity_1, null);
         list_model= (ListView) view.findViewById(R.id.model);
+        ivIffind= (LinearLayout) view.findViewById(R.id.ivIffind);
+        btAddModel= (Button) view.findViewById(R.id.btAddModel);
         mylist=new ArrayList<For_Model>();
         headview_model = LayoutInflater.from(getActivity()).inflate(R.layout.listhead_model, null, true);
         getModelList();
         mydp=new Model_Adapter(getActivity(),R.layout.model_for_listview,mylist);
-        list_model.addHeaderView(headview_model);
+        //list_model.addHeaderView(headview_model);
         list_model.setAdapter(mydp);
+        if(mylist.size()>0) ivIffind.setVisibility(View.GONE);
+        else  ivIffind.setVisibility(View.VISIBLE);
         return view;
     }
 
@@ -69,6 +79,13 @@ public class Activity_1 extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        btAddModel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in=new Intent(getActivity(), ManageMode.class);
+                getActivity().startActivity(in);
+            }
+        });
     }
 
     @Override
@@ -76,6 +93,8 @@ public class Activity_1 extends Fragment {
         super.onStart();
         mylist.clear();
         getModelList();
+        if(mylist.size()>0) ivIffind.setVisibility(View.GONE);
+        else  ivIffind.setVisibility(View.VISIBLE);
         mydp.notifyDataSetChanged();
     }
 }

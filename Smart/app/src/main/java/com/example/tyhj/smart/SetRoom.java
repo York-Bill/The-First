@@ -161,8 +161,8 @@ public class SetRoom extends Activity {
                                     Snackbar.make(v, "已添加过此电器", Snackbar.LENGTH_SHORT)
                                             .setAction("Action", null).show();
                                 } else{
-                                    mydb.execSQL("insert into Equipment values(?,?,?,?,?,?,?)",new Object[]{id,equipmentName[x],
-                                    x,y,roomName," ",0});
+                                    mydb.execSQL("insert into Equipment values(?,?,?,?,?,?,?,?)",new Object[]{id,equipmentName[x],
+                                    x,y,roomName," ",0,0});
                                     equipment=new For_collect_equipment(id,equipmentName[x], headImage[x],0,roomName);
                                     mylist.add(equipment);
                                     collect_equipment_adapter.notifyDataSetChanged();

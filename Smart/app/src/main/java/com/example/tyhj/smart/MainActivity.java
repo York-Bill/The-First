@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity
                 if (rs != null && rs.size() > 0) {
                     Toast.makeText(MainActivity.this,rs.get(0),Toast.LENGTH_SHORT).show();
                 }
-
             }
         };
         initMenu();
@@ -128,7 +127,6 @@ public class MainActivity extends AppCompatActivity
                     case 0:
                         return new Activity_1();
                     case 1:
-
                         return new Activity_2();
                     case 2:
                         return new Activity_3();
@@ -277,7 +275,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_manage:
                 new Thread(thread_Setting).start();
-
+                intent_Setting=new Intent(MainActivity.this,GetRoot.class);
                 break;
             case R.id.nav_share:
                 share();
@@ -443,7 +441,7 @@ public class MainActivity extends AppCompatActivity
                     overridePendingTransition(R.anim.activity_in_left, R.anim.activity_out_right);
                     MainActivity.this.finish();
                 case 5:
-
+                    startActivity(intent_Setting);
                     overridePendingTransition(R.anim.activity_in_right, R.anim.activity_out_left);
                 default:
                     break;

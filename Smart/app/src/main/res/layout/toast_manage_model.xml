@@ -16,6 +16,17 @@
         />
     <Button
         android:paddingLeft="20dp"
+        android:id="@+id/bt_toast_addTimePreset_model"
+        android:gravity="left|center_vertical"
+        android:layout_width="match_parent"
+        android:singleLine="true"
+        android:layout_height="50dp"
+        android:background="@drawable/bt_press_toast"
+        android:textSize="16sp"
+        android:text="设置定时开关"
+        />
+    <Button
+        android:paddingLeft="20dp"
         android:id="@+id/bt_toast.delete"
         android:gravity="left|center_vertical"
         android:layout_width="match_parent"

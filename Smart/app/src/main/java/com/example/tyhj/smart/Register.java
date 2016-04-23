@@ -2,6 +2,7 @@ package com.example.tyhj.smart;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -106,6 +107,10 @@ public class Register extends Activity {
     }
     //保存数据
     private void save_into_clude() {
+        MyDateBase mydateBase=new MyDateBase(this,et_register_phoneNumber.getText().toString()+".db",null,1);
+        SQLiteDatabase sqLiteDatabase=mydateBase.getWritableDatabase();
+        Cursor cursor=sqLiteDatabase.rawQuery("select * from User where id=?",new String[]{et_register_phoneNumber.getText().toString()});
+        if (!cursor.moveToNext())
         saveIntoSqldataBase();
         saveIntoClude();
     }
@@ -129,7 +134,7 @@ public class Register extends Activity {
                 et_register_phoneNumber.getText().toString(),
                 et_register_password.getText().toString(),
                 date,
-                false,
+                0,
                 et_register_email.getText().toString(),
                 db_headcount
         });

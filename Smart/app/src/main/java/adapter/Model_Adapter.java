@@ -3,6 +3,7 @@ package adapter;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -19,7 +20,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.tyhj.smart.CreatePreset;
 import com.example.tyhj.smart.R;
+import com.example.tyhj.smart.SetModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -35,7 +38,6 @@ import static com.example.tyhj.smart.R.id.bt_toast_change;
  */
 public class Model_Adapter extends ArrayAdapter<For_Model> {
     int resourseId;
-    View view;
     ViewH viewH;
     public MyDateBase mydb;
     SQLiteDatabase mysdb;
@@ -50,6 +52,7 @@ public class Model_Adapter extends ArrayAdapter<For_Model> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         For_Model for_model=getItem(position);
+        View view;
         final String name=for_model.getName();
         int x=for_model.getHeahImage();
         if(convertView==null) {
@@ -65,7 +68,7 @@ public class Model_Adapter extends ArrayAdapter<For_Model> {
         }
         final LinearLayout ll=viewH.ll;
         viewH.name.setText(name);
-        viewH.name.setOnLongClickListener(new View.OnLongClickListener() {
+        view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 mydb = new MyDateBase(getContext(), GetModelHeadImage.getUserId()+".db", null, 1);
@@ -79,25 +82,44 @@ public class Model_Adapter extends ArrayAdapter<For_Model> {
                 View layout = inflater.inflate(R.layout.toast_manage_model, null);
                 Button bt_change = (Button) layout.findViewById(R.id.bt_toast_change);
                 Button bt_delete = (Button) layout.findViewById(R.id.bt_toast_delete);
+                Button bt_toast_addTimePreset_model= (Button) layout.findViewById(R.id.bt_toast_addTimePreset_model);
                 di.setView(layout);
                 di.create();
                 final Dialog dialog = di.show();
+                bt_toast_addTimePreset_model.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent in=new Intent(getContext(), CreatePreset.class);
+                        in.putExtra("presetId",name);
+                        getContext().startActivity(in);
+                    }
+                });
                 bt_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mysdb.delete("Model", "id=?", new String[]{name});
+                        mysdb.delete("InModel", "modelId=?", new String[]{name});
+                        mysdb.delete("Preset", "id=?", new String[]{name});
                         obj.remove(position);
                         notifyDataSetChanged();
                         dialog.dismiss();
                     }
                 });
-                return false;
+                bt_change.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent in=new Intent(getContext(), SetModel.class);
+                        in.putExtra("modelName",name);
+                        getContext().startActivity(in);
+                    }
+                });
+                return true;
             }
         });
         Picasso.with(getContext())
                 .load(headImages[x])
                 .into(viewH.headImage);
-        viewH.name.setOnTouchListener(new View.OnTouchListener() {
+        view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -120,6 +142,15 @@ public class Model_Adapter extends ArrayAdapter<For_Model> {
                 return false;
             }
         });
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in=new Intent(getContext(), SetModel.class);
+                in.putExtra("modelName",name);
+                getContext().startActivity(in);
+            }
+        });
+
         return view;
     }
     class ViewH{

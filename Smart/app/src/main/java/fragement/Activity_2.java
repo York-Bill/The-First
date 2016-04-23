@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -26,6 +27,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tyhj.smart.Add;
+import com.example.tyhj.smart.CreatePreset;
+import com.example.tyhj.smart.MyRoom;
 import com.example.tyhj.smart.R;
 import com.example.tyhj.smart.SetRoom;
 import com.squareup.picasso.Picasso;
@@ -39,6 +42,7 @@ import activity_for_adapter.For_ModelHead;
 import activity_for_adapter.For_collect_equipment;
 import activity_for_adapter.For_collect_room;
 import adapter.Collect_equipment_Adapter;
+import adapter.Collect_equipment_Adapter_addRoom;
 import adapter.Collect_room_Adapter;
 import adapter.Model_HeadImage_Adapter;
 import dataBase.MyDateBase;
@@ -54,6 +58,7 @@ public class Activity_2 extends Fragment {
     TextView tv_ad_equipment_count_1,tv_ad_equipment_count_2,tv_ad_equipment_count_3,tv_ad_equipment_count_4;
     ListView lv_equipmentType_1,lv_equipmentType_2,lv_equipmentType_3,lv_equipmentType_4;
     View view;
+    LinearLayout llIfFind;
     int[] length= GetModelHeadImage.modelhead;
     MyDateBase myDateBase;
     SQLiteDatabase mydb;
@@ -61,8 +66,9 @@ public class Activity_2 extends Fragment {
     Collect_room_Adapter collect_room_adapter;
     List<For_collect_room> list;
     boolean b1,b2,b3,b4;
+    int i1,i2,i3,i4;
     For_collect_equipment for_collect_equipment1;
-    Collect_equipment_Adapter collect_equipment_adapter1,collect_equipment_adapter2,collect_equipment_adapter3,collect_equipment_adapter4;
+    Collect_equipment_Adapter_addRoom collect_equipment_adapter1,collect_equipment_adapter2,collect_equipment_adapter3,collect_equipment_adapter4;
     List<For_collect_equipment> list1,list2,list3,list4;
     List<For_collect_equipment> flist1,flist2,flist3,flist4;
     @Nullable
@@ -72,14 +78,19 @@ public class Activity_2 extends Fragment {
         initWidget();
         collect_room_adapter=new Collect_room_Adapter(getActivity(),R.layout.gridview_for_collect,list);
         gv_room.setAdapter(collect_room_adapter);
+        if(list.size()>0) llIfFind.setVisibility(View.GONE);
+        else llIfFind.setVisibility(View.VISIBLE);
         ListHeightUtils.setListViewHeightBasedOnChildren(gv_room,getActivity());
         return view;
     }
     private void initWidget() {
+        i1=0;i2=0;i3=0;i4=0;
+        llIfFind= (LinearLayout) view.findViewById(R.id.llIfFind);
         ib_extend_1= (ImageButton) view.findViewById(R.id.ib_extend_1);
         ib_extend_2= (ImageButton) view.findViewById(R.id.ib_extend_2);
         ib_extend_3= (ImageButton) view.findViewById(R.id.ib_extend_3);
         ib_extend_4= (ImageButton) view.findViewById(R.id.ib_extend_4);
+
         tv_ad_equipment_count_1= (TextView) view.findViewById(R.id.tv_type_1);
         tv_ad_equipment_count_2= (TextView) view.findViewById(R.id.tv_type_2);
         tv_ad_equipment_count_3= (TextView) view.findViewById(R.id.tv_type_3);
@@ -111,6 +122,14 @@ public class Activity_2 extends Fragment {
             list.add(for_collect_room);
         }
         initAdapter();
+        initCount();
+    }
+
+    private void initCount() {
+        tv_type_count_1.setText(""+i1);
+        tv_type_count_2.setText(""+i2);
+        tv_type_count_3.setText(""+i3);
+        tv_type_count_4.setText(""+i4);
     }
 
     private void initAdapter() {
@@ -119,8 +138,9 @@ public class Activity_2 extends Fragment {
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list1.add(for_collect_equipment1);
+            i1++;
         }
-        collect_equipment_adapter1=new Collect_equipment_Adapter(getActivity(),R.layout.equipment_for_listview,flist1);
+        collect_equipment_adapter1=new Collect_equipment_Adapter_addRoom(getActivity(),R.layout.equipment_for_listview,flist1);
         //lv_equipmentType_1.addHeaderView(headview1);
         lv_equipmentType_1.setAdapter(collect_equipment_adapter1);
         ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_1);
@@ -131,9 +151,9 @@ public class Activity_2 extends Fragment {
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list2.add(for_collect_equipment1);
-
+            i2++;
         }
-        collect_equipment_adapter2=new Collect_equipment_Adapter(getActivity(),R.layout.equipment_for_listview,flist2);
+        collect_equipment_adapter2=new Collect_equipment_Adapter_addRoom(getActivity(),R.layout.equipment_for_listview,flist2);
         lv_equipmentType_2.setAdapter(collect_equipment_adapter2);
         ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_2);
 
@@ -143,8 +163,9 @@ public class Activity_2 extends Fragment {
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list3.add(for_collect_equipment1);
+            i3++;
         }
-        collect_equipment_adapter3=new Collect_equipment_Adapter(getActivity(),R.layout.equipment_for_listview,flist3);
+        collect_equipment_adapter3=new Collect_equipment_Adapter_addRoom(getActivity(),R.layout.equipment_for_listview,flist3);
         lv_equipmentType_3.setAdapter(collect_equipment_adapter3);
         ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_3);
 
@@ -153,8 +174,9 @@ public class Activity_2 extends Fragment {
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list4.add(for_collect_equipment1);
+            i4++;
         }
-        collect_equipment_adapter4=new Collect_equipment_Adapter(getActivity(),R.layout.equipment_for_listview,flist4);
+        collect_equipment_adapter4=new Collect_equipment_Adapter_addRoom(getActivity(),R.layout.equipment_for_listview,flist4);
         lv_equipmentType_4.setAdapter(collect_equipment_adapter4);
         ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_4);
         cursor.close();
@@ -190,6 +212,13 @@ public class Activity_2 extends Fragment {
     }
 
     private void setClikEvent() {
+        llIfFind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in=new Intent(getActivity(),MyRoom.class);
+                getActivity().startActivity(in);
+            }
+        });
         gv_room.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -216,6 +245,12 @@ public class Activity_2 extends Fragment {
                             .resize(40, 40)
                             .centerCrop()
                             .into(ib_extend_1);
+                    list1.clear();
+                    i1=flist1.size();
+                    tv_type_count_1.setText(i1+"");
+                    for(int i=0;i<flist1.size();i++){
+                        list1.add(flist1.get(i));
+                    }
                     flist1.clear();
                 }
                 collect_equipment_adapter1.notifyDataSetChanged();
@@ -241,6 +276,12 @@ public class Activity_2 extends Fragment {
                             .resize(40, 40)
                             .centerCrop()
                             .into(ib_extend_2);
+                    list2.clear();
+                    i2=flist1.size();
+                    tv_type_count_2.setText(i2+"");
+                    for(int i=0;i<flist2.size();i++){
+                        list2.add(flist2.get(i));
+                    }
                     flist2.clear();
                 }
                 collect_equipment_adapter2.notifyDataSetChanged();
@@ -266,6 +307,12 @@ public class Activity_2 extends Fragment {
                             .resize(40, 40)
                             .centerCrop()
                             .into(ib_extend_3);
+                    list3.clear();
+                    i3=flist1.size();
+                    tv_type_count_3.setText(i3+"");
+                    for(int i=0;i<flist3.size();i++){
+                        list3.add(flist3.get(i));
+                    }
                     flist3.clear();
                 }
                 collect_equipment_adapter3.notifyDataSetChanged();
@@ -291,6 +338,12 @@ public class Activity_2 extends Fragment {
                             .resize(40, 40)
                             .centerCrop()
                             .into(ib_extend_4);
+                    i4=flist1.size();
+                    tv_type_count_4.setText(i4+"");
+                    list4.clear();
+                    for(int i=0;i<flist4.size();i++){
+                        list4.add(flist4.get(i));
+                    }
                     flist4.clear();
                 }
                 collect_equipment_adapter4.notifyDataSetChanged();
@@ -303,6 +356,7 @@ public class Activity_2 extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        i1=0;i2=0;i3=0;i4=0;
         list.clear();
         list1.clear();
         list2.clear();
@@ -317,21 +371,25 @@ public class Activity_2 extends Fragment {
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list1.add(for_collect_equipment1);
+            i1++;
         }
         cursor= mydb.rawQuery("select * from Equipment where ifCollect=? and type=?", new String[]{"1","2"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list2.add(for_collect_equipment1);
+            i2++;
         }
         cursor= mydb.rawQuery("select * from Equipment where ifCollect=? and type=?", new String[]{"1","3"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list3.add(for_collect_equipment1);
+            i3++;
         }
         cursor= mydb.rawQuery("select * from Equipment where ifCollect=? and type=?", new String[]{"1","4"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list4.add(for_collect_equipment1);
+            i4++;
         }
         collect_room_adapter.notifyDataSetChanged();
         collect_equipment_adapter1.notifyDataSetChanged();
@@ -352,5 +410,8 @@ public class Activity_2 extends Fragment {
         ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_2);
         ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_3);
         ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_4);
+        initCount();
+        if(list.size()>0) llIfFind.setVisibility(View.GONE);
+        else llIfFind.setVisibility(View.VISIBLE);
     }
 }

@@ -18,6 +18,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -50,10 +51,12 @@ public class ManageMode extends Activity{
     ImageView image_chose;
     EditText add_name;
     GridView gv_image;
+    LinearLayout ll_head_model;
     FloatingActionButton fab;
     ImageButton ib_back_manageModel;
     Animation rotate1,rotate2,show1,show2;
-    ImageButton ib_back_add_model,ib_save;
+    ImageButton ib_back_add_model;
+    Button ib_save;
     boolean roteta,show;
     For_ModelHead fmd;
     Model_HeadImage_Adapter simpleAdapter;
@@ -102,9 +105,10 @@ public class ManageMode extends Activity{
         ib_back_manageModel= (ImageButton) findViewById(R.id.ib_back_manage_model);
         image_chose= (ImageView) findViewById(R.id.ib_chose_head);
         gv_image= (GridView) findViewById(R.id.gv_head);
+        ll_head_model= (LinearLayout) findViewById(R.id.ll_head_model);
         ib_back_add_model= (ImageButton) findViewById(R.id.ib_back_add_model);
         ll_add= (LinearLayout) findViewById(R.id.ll_addmodel);
-        ib_save= (ImageButton) findViewById(R.id.ib_save);
+        ib_save= (Button) findViewById(R.id.ib_save);
         add_name= (EditText) findViewById(R.id.et_add_name);
         list_model= (ListView) findViewById(R.id.lv_model);
         fab= (FloatingActionButton) findViewById(R.id.fab);
@@ -122,12 +126,7 @@ public class ManageMode extends Activity{
         image_chose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!show){
-                    gv_image.setVisibility(View.VISIBLE);
-                }else {
-                    gv_image.setVisibility(View.INVISIBLE);
-                }
-                show=!show;
+                    ll_head_model.setVisibility(View.VISIBLE);
             }
         });
         fab.setOnClickListener(new View.OnClickListener() {
@@ -151,10 +150,7 @@ public class ManageMode extends Activity{
         ll_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ll_add.setVisibility(View.INVISIBLE);
-                ll_add.startAnimation(show2);
-                fab.startAnimation(rotate2);
-                roteta = !roteta;
+                ll_head_model.setVisibility(View.INVISIBLE);
             }
         });
         ib_back_add_model.setOnClickListener(new View.OnClickListener() {
@@ -211,7 +207,7 @@ public class ManageMode extends Activity{
     }
     //插入Model
     private void InsertIntoDatabase() {
-        mydb.execSQL("insert into Model values (?,?)", new Object[]{db_name,db_headcount});
+        mydb.execSQL("insert into Model values (?,?,?)", new Object[]{db_name,db_headcount,0});
         fm=new For_Model(db_name,db_headcount);
         mylist.add(fm);
         mydp.notifyDataSetChanged();

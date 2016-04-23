@@ -15,8 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.tyhj.smart.AddControlCenter;
+import com.example.tyhj.smart.Equipent_Center;
 import com.example.tyhj.smart.ManageMode;
 import com.example.tyhj.smart.MyRoom;
+import com.example.tyhj.smart.Preset;
 import com.example.tyhj.smart.R;
 import com.example.tyhj.smart.SetRoom;
 
@@ -62,13 +65,9 @@ public class Activity_3 extends Fragment {
         list.add(for_activity_3);
         for_activity_3=new For_Activity_3("预约定时",R.drawable.ic_preset);
         list.add(for_activity_3);
-        for_activity_3=new For_Activity_3("收藏管理",R.drawable.ic_collect_manage);
-        list.add(for_activity_3);
         for_activity_3=new For_Activity_3("控制中心",R.drawable.ic_manage_control);
         list.add(for_activity_3);
         for_activity_3=new For_Activity_3("个人设置",R.drawable.ic_myset);
-        list.add(for_activity_3);
-        for_activity_3=new For_Activity_3("检查更新",R.drawable.ic_refresh_set);
         list.add(for_activity_3);
         activity_3_adapter=new Activity_3_Adapter(getActivity(),R.layout.list_for_activity3,list);
     }
@@ -88,9 +87,21 @@ public class Activity_3 extends Fragment {
                         Intent in=new Intent(getContext(), ManageMode.class);
                         getActivity().startActivity(in);
                         break;
+                    case 2:
+                        Intent in2=new Intent(getContext(), Equipent_Center.class);
+                        getActivity().startActivity(in2);
+                        break;
                     case 3:
                         Intent in1=new Intent(getActivity(), MyRoom.class);
                         getActivity().startActivity(in1);
+                        break;
+                    case 4:
+                        Intent in3=new Intent(getActivity(), Preset.class);
+                        getActivity().startActivity(in3);
+                        break;
+                    case 5:
+                        Intent in5=new Intent(getActivity(), AddControlCenter.class);
+                        getActivity().startActivity(in5);
                         break;
                 }
             }

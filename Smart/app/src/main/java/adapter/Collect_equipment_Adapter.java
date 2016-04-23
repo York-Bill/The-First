@@ -3,6 +3,7 @@ package adapter;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.tyhj.smart.CreatePreset;
 import com.example.tyhj.smart.R;
 import com.squareup.picasso.Picasso;
 
@@ -61,7 +63,7 @@ public class Collect_equipment_Adapter extends ArrayAdapter<For_collect_equipmen
         Picasso.with(getContext())
                 .load(headimage)
                 .into(viewH.headImage);
-        viewH.name.setOnLongClickListener(new View.OnLongClickListener() {
+        view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 boolean ifCollect=false;
@@ -72,6 +74,7 @@ public class Collect_equipment_Adapter extends ArrayAdapter<For_collect_equipmen
                 //布局转view
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 View layout = inflater.inflate(R.layout.toast_collect_equipment, null);
+                Button bt_toast_addTimePreset_equipment= (Button) layout.findViewById(R.id.bt_toast_addTimePreset_equipment);
                 Button bt_delete = (Button) layout.findViewById(R.id.bt_toast_delete_equipment);
                 Button bt_collect = (Button) layout.findViewById(R.id.bt_toast_collect_equipment);
                 final ImageButton collect= (ImageButton) layout.findViewById(R.id.ib_save_equipment);
@@ -80,11 +83,22 @@ public class Collect_equipment_Adapter extends ArrayAdapter<For_collect_equipmen
                 di.setView(layout);
                 di.create();
                 final Dialog dialog = di.show();
+                bt_toast_addTimePreset_equipment.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent in=new Intent(getContext(), CreatePreset.class);
+                        in.putExtra("presetId",id);
+                        getContext().startActivity(in);
+                    }
+                });
                 bt_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mydb[0] = myDateBase.getWritableDatabase();
                         mydb[0].execSQL("delete from Equipment where id=?",new Object[]{id});
+                        mydb[0].execSQL("delete from Preset where id=?",new Object[]{id});
+                        mydb[0].execSQL("delete from Days where id=?",new Object[]{id});
+                        mydb[0].execSQL("delete from InModel where equipmentId=?",new Object[]{id});
                         list.remove(position);
                         notifyDataSetChanged();
                         dialog.dismiss();
@@ -96,9 +110,9 @@ public class Collect_equipment_Adapter extends ArrayAdapter<For_collect_equipmen
                     public void onClick(View v) {
                         if(finalIfCollect[0]){
                             Picasso.with(getContext()).load(R.drawable.ic_notcollect).resize(60,60).centerCrop().into(collect);
-                            mydb[0].execSQL("update Equipment set ifCollect=?",new Object[]{0});
+                            mydb[0].execSQL("update Equipment set ifCollect =? where id=?",new Object[]{0,id});
                         }else {
-                            mydb[0].execSQL("update Equipment set ifCollect=?",new Object[]{1});
+                            mydb[0].execSQL("update Equipment set ifCollect=? where id=?",new Object[]{1,id});
                             Picasso.with(getContext()).load(R.drawable.ic_collect).resize(60,60).centerCrop().into(collect);
                         }
                         finalIfCollect[0] =!finalIfCollect[0];

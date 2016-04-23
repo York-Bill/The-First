@@ -15,6 +15,16 @@
         android:text="修改此房间"
         />
     <Button
+        android:id="@+id/bt_toast_addTimePreset_room"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="20dp"
+        android:background="@drawable/bt_press_toast"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="16sp"
+        android:text="修改此房间"
+        />
+    <Button
         android:paddingLeft="20dp"
         android:id="@+id/bt_toast_delete_room"
         android:gravity="left|center_vertical"

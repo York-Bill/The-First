@@ -28,14 +28,14 @@ import savephoto.GetModelHeadImage;
 /**
  * Created by Tyhj on 2016/4/5.
  */
-public class Collect_equipment_Adapter_addRoom extends ArrayAdapter<For_collect_equipment> {
+public class Equipment_Adapter_AddToModel extends ArrayAdapter<For_collect_equipment> {
     Cursor cursor;
     ViewH viewH;
     MyDateBase myDateBase;
     View view;
     int resourseId;
     List<For_collect_equipment> list;
-    public Collect_equipment_Adapter_addRoom(Context context, int resource, List<For_collect_equipment> objects) {
+    public Equipment_Adapter_AddToModel(Context context, int resource, List<For_collect_equipment> objects) {
         super(context, resource, objects);
         resourseId=resource;
         list=objects;
@@ -79,44 +79,21 @@ public class Collect_equipment_Adapter_addRoom extends ArrayAdapter<For_collect_
                 Button bt_toast_addTimePreset_equipment= (Button) layout.findViewById(R.id.bt_toast_addTimePreset_equipment);
                 Button bt_delete = (Button) layout.findViewById(R.id.bt_toast_delete_equipment);
                 Button bt_collect = (Button) layout.findViewById(R.id.bt_toast_collect_equipment);
-                final ImageButton collect= (ImageButton) layout.findViewById(R.id.ib_save_equipment);
-                if(ifCollect) Picasso.with(getContext()).load(R.drawable.ic_collect).resize(60,60).centerCrop().into(collect);
-                else Picasso.with(getContext()).load(R.drawable.ic_notcollect).resize(60,60).centerCrop().into(collect);
+                ImageButton image= (ImageButton) layout.findViewById(R.id.ib_save_equipment);
+                bt_collect.setVisibility(View.GONE);
+                image.setVisibility(View.GONE);
+                bt_toast_addTimePreset_equipment.setVisibility(View.GONE);
+                bt_delete.setText("移除电器");
                 di.setView(layout);
                 di.create();
                 final Dialog dialog = di.show();
-                bt_toast_addTimePreset_equipment.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent in=new Intent(getContext(), CreatePreset.class);
-                        in.putExtra("presetId",id);
-                        getContext().startActivity(in);
-                    }
-                });
                 bt_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mydb[0] = myDateBase.getWritableDatabase();
-                        mydb[0].execSQL("delete from Equipment where id=?",new Object[]{id});
                         list.remove(position);
+                        mydb[0].execSQL("delete from InModel where equipmentId=?",new Object[]{id});
                         notifyDataSetChanged();
                         dialog.dismiss();
-                    }
-                });
-                final boolean[] finalIfCollect = {ifCollect};
-                bt_collect.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(finalIfCollect[0]){
-                            Picasso.with(getContext()).load(R.drawable.ic_notcollect).resize(60,60).centerCrop().into(collect);
-                            mydb[0].execSQL("update Equipment set ifCollect=?",new Object[]{0});
-                            list.remove(position);
-                            notifyDataSetChanged();
-                        }else {
-                            mydb[0].execSQL("update Equipment set ifCollect=?",new Object[]{1});
-                            Picasso.with(getContext()).load(R.drawable.ic_collect).resize(60,60).centerCrop().into(collect);
-                        }
-                        finalIfCollect[0] =!finalIfCollect[0];
                     }
                 });
                 return true;

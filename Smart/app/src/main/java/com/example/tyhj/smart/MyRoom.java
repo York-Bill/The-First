@@ -90,11 +90,14 @@ public class MyRoom extends Activity {
                         dialog.dismiss();
                     }
                 });
+                //删除房间
                 bt_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mydb.execSQL("delete from Equipment where room=?",new String[]{list.get(position).getName()});
                         mydb.execSQL("delete from Room where id=?",new String[]{list.get(position).getName()});
+                        mydb.execSQL("delete from Preset where room=?",new String[]{list.get(position).getName()});
+                        mydb.execSQL("delete from InModel where room=?",new String[]{list.get(position).getName()});
                         list.remove(position);
                         myadpter.notifyDataSetChanged();
                         dialog.dismiss();

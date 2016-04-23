@@ -42,7 +42,7 @@
                 android:textSize="18sp"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="房间设置"
+                android:text="我的房间"
                 android:textColor="#ffffff"
                 android:layout_width="0dp"
                 android:layout_height="match_parent" />

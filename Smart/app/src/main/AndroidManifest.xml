@@ -36,6 +36,12 @@
         <activity android:name=".MyLogin"/>
         <activity android:name=".ManageMode"/>
         <activity android:name=".Add"/>
+        <activity android:name=".Equipent_Center"/>
+        <activity android:name=".Preset"/>
+        <activity android:name=".CreatePreset"/>
+        <activity android:name=".GetRoot"/>
+        <activity android:name=".AddControlCenter"/>
+        <activity android:name=".SetModel"/>
         <activity android:name="twoCode.activity.ResultActivity"/>
         <activity android:name="twoCode.activity.CaptureActivity"/>
     </application>

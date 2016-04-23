@@ -12,12 +12,15 @@
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="设置" />
+            android:title="授权管理" />
         <item
             android:id="@+id/nav_share"
             android:icon="@drawable/ic_menu_share"
             android:title="分享" />
-
+        <item
+            android:id="@+id/nav_refresh"
+            android:icon="@drawable/ic_refresh_set"
+            android:title="检查更新" />
     </group>
 
     <item android:title="我们的进步源于你的支持">

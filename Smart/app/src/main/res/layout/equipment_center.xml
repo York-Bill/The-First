@@ -1,63 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
     <LinearLayout
-        android:background="#ffffff"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <TextView
-        android:elevation="2dp"
-        android:padding="10dp"
-        android:textSize="16sp"
-        android:text="我的房间"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
+        android:elevation="5dp"
         android:background="@color/colorPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="1dp" />
-    <GridView
-        android:background="#ffffff"
-        android:verticalSpacing="10dp"
-        android:numColumns="4"
-        android:padding="10dp"
-        android:id="@+id/gv_room"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </GridView>
-    <LinearLayout
-        android:padding="10dp"
-        android:gravity="center_vertical"
-        android:id="@+id/llIfFind"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageButton
-            android:background="@drawable/icaddroomifnull"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:id="@+id/ib_back_equipment_center"
+            android:background="@drawable/bt_press_2"
+            android:gravity="left"
+            android:layout_gravity="left"
+            android:src="@drawable/ic_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent" />
         <TextView
-            android:textSize="18sp"
-            android:paddingLeft="20dp"
-            android:text="添加房间"
+            android:background="@color/colorPrimary"
+            android:textColor="#ffffff"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="?attr/actionBarSize"
+            android:textSize="16sp"
+            android:text="智能设备中心"
+            />
     </LinearLayout>
-    <TextView
-        android:paddingLeft="10dp"
-        android:paddingBottom="10dp"
-        android:background="#fefefe"
-        android:textSize="16sp"
-        android:text="我的收藏"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:background="@color/colorPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="1dp" />
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
     //1
     <LinearLayout
         android:elevation="1dp"
@@ -70,11 +47,11 @@
             android:paddingLeft="10dp"
             android:background="#ffffff"
             android:layout_gravity="center_vertical"
-            android:id="@+id/ib_extend_1"
+            android:id="@+id/ib_extend_c_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
-            android:id="@+id/tv_type_1"
+            android:id="@+id/tv_type_c_1"
             android:padding="15dp"
             android:textSize="15sp"
             android:background="#ffffff"
@@ -86,14 +63,14 @@
             android:layout_height="wrap_content" />
         <TextView
             android:paddingRight="10dp"
-            android:id="@+id/tv_ad_equipment_count_1"
+            android:id="@+id/tv_ad_equipment_count_c_1"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <ListView
         android:paddingLeft="10dp"
-        android:id="@+id/lv_equipmentType_1"
+        android:id="@+id/lv_equipmentType_c_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </ListView>
@@ -109,11 +86,11 @@
             android:paddingLeft="10dp"
             android:background="#ffffff"
             android:layout_gravity="center_vertical"
-            android:id="@+id/ib_extend_2"
+            android:id="@+id/ib_extend_c_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
-            android:id="@+id/tv_type_2"
+            android:id="@+id/tv_type_c_2"
             android:padding="15dp"
             android:textSize="15sp"
             android:background="#ffffff"
@@ -125,14 +102,14 @@
             android:layout_height="wrap_content" />
         <TextView
             android:paddingRight="10dp"
-            android:id="@+id/tv_ad_equipment_count_2"
+            android:id="@+id/tv_ad_equipment_count_c_2"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <ListView
         android:paddingLeft="10dp"
-        android:id="@+id/lv_equipmentType_2"
+        android:id="@+id/lv_equipmentType_c_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </ListView>
@@ -148,11 +125,11 @@
             android:paddingLeft="10dp"
             android:background="#ffffff"
             android:layout_gravity="center_vertical"
-            android:id="@+id/ib_extend_3"
+            android:id="@+id/ib_extend_c_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
-            android:id="@+id/tv_type_3"
+            android:id="@+id/tv_type_c_3"
             android:padding="15dp"
             android:textSize="15sp"
             android:background="#ffffff"
@@ -164,14 +141,14 @@
             android:layout_height="wrap_content" />
         <TextView
             android:paddingRight="10dp"
-            android:id="@+id/tv_ad_equipment_count_3"
+            android:id="@+id/tv_ad_equipment_count_c_3"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <ListView
         android:paddingLeft="10dp"
-        android:id="@+id/lv_equipmentType_3"
+        android:id="@+id/lv_equipmentType_c_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </ListView>
@@ -187,11 +164,11 @@
         <ImageButton
             android:background="#ffffff"
             android:layout_gravity="center_vertical"
-            android:id="@+id/ib_extend_4"
+            android:id="@+id/ib_extend_c_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
-            android:id="@+id/tv_type_4"
+            android:id="@+id/tv_type_c_4"
             android:padding="15dp"
             android:textSize="15sp"
             android:background="#ffffff"
@@ -203,16 +180,17 @@
             android:layout_height="wrap_content" />
         <TextView
             android:paddingRight="10dp"
-            android:id="@+id/tv_ad_equipment_count_4"
+            android:id="@+id/tv_ad_equipment_count_c_4"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <ListView
         android:paddingLeft="10dp"
-        android:id="@+id/lv_equipmentType_4"
+        android:id="@+id/lv_equipmentType_c_4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </ListView>
-</LinearLayout>
+        </LinearLayout>
     </ScrollView>
+</LinearLayout>

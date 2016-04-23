@@ -13,7 +13,8 @@ public class MyDateBase extends SQLiteOpenHelper{
     public Context context;
     public String CREAT_TABLE_MODEL="create table Model ("
             +"id text primary key ,"
-            +"headImage integer)";
+            +"headImage integer," +
+            "switch integer)";
     public  String CREAT_TABLE_ROOM="create table Room(" +
             "id text primary key," +
             "headImage integer," +
@@ -25,20 +26,47 @@ public class MyDateBase extends SQLiteOpenHelper{
             "type integer,"+
             "room text,"+
             "model text,"+
-            "ifCollect integer)";
+            "ifCollect integer," +
+            "switch int)";
     public String CREAT_TABLE_USER="create table User(" +
             "id text primary key," +
             "name text," +
             "phoneNumber text," +
             "password text," +
             "signTime text," +
-            "isMaster boolean," +
+            "isMaster integer," +
             "email text," +
             "headImage integer)";
+    public String CREAT_TABLE_PRESET="create table Preset(" +
+            "id text primary key," +
+            "timeFromHour integer," +
+            "timeFrimMinit integer," +
+            "timeToHour integer,"+
+            "timeToMinit integer," +
+            "switch integer," +
+            "headImage integer," +
+            "room text," +
+            "ifop integer," +
+            "name text)";
+    public String CREAT_TABLE_DAYS="create table Days(" +
+            "id text," +
+            "ifop integer,"+
+            "xq1 integer," +
+            "xq2 integer," +
+            "xq3 integer," +
+            "xq4 integer," +
+            "xq5 integer," +
+            "xq6 integer," +
+            "xq7 interger," +
+            "name text)";
+    public String CREAT_TABLE_INMODEL="create table InModel(" +
+            "modelId text," +
+            "equipmentId text primary key," +
+            "room text," +
+            "switch integer)";
     public MyDateBase(Context context, String name, SQLiteDatabase.CursorFactory factory,int version) {
         super(context, name, factory, version);
         this.context=context;
-
     }
 
     @Override
@@ -47,6 +75,9 @@ public class MyDateBase extends SQLiteOpenHelper{
         db.execSQL(CREAT_TABLE_EQUIPMENT);
         db.execSQL(CREAT_TABLE_ROOM);
         db.execSQL(CREAT_TABLE_USER);
+        db.execSQL(CREAT_TABLE_PRESET);
+        db.execSQL(CREAT_TABLE_DAYS);
+        db.execSQL(CREAT_TABLE_INMODEL);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
