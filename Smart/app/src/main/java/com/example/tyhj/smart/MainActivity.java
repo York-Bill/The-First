@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity
     TextView tv_title;
     ImageButton im_1,im_2,im_3;
     ImageView menu_bg;
-    ImageButton ib_add_room;
+    ImageButton ib_twocode,ib_voice;
     DrawerLayout drawer;
     Toolbar toolbar;
     private static final int TAB_COUNT = 3;
@@ -105,7 +105,8 @@ public class MainActivity extends AppCompatActivity
     }
     //初始化控件
     private void initWidget() {
-        ib_add_room= (ImageButton) findViewById(R.id.ib_add_room);
+        ib_twocode= (ImageButton) findViewById(R.id.ib_twocode);
+        ib_voice= (ImageButton) findViewById(R.id.ib_voice);
         vp_home= (ViewPager) findViewById(R.id.vp_home);
         vp_home.setOffscreenPageLimit(3);
         im_1= (ImageButton) findViewById(R.id.ib_1);
@@ -152,10 +153,14 @@ public class MainActivity extends AppCompatActivity
             public void onPageSelected(int index) {
                 if (index == 0) {
                     toolbar.setVisibility(View.VISIBLE);
-                    tv_title.setText("情景模式");
+                    ib_twocode.setVisibility(View.VISIBLE);
+                    ib_voice.setVisibility(View.VISIBLE);
+                    tv_title.setText("快速启动");
                 } else if (index == 1) {
+                    ib_twocode.setVisibility(View.INVISIBLE);
+                    ib_voice.setVisibility(View.INVISIBLE);
                     toolbar.setVisibility(View.VISIBLE);
-                    tv_title.setText("我的收藏");
+                    tv_title.setText("全部设备");
                 } else if (index == 2) {
                     toolbar.setVisibility(View.GONE);
                 }
@@ -169,6 +174,20 @@ public class MainActivity extends AppCompatActivity
     }
     //设置点击事件
     private void onClick() {
+        ib_voice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startVoice();
+                mDialog.show();
+            }
+        });
+        ib_twocode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent_TwoCode=new Intent(MainActivity.this, CaptureActivity.class);
+                startActivity(intent_TwoCode);
+            }
+        });
         im_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,13 +216,6 @@ public class MainActivity extends AppCompatActivity
                         .into(menu_bg);
             }
         });
-        ib_add_room.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   Intent in = new Intent(MainActivity.this, Add.class);
-                   startActivity(in);
-               }
-           });
     }
 
     //设置小图标
@@ -260,14 +272,6 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id){
-            case R.id.nav_camera:
-                new Thread(thread_TowCode).start();
-                intent_TwoCode=new Intent(MainActivity.this, CaptureActivity.class);
-                break;
-            case R.id.nav_gallery:
-                startVoice();
-                new Thread(thread_voice).start();
-                break;
             case R.id.logout:
                 new Thread(thread_Login).start();
                 intent_Login=new Intent(MainActivity.this,MyLogin.class);
@@ -440,6 +444,7 @@ public class MainActivity extends AppCompatActivity
                     startActivity(intent_Login);
                     overridePendingTransition(R.anim.activity_in_left, R.anim.activity_out_right);
                     MainActivity.this.finish();
+                    break;
                 case 5:
                     startActivity(intent_Setting);
                     overridePendingTransition(R.anim.activity_in_right, R.anim.activity_out_left);

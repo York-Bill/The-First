@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Random;
 
 import Api_sours.ListHeightUtils;
+import Api_sours.NoScrollGridView;
 import activity_for_adapter.For_ModelHead;
 import activity_for_adapter.For_collect_equipment;
 import activity_for_adapter.For_collect_room;
@@ -52,7 +53,7 @@ import savephoto.GetModelHeadImage;
  * Created by Tyhj on 2016/3/31.
  */
 public class Activity_2 extends Fragment {
-    GridView gv_room;
+    NoScrollGridView gv_room;
     TextView tv_type_count_1,tv_type_count_2,tv_type_count_3,tv_type_count_4;
     ImageButton ib_extend_1,ib_extend_2,ib_extend_3,ib_extend_4;
     TextView tv_ad_equipment_count_1,tv_ad_equipment_count_2,tv_ad_equipment_count_3,tv_ad_equipment_count_4;
@@ -80,7 +81,7 @@ public class Activity_2 extends Fragment {
         gv_room.setAdapter(collect_room_adapter);
         if(list.size()>0) llIfFind.setVisibility(View.GONE);
         else llIfFind.setVisibility(View.VISIBLE);
-        ListHeightUtils.setListViewHeightBasedOnChildren(gv_room,getActivity());
+        //ListHeightUtils.setListViewHeightBasedOnChildren(gv_room,getActivity());
         return view;
     }
     private void initWidget() {
@@ -113,13 +114,19 @@ public class Activity_2 extends Fragment {
         flist4=new ArrayList<For_collect_equipment>();
         setInitIcon();
         list=new ArrayList<For_collect_room>();
-        gv_room= (GridView) view.findViewById(R.id.gv_room);
+        gv_room= (NoScrollGridView) view.findViewById(R.id.gv_room);
         myDateBase=new MyDateBase(getActivity(),GetModelHeadImage.getUserId()+".db",null,1);
         mydb=myDateBase.getWritableDatabase();
         Cursor cursor= mydb.rawQuery("select * from Room", null);
         while (cursor.moveToNext()){
             for_collect_room=new For_collect_room(cursor.getString(0),cursor.getInt(1),cursor.getInt(2));
             list.add(for_collect_room);
+        }
+        if(list.size()%4!=0){
+            for(int i=0;i<list.size()%4;i++){
+                for_collect_room=new For_collect_room("",100,0);
+                list.add(for_collect_room);
+            }
         }
         initAdapter();
         initCount();
@@ -134,7 +141,7 @@ public class Activity_2 extends Fragment {
 
     private void initAdapter() {
         //1
-        Cursor cursor= mydb.rawQuery("select * from Equipment where ifCollect=? and type=?", new String[]{"1","1"});
+        Cursor cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"1"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list1.add(for_collect_equipment1);
@@ -147,7 +154,7 @@ public class Activity_2 extends Fragment {
 
         cursor.close();
         //2
-        cursor= mydb.rawQuery("select * from Equipment where ifCollect=? and type=?", new String[]{"1","2"});
+        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"2"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list2.add(for_collect_equipment1);
@@ -159,7 +166,7 @@ public class Activity_2 extends Fragment {
 
         cursor.close();
         //3
-        cursor= mydb.rawQuery("select * from Equipment where ifCollect=? and type=?", new String[]{"1","3"});
+        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"3"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list3.add(for_collect_equipment1);
@@ -170,7 +177,7 @@ public class Activity_2 extends Fragment {
         ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_3);
 
         //4
-        cursor= mydb.rawQuery("select * from Equipment where ifCollect=? and type=?", new String[]{"1","4"});
+        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"4"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list4.add(for_collect_equipment1);
@@ -222,9 +229,11 @@ public class Activity_2 extends Fragment {
         gv_room.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent in=new Intent(getActivity(), SetRoom.class);
-                in.putExtra("roomName",list.get(position).getName());
-                getActivity().startActivity(in);
+                if(list.get(position).getHeadimage()!=100) {
+                    Intent in = new Intent(getActivity(), SetRoom.class);
+                    in.putExtra("roomName", list.get(position).getName());
+                    getActivity().startActivity(in);
+                }
             }
         });
         tv_ad_equipment_count_1.setOnClickListener(new View.OnClickListener() {
@@ -246,13 +255,12 @@ public class Activity_2 extends Fragment {
                             .centerCrop()
                             .into(ib_extend_1);
                     list1.clear();
-                    i1=flist1.size();
-                    tv_type_count_1.setText(i1+"");
                     for(int i=0;i<flist1.size();i++){
                         list1.add(flist1.get(i));
                     }
                     flist1.clear();
                 }
+                tv_type_count_1.setText(list1.size()+"");
                 collect_equipment_adapter1.notifyDataSetChanged();
                 ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_1);
                 b1=!b1;
@@ -277,13 +285,12 @@ public class Activity_2 extends Fragment {
                             .centerCrop()
                             .into(ib_extend_2);
                     list2.clear();
-                    i2=flist1.size();
-                    tv_type_count_2.setText(i2+"");
                     for(int i=0;i<flist2.size();i++){
                         list2.add(flist2.get(i));
                     }
                     flist2.clear();
                 }
+                tv_type_count_2.setText(list2.size()+"");
                 collect_equipment_adapter2.notifyDataSetChanged();
                 ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_2);
                 b2=!b2;
@@ -308,13 +315,12 @@ public class Activity_2 extends Fragment {
                             .centerCrop()
                             .into(ib_extend_3);
                     list3.clear();
-                    i3=flist1.size();
-                    tv_type_count_3.setText(i3+"");
                     for(int i=0;i<flist3.size();i++){
                         list3.add(flist3.get(i));
                     }
                     flist3.clear();
                 }
+                tv_type_count_3.setText(list3.size()+"");
                 collect_equipment_adapter3.notifyDataSetChanged();
                 ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_3);
                 b3=!b3;
@@ -338,14 +344,13 @@ public class Activity_2 extends Fragment {
                             .resize(40, 40)
                             .centerCrop()
                             .into(ib_extend_4);
-                    i4=flist1.size();
-                    tv_type_count_4.setText(i4+"");
                     list4.clear();
                     for(int i=0;i<flist4.size();i++){
                         list4.add(flist4.get(i));
                     }
                     flist4.clear();
                 }
+                tv_type_count_4.setText(list4.size()+"");
                 collect_equipment_adapter4.notifyDataSetChanged();
                 ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_4);
                 b4=!b4;
@@ -367,25 +372,31 @@ public class Activity_2 extends Fragment {
             for_collect_room=new For_collect_room(cursor.getString(0),cursor.getInt(1),cursor.getInt(2));
             list.add(for_collect_room);
         }
-        cursor= mydb.rawQuery("select * from Equipment where ifCollect=? and type=?", new String[]{"1","1"});
+        if(list.size()%4!=0){
+            for(int i=0;i<list.size()%4;i++){
+                for_collect_room=new For_collect_room("",100,0);
+                list.add(for_collect_room);
+            }
+        }
+        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"1"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list1.add(for_collect_equipment1);
             i1++;
         }
-        cursor= mydb.rawQuery("select * from Equipment where ifCollect=? and type=?", new String[]{"1","2"});
+        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"2"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list2.add(for_collect_equipment1);
             i2++;
         }
-        cursor= mydb.rawQuery("select * from Equipment where ifCollect=? and type=?", new String[]{"1","3"});
+        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"3"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list3.add(for_collect_equipment1);
             i3++;
         }
-        cursor= mydb.rawQuery("select * from Equipment where ifCollect=? and type=?", new String[]{"1","4"});
+        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"4"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list4.add(for_collect_equipment1);

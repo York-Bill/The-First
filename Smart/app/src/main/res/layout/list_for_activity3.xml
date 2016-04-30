@@ -4,25 +4,23 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:elevation="1dp"
-        android:padding="10dp"
-        android:id="@+id/ll_for_activity3"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
+        <LinearLayout
+            android:id="@+id/ll_for_activity3"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <ImageView
             android:id="@+id/cl_lv_activity3"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center_horizontal"
             android:layout_width="35dp"
             android:layout_height="35dp" />
         <TextView
             android:id="@+id/tv_activity3"
-            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:padding="10dp"
             android:gravity="left|center_vertical"
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        </LinearLayout>
 </LinearLayout>

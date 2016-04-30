@@ -25,8 +25,13 @@ import com.example.tyhj.smart.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import Api_sours.NoScrollGridView;
 import activity_for_adapter.For_Model;
+import activity_for_adapter.For_collect_equipment;
+import activity_for_adapter.For_collect_room;
+import adapter.Collect_equipment_Adapter_addRoom;
 import adapter.Model_Adapter;
+import adapter.Model_Adapter_2;
 import dataBase.MyDateBase;
 import savephoto.GetModelHeadImage;
 
@@ -37,29 +42,33 @@ public class Activity_1 extends Fragment {
     MyDateBase myDateBase;
     public SQLiteDatabase mydb;
     ListView list_model;
-    For_Model fm;
+    For_collect_equipment for_collect_equipment1;
     List<For_Model> mylist;
-    Model_Adapter mydp;
+    Collect_equipment_Adapter_addRoom collect_equipment_adapter1;
+    List<For_collect_equipment> list1;
+    For_Model fm;
+    Model_Adapter_2 mydp2;
     public View view;
     View headview_model;
-    LinearLayout ivIffind;
-    Button btAddModel;
     Cursor cursor;
+    NoScrollGridView gv_model;
+    int[] length=GetModelHeadImage.modelhead;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.activity_1, null);
         list_model= (ListView) view.findViewById(R.id.model);
-        ivIffind= (LinearLayout) view.findViewById(R.id.ivIffind);
-        btAddModel= (Button) view.findViewById(R.id.btAddModel);
         mylist=new ArrayList<For_Model>();
-        headview_model = LayoutInflater.from(getActivity()).inflate(R.layout.listhead_model, null, true);
+        list1=new ArrayList<For_collect_equipment>();
+        headview_model = LayoutInflater.from(getActivity()).inflate(R.layout.activity1_head, null, true);
+        gv_model= (NoScrollGridView) headview_model.findViewById(R.id.gv_model);
         getModelList();
-        mydp=new Model_Adapter(getActivity(),R.layout.model_for_listview,mylist);
-        //list_model.addHeaderView(headview_model);
-        list_model.setAdapter(mydp);
-        if(mylist.size()>0) ivIffind.setVisibility(View.GONE);
-        else  ivIffind.setVisibility(View.VISIBLE);
+        mydp2=new Model_Adapter_2(getActivity(),R.layout.gridview_for_collect,mylist);
+        collect_equipment_adapter1=new Collect_equipment_Adapter_addRoom(getActivity(),R.layout.equipment_for_listview,list1);
+        list_model.addHeaderView(headview_model);
+
+        gv_model.setAdapter(mydp2);
+        list_model.setAdapter(collect_equipment_adapter1);
         return view;
     }
 
@@ -73,28 +82,32 @@ public class Activity_1 extends Fragment {
                 fm=new For_Model(name,headImage);
                 mylist.add(fm);
         }
+        if(mylist.size()%4!=0){
+            for(int i=0;i<mylist.size()%4;i++){
+                fm=new For_Model("",100);
+                mylist.add(fm);
+            }
+        }
         cursor.close();
+        cursor= mydb.rawQuery("select * from Equipment where ifCollect=?", new String[]{"1"});
+        while (cursor.moveToNext()){
+            for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
+            list1.add(for_collect_equipment1);
+        }
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        btAddModel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent in=new Intent(getActivity(), ManageMode.class);
-                getActivity().startActivity(in);
-            }
-        });
     }
 
     @Override
     public void onStart() {
         super.onStart();
         mylist.clear();
+        list1.clear();
         getModelList();
-        if(mylist.size()>0) ivIffind.setVisibility(View.GONE);
-        else  ivIffind.setVisibility(View.VISIBLE);
-        mydp.notifyDataSetChanged();
+        collect_equipment_adapter1.notifyDataSetChanged();
+        mydp2.notifyDataSetChanged();
     }
 }

@@ -31,7 +31,6 @@ public class ListHeightUtils {
             listItem.measure(0, 0);
             totalHeight += (width/5);
         }
-
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight;
         listView.setLayoutParams(params);

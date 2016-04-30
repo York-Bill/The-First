@@ -28,7 +28,8 @@ import savephoto.GetModelHeadImage;
 /**
  * Created by Tyhj on 2016/4/5.
  */
-public class Equipment_Adapter_AddToModel extends ArrayAdapter<For_collect_equipment> {
+public class
+Equipment_Adapter_AddToModel extends ArrayAdapter<For_collect_equipment> {
     Cursor cursor;
     ViewH viewH;
     MyDateBase myDateBase;

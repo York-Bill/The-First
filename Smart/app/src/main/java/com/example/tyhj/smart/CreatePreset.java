@@ -27,7 +27,6 @@ public class CreatePreset extends Activity {
     TimePicker timePicker;
     Button bt_op,bt_cls;
     boolean op=true;
-    boolean ifupdate;
     int oph,opm,clh,clm;
     int headImage;
     String room;
@@ -48,54 +47,64 @@ public class CreatePreset extends Activity {
             bt[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(b[finalI]==0) {
-                        bt[finalI].setBackgroundResource(R.drawable.circle);
-                        b[finalI]=1;
-                    }
-                    else {
-                        bt[finalI].setBackgroundResource(R.drawable.circle2);
-                        b[finalI]=0;
+
+                    if(op) {
+                        if (b[finalI] == 0) {
+                            bt[finalI].setBackgroundResource(R.drawable.circle);
+                            b[finalI] = 1;
+                        } else {
+                            bt[finalI].setBackgroundResource(R.drawable.circle2);
+                            b[finalI] = 0;
+                        }
+                    }else{
+                        if (a[finalI] == 0) {
+                            bt[finalI].setBackgroundResource(R.drawable.circle);
+                            a[finalI] = 1;
+                        } else {
+                            bt[finalI].setBackgroundResource(R.drawable.circle2);
+                            a[finalI] = 0;
+                        }
                     }
 
                 }
             });
         }
-        final int[] x = new int[1];
         bt[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(op) x[0] =1;
-                else x[0]=0;
-                if(ifupdate){
-                    sqLiteDatabase.execSQL("delete from Preset where id=?",new String[]{getIntent().getStringExtra("presetId")});
-                    sqLiteDatabase.execSQL("delete from Days where id=? and ifop=?",new String[]{getIntent().getStringExtra("presetId"),""+x[0]});
-                }
-                if(op){
-                    if(what) {
-                        sqLiteDatabase.execSQL("insert into Preset values (?,?,?,?,?,?,?,?,?,?)", new Object[]{getIntent().getStringExtra("presetId"),
-                                timePicker.getCurrentHour(), timePicker.getCurrentMinute(), null, null, 0, headImage, room,1,name});
+                int z;
+                if(op) z=1;
+                else z=0;
+                        sqLiteDatabase.execSQL("delete from Preset where id=? and ifop=?",new Object[]{getIntent().getStringExtra("presetId"),z});
+                        sqLiteDatabase.execSQL("delete from Days where id=? and ifop=?",new Object[]{getIntent().getStringExtra("presetId"),z});
+                if(op) {
+                    if (what) {
+                        sqLiteDatabase.execSQL("insert into Preset values (?,?,?,?,?,?,?,?)", new Object[]{getIntent().getStringExtra("presetId"),
+                                timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0, headImage, room, z, name});
                         sqLiteDatabase.execSQL("insert into Days values (?,?,?,?,?,?,?,?,?,?)", new Object[]{getIntent().getStringExtra("presetId"),
-                        1,b[1],b[2],b[3],b[4],b[5],b[6],b[7],name});
-                    }else{
-                        sqLiteDatabase.execSQL("insert into Preset values (?,?,?,?,?,?,?,?,?,?)", new Object[]{getIntent().getStringExtra("presetId"),
-                                timePicker.getCurrentHour(), timePicker.getCurrentMinute(), null, null, 0, headImage, null,1,name});
+                                z, b[1], b[2], b[3], b[4], b[5], b[6], b[7], name});
+                    } else {
+                        sqLiteDatabase.execSQL("insert into Preset values (?,?,?,?,?,?,?,?)", new Object[]{getIntent().getStringExtra("presetId"),
+                                timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0, headImage, null, z, name});
                         sqLiteDatabase.execSQL("insert into Days values (?,?,?,?,?,?,?,?,?,?)", new Object[]{getIntent().getStringExtra("presetId"),
-                                1,b[1],b[2],b[3],b[4],b[5],b[6],b[7],name});
+                                z, b[1], b[2], b[3], b[4], b[5], b[6], b[7], name});
                     }
-                }else{
-                    if(what) {
-                        sqLiteDatabase.execSQL("insert into Preset values (?,?,?,?,?,?,?,?,?,?)", new Object[]{getIntent().getStringExtra("presetId"),
-                                null, null,timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0, headImage, room,0,name});
+                }else {
+                    if (what) {
+                        sqLiteDatabase.execSQL("insert into Preset values (?,?,?,?,?,?,?,?)", new Object[]{getIntent().getStringExtra("presetId"),
+                                timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0, headImage, room, z, name});
                         sqLiteDatabase.execSQL("insert into Days values (?,?,?,?,?,?,?,?,?,?)", new Object[]{getIntent().getStringExtra("presetId"),
-                                0,b[1],b[2],b[3],b[4],b[5],b[6],b[7],name});
-                    }else{
-                        sqLiteDatabase.execSQL("insert into Preset values (?,?,?,?,?,?,?,?,?,?)", new Object[]{getIntent().getStringExtra("presetId"),
-                                null, null, timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0, headImage, null,0,name});
+                                z, a[1], a[2], a[3], a[4], a[5], a[6], a[7], name});
+                    } else {
+                        sqLiteDatabase.execSQL("insert into Preset values (?,?,?,?,?,?,?,?)", new Object[]{getIntent().getStringExtra("presetId"),
+                                timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0, headImage, null, z, name});
                         sqLiteDatabase.execSQL("insert into Days values (?,?,?,?,?,?,?,?,?,?)", new Object[]{getIntent().getStringExtra("presetId"),
-                                0,b[1],b[2],b[3],b[4],b[5],b[6],b[7],name});
+                                z, a[1], a[2], a[3], a[4], a[5], a[6], a[7], name});
                     }
                 }
+
                 Toast.makeText(CreatePreset.this,"已保存",Toast.LENGTH_SHORT).show();
+                CreatePreset.this.finish();
             }
         });
         bt_op.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +134,7 @@ public class CreatePreset extends Activity {
         bt_cls.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(int i=1;i<b.length;i++){
+                for(int i=1;i<a.length;i++){
                     bt[i].setBackgroundResource(R.drawable.circle2);
                 }
                 op=false;
@@ -175,14 +184,17 @@ public class CreatePreset extends Activity {
     private void initPreset() {
         myDateBase=new MyDateBase(this, GetModelHeadImage.getUserId()+".db",null,1);
         sqLiteDatabase=myDateBase.getWritableDatabase();
-        Cursor cursor=sqLiteDatabase.rawQuery("select * from Preset where id=?",new String[]{getIntent().getStringExtra("presetId")});
+        Cursor cursor=sqLiteDatabase.rawQuery("select * from Preset where id=? and ifop=?",new String[]{getIntent().getStringExtra("presetId"),"1"});
         if (cursor.moveToNext()){
             oph=cursor.getInt(1);
             opm=cursor.getInt(2);
-            clh=cursor.getInt(3);
-            clm=cursor.getInt(4);
-            ifupdate=true;
         }
+        cursor=sqLiteDatabase.rawQuery("select * from Preset where id=? and ifop=?",new String[]{getIntent().getStringExtra("presetId"),"0"});
+        if (cursor.moveToNext()){
+            clh=cursor.getInt(1);
+            clm=cursor.getInt(2);
+        }
+        cursor.close();
         cursor=sqLiteDatabase.rawQuery("select * from Equipment where id =?",new String[]{getIntent().getStringExtra("presetId")});
         if (cursor.moveToNext()){
             headImage=cursor.getInt(2);
@@ -190,12 +202,15 @@ public class CreatePreset extends Activity {
             what=true;
             name=cursor.getString(1);
         }else{
+            cursor.close();
+            what=false;
             cursor=sqLiteDatabase.rawQuery("select * from Model where id=?",new String[]{getIntent().getStringExtra("presetId")});
             if(cursor.moveToNext()){
                 headImage=cursor.getInt(1);
                 name=cursor.getString(0);
             }
         }
+        cursor.close();
         cursor=sqLiteDatabase.rawQuery("select * from Days where id=? and ifop=?",new String[]{getIntent().getStringExtra("presetId"),"1"});
         if(cursor.moveToNext()){
             b[1]=cursor.getInt(2);b[2]=cursor.getInt(3);

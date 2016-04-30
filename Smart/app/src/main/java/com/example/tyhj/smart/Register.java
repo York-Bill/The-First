@@ -128,9 +128,10 @@ public class Register extends Activity {
         String data = df.format(new Date()).substring(0, 19);
         String date = data.substring(0, 4) + "/" + data.substring(5, 7) + "/"
                  + data.substring(8, 10) + "  " + data.substring(11, 13);
-        sqLiteDatabase.execSQL("insert into User values (?,?,?,?,?,?,?,?)",new Object[]{
+        sqLiteDatabase.execSQL("insert into User values (?,?,?,?,?,?,?,?,?)",new Object[]{
                 et_register_phoneNumber.getText().toString(),
                 et_register_name.getText().toString(),
+                "这个同学很懒，什么都没有留下~",
                 et_register_phoneNumber.getText().toString(),
                 et_register_password.getText().toString(),
                 date,

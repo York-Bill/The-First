@@ -4,8 +4,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="share_connction">已将分享链接复制到粘贴板</string>
-    <string name="type1">类型一</string>
-    <string name="type2">类型二</string>
-    <string name="type3">类型三</string>
-    <string name="type4">类型四</string>
+    <string name="type1">开关</string>
+    <string name="type2">电灯</string>
+    <string name="type3">冰箱</string>
+    <string name="type4">空调</string>
 </resources>

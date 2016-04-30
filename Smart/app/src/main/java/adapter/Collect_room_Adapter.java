@@ -61,6 +61,9 @@ public class Collect_room_Adapter extends ArrayAdapter<For_collect_room> {
             viewH= (ViewH) view.getTag();
         }
         viewH.name.setText(for_collect_room.getName());
+        if(headImage==100){
+            viewH.headImage.setVisibility(View.INVISIBLE);
+        }else
         Picasso.with(getContext())
                 .load(headimage[for_collect_room.getHeadimage()])
                 .into(viewH.headImage);

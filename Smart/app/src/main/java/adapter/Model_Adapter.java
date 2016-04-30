@@ -73,8 +73,6 @@ public class Model_Adapter extends ArrayAdapter<For_Model> {
             public boolean onLongClick(View v) {
                 mydb = new MyDateBase(getContext(), GetModelHeadImage.getUserId()+".db", null, 1);
                 mysdb = mydb.getWritableDatabase();
-                Vibrator vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-                vibrator.vibrate(30);
                 final AlertDialog.Builder di = new AlertDialog.Builder(getContext());
                 di.setCancelable(true);
                 //布局转view

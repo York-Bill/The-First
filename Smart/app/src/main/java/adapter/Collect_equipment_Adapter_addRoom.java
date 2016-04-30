@@ -90,6 +90,7 @@ public class Collect_equipment_Adapter_addRoom extends ArrayAdapter<For_collect_
                     public void onClick(View v) {
                         Intent in=new Intent(getContext(), CreatePreset.class);
                         in.putExtra("presetId",id);
+                        dialog.dismiss();
                         getContext().startActivity(in);
                     }
                 });

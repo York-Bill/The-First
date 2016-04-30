@@ -31,6 +31,7 @@ public class MyDateBase extends SQLiteOpenHelper{
     public String CREAT_TABLE_USER="create table User(" +
             "id text primary key," +
             "name text," +
+            "signature text,"+
             "phoneNumber text," +
             "password text," +
             "signTime text," +
@@ -38,11 +39,9 @@ public class MyDateBase extends SQLiteOpenHelper{
             "email text," +
             "headImage integer)";
     public String CREAT_TABLE_PRESET="create table Preset(" +
-            "id text primary key," +
+            "id text," +
             "timeFromHour integer," +
             "timeFrimMinit integer," +
-            "timeToHour integer,"+
-            "timeToMinit integer," +
             "switch integer," +
             "headImage integer," +
             "room text," +

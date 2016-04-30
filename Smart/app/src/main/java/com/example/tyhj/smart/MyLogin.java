@@ -28,6 +28,9 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import Api_sours.StatusBarUtil;
 import dataBase.MyDateBase;
 import savephoto.GetModelHeadImage;
@@ -47,9 +50,12 @@ public class MyLogin extends Activity {
     MyDateBase mydateBase;
     int headImage=0;
     boolean ifShowImage;
+    String phonenumber,email;
+    int[] headimage=GetModelHeadImage.userHeadImage;
     boolean ifInput;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AVOSCloud.initialize(this, "fsbc53ABzyGIW7BMeCIVhlk4-gzGzoHsz", "i0tswVfwEsaEBR06nKmBRxxV");
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
@@ -121,7 +127,7 @@ public class MyLogin extends Activity {
                         SQLiteDatabase sqLiteDatabase=myDateBase.getWritableDatabase();
                         Cursor cursor=sqLiteDatabase.rawQuery("select * from User where id=?",new String[]{et_number_1.getText().toString()});
                         if(cursor.moveToNext()){
-                            headImage=cursor.getInt(7);
+                            headImage=cursor.getInt(8);
                             ib_user_headImage.setBackgroundResource(GetModelHeadImage.userHeadImage[headImage]);
                         }
                     }
@@ -132,7 +138,11 @@ public class MyLogin extends Activity {
         ib_user_headImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                headImage++;
+                ib_user_headImage.setBackgroundResource(headimage[headImage]);
+                if(headImage==(headimage.length-1)){
+                    headImage=0;
+                }
             }
         });
         //注册
@@ -189,6 +199,7 @@ public class MyLogin extends Activity {
                                     if (e == null) {
                                         Intent in=new Intent(MyLogin.this,MainActivity.class);
                                         GetModelHeadImage.setUserId(et_number_1.getText().toString());
+                                        save();
                                         startActivity(in);
                                         MyLogin.this.finish();
                                     } else {
@@ -204,6 +215,34 @@ public class MyLogin extends Activity {
             }
         });
     }
+
+    private void save() {
+        email = AVUser.getCurrentUser().getEmail();
+        MyDateBase mydateBase = new MyDateBase(this, et_number_1.getText().toString() + ".db", null, 1);
+        SQLiteDatabase sqLiteDatabase = mydateBase.getWritableDatabase();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
+        String data = df.format(new Date()).substring(0, 19);
+        String date = data.substring(0, 4) + "/" + data.substring(5, 7) + "/"
+                + data.substring(8, 10) + "  " + data.substring(11, 13);
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from User where id=?", new String[]{et_number_1.getText().toString()});
+        if (!cursor.moveToNext()){
+            sqLiteDatabase.execSQL("insert into User values (?,?,?,?,?,?,?,?,?)", new Object[]{
+                    et_number_1.getText().toString(),
+                    et_number_1.getText().toString(),
+                    "这个同学很懒，什么都没有留下~",
+                    et_number_1.getText().toString(),
+                    et_password_1.getText().toString(),
+                    date,
+                    0,
+                    email,
+                    headImage
+            });
+    }else{
+            sqLiteDatabase.execSQL("update User set password=?",new String[]{et_password_1.getText().toString()});
+            sqLiteDatabase.execSQL("update User set headImage=?",new Object[]{headImage});
+        }
+    }
+
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {

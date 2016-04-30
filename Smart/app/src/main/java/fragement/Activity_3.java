@@ -1,16 +1,21 @@
 package fragement;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,54 +27,90 @@ import com.example.tyhj.smart.MyRoom;
 import com.example.tyhj.smart.Preset;
 import com.example.tyhj.smart.R;
 import com.example.tyhj.smart.SetRoom;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import Api_sours.NoScrollGridView;
 import Api_sours.PullToZoomListViewEx;
 import activity_for_adapter.For_Activity_3;
 import adapter.Activity_3_Adapter;
+import dataBase.MyDateBase;
+import savephoto.GetModelHeadImage;
 
 /**
  * Created by Tyhj on 2016/3/31.
  */
 public class Activity_3 extends Fragment {
     View view;
-    PullToZoomListViewEx lv;
-    List<For_Activity_3> list;
-    For_Activity_3 for_activity_3;
-    Activity_3_Adapter activity_3_adapter;
-    @Nullable
+    LinearLayout ll1,ll2,ll3,ll4,ll5,ll6;
+    ImageView iv1,iv2,iv3,iv4,iv5,iv6;
+    ImageView cl_activity3_headImage;
+    TextView tv_activity3_name,signnature,tv_collect_count,tv_all_count,tv_room_count;
+    int[] headImage=GetModelHeadImage.userHeadImage;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.activity_3,null);
         initWidget();
-        lv.setAdapter(activity_3_adapter);
-        DisplayMetrics localDisplayMetrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(localDisplayMetrics);
-        int mScreenHeight = localDisplayMetrics.heightPixels;
-        int mScreenWidth = localDisplayMetrics.widthPixels;
-        AbsListView.LayoutParams localObject = new AbsListView.LayoutParams(mScreenWidth, (int) (9.0F * (mScreenWidth / 16.0F)));
-        lv.setHeaderLayoutParams(localObject);
         return view;
     }
 
     private void initWidget() {
-        list=new ArrayList<For_Activity_3>();
-        lv= (PullToZoomListViewEx) view.findViewById(R.id.lv_activity_3);
-        for_activity_3=new For_Activity_3("情景模式",R.drawable.model_manage);
-        list.add(for_activity_3);
-        for_activity_3=new For_Activity_3("智能设备中心",R.drawable.equipment_manage);
-        list.add(for_activity_3);
-        for_activity_3=new For_Activity_3("我的房间",R.drawable.ic_room_manage);
-        list.add(for_activity_3);
-        for_activity_3=new For_Activity_3("预约定时",R.drawable.ic_preset);
-        list.add(for_activity_3);
-        for_activity_3=new For_Activity_3("控制中心",R.drawable.ic_manage_control);
-        list.add(for_activity_3);
-        for_activity_3=new For_Activity_3("个人设置",R.drawable.ic_myset);
-        list.add(for_activity_3);
-        activity_3_adapter=new Activity_3_Adapter(getActivity(),R.layout.list_for_activity3,list);
+        tv_room_count= (TextView) view.findViewById(R.id.tv_room_count);
+        tv_all_count= (TextView) view.findViewById(R.id.tv_all_count);
+        tv_collect_count= (TextView) view.findViewById(R.id.tv_collect_count);
+        signnature= (TextView) view.findViewById(R.id.signnature);
+        tv_activity3_name= (TextView) view.findViewById(R.id.tv_activity3_name);
+        cl_activity3_headImage= (ImageView) view.findViewById(R.id.cl_activity3_headImage);
+        ll1= (LinearLayout) view.findViewById(R.id.ll_activity3_1);
+        ll2= (LinearLayout) view.findViewById(R.id.ll_activity3_2);
+        ll3= (LinearLayout) view.findViewById(R.id.ll_activity3_3);
+        ll4= (LinearLayout) view.findViewById(R.id.ll_activity3_4);
+        ll5= (LinearLayout) view.findViewById(R.id.ll_activity3_5);
+        ll6= (LinearLayout) view.findViewById(R.id.ll_activity3_6);
+        setTuch(ll1);
+        setTuch(ll2);
+        setTuch(ll3);
+        setTuch(ll4);
+        setTuch(ll5);
+        setTuch(ll6);
+        iv1= (ImageView) view.findViewById(R.id.iv3_1);
+        iv2= (ImageView) view.findViewById(R.id.iv3_2);
+        iv3= (ImageView) view.findViewById(R.id.iv3_3);
+        iv4= (ImageView) view.findViewById(R.id.iv3_4);
+        iv5= (ImageView) view.findViewById(R.id.iv3_5);
+        iv6= (ImageView) view.findViewById(R.id.iv3_6);
+        setMessage();
+    }
+
+    private void setMessage() {
+        MyDateBase mydateBase = new MyDateBase(getActivity(), GetModelHeadImage.getUserId() + ".db", null, 1);
+        SQLiteDatabase sqLiteDatabase = mydateBase.getWritableDatabase();
+        Cursor cursor=sqLiteDatabase.rawQuery("select * from User",null);
+        if(cursor.moveToNext()){
+            cl_activity3_headImage.setImageResource(headImage[cursor.getInt(8)]);
+            tv_activity3_name.setText(cursor.getString(1));
+            signnature.setText(cursor.getString(2));
+        }
+        cursor=sqLiteDatabase.rawQuery("select * from Equipment where ifCollect=?",new String[]{"1"});
+        int i=0;
+        while (cursor.moveToNext()){
+            i++;
+        }
+        tv_collect_count.setText(i+"个收藏");
+        cursor=sqLiteDatabase.rawQuery("select * from Equipment",null);
+        i=0;
+        while (cursor.moveToNext()){
+            i++;
+        }
+        tv_all_count.setText(i+"个设备");
+        i=0;
+        cursor=sqLiteDatabase.rawQuery("select * from Model",null);
+        while (cursor.moveToNext()){
+            i++;
+        }
+        tv_room_count.setText(i+"个模式");
     }
 
     @Override
@@ -79,32 +120,72 @@ public class Activity_3 extends Fragment {
     }
 
     private void setClik() {
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        ll1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
-                    case 1:
-                        Intent in=new Intent(getContext(), ManageMode.class);
-                        getActivity().startActivity(in);
-                        break;
-                    case 2:
-                        Intent in2=new Intent(getContext(), Equipent_Center.class);
-                        getActivity().startActivity(in2);
-                        break;
-                    case 3:
-                        Intent in1=new Intent(getActivity(), MyRoom.class);
-                        getActivity().startActivity(in1);
-                        break;
-                    case 4:
-                        Intent in3=new Intent(getActivity(), Preset.class);
-                        getActivity().startActivity(in3);
-                        break;
-                    case 5:
-                        Intent in5=new Intent(getActivity(), AddControlCenter.class);
-                        getActivity().startActivity(in5);
-                        break;
-                }
+            public void onClick(View v) {
+                Intent in=new Intent(getContext(), ManageMode.class);
+                getActivity().startActivity(in);
             }
         });
+        ll2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in2=new Intent(getContext(), Equipent_Center.class);
+                getActivity().startActivity(in2);
+            }
+        });
+        ll3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in1=new Intent(getActivity(), MyRoom.class);
+                getActivity().startActivity(in1);
+            }
+        });
+        ll4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in3=new Intent(getActivity(), Preset.class);
+                getActivity().startActivity(in3);
+            }
+        });
+        ll5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in5=new Intent(getActivity(), AddControlCenter.class);
+                getActivity().startActivity(in5);
+            }
+        });
+        ll6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+    public void setTuch(final LinearLayout ll){
+        ll.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        ll.setBackgroundColor(Color.parseColor("#dddddd"));
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        ll.setBackgroundColor(Color.parseColor("#00000000"));
+                        break;
+                    case  MotionEvent.ACTION_CANCEL:
+                        ll.setBackgroundColor(Color.parseColor("#00000000"));
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setMessage();
     }
 }

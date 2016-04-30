@@ -11,13 +11,14 @@ public class For_Preset {
     int headImage;
     String days;
     String where;
-    public For_Preset(String str1,String str2,boolean str4,int str6,String str7,String str8){
+    public For_Preset(String str1,String str2,boolean str4,int str6,String str7,String str8,String str9){
         presetId=str1;
         timefrom=str2;
         myswitch=str4;
         headImage=str6;
         days=str7;
         where=str8;
+        name=str9;
     }
 
     public String getWhere() {
