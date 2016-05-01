@@ -56,7 +56,7 @@ public class Model_Adapter_2 extends ArrayAdapter<For_Model> {
             view = LayoutInflater.from(getContext()).inflate(resourseId, null);
             viewH = new ViewH();
             viewH.ll= (LinearLayout) view.findViewById(R.id.ll_head_activity1);
-            viewH.headImage= (CircularImage) view.findViewById(R.id.cl_collect_headimage);
+            viewH.headImage= (ImageView) view.findViewById(R.id.cl_collect_headimage);
             viewH.name= (TextView) view.findViewById(R.id.tv_roomName);
             view.setTag(viewH);
         }else{
@@ -93,7 +93,7 @@ public class Model_Adapter_2 extends ArrayAdapter<For_Model> {
     }
     class ViewH{
         LinearLayout ll;
-        CircularImage headImage;
+        ImageView headImage;
         TextView name;
         TextView content;
     }

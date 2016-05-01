@@ -1,10 +1,13 @@
 package fragement;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tyhj.smart.ManageMode;
@@ -26,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Api_sours.NoScrollGridView;
+import Api_sours.Wether;
 import activity_for_adapter.For_Model;
 import activity_for_adapter.For_collect_equipment;
 import activity_for_adapter.For_collect_room;
@@ -42,6 +47,7 @@ public class Activity_1 extends Fragment {
     MyDateBase myDateBase;
     public SQLiteDatabase mydb;
     ListView list_model;
+    ImageView sun;
     For_collect_equipment for_collect_equipment1;
     List<For_Model> mylist;
     Collect_equipment_Adapter_addRoom collect_equipment_adapter1;
@@ -51,6 +57,7 @@ public class Activity_1 extends Fragment {
     public View view;
     View headview_model;
     Cursor cursor;
+    TextView temperature,wind,wether;
     NoScrollGridView gv_model;
     int[] length=GetModelHeadImage.modelhead;
     @Nullable
@@ -62,14 +69,28 @@ public class Activity_1 extends Fragment {
         list1=new ArrayList<For_collect_equipment>();
         headview_model = LayoutInflater.from(getActivity()).inflate(R.layout.activity1_head, null, true);
         gv_model= (NoScrollGridView) headview_model.findViewById(R.id.gv_model);
+        temperature= (TextView) headview_model.findViewById(R.id.temperature);
+        wind= (TextView) headview_model.findViewById(R.id.wind);
+        wether= (TextView) headview_model.findViewById(R.id.wether);
+        sun= (ImageView) headview_model.findViewById(R.id.sun);
         getModelList();
         mydp2=new Model_Adapter_2(getActivity(),R.layout.gridview_for_collect,mylist);
         collect_equipment_adapter1=new Collect_equipment_Adapter_addRoom(getActivity(),R.layout.equipment_for_listview,list1);
         list_model.addHeaderView(headview_model);
-
+        getWether();
         gv_model.setAdapter(mydp2);
         list_model.setAdapter(collect_equipment_adapter1);
         return view;
+    }
+
+    private void getWether() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Wether w=new Wether(getActivity());
+                handler.sendEmptyMessage(1);
+            }
+        }).start();
     }
 
     private void getModelList() {
@@ -107,7 +128,49 @@ public class Activity_1 extends Fragment {
         mylist.clear();
         list1.clear();
         getModelList();
+        getWether();
         collect_equipment_adapter1.notifyDataSetChanged();
-        mydp2.notifyDataSetChanged();
+        mydp2=new Model_Adapter_2(getActivity(),R.layout.gridview_for_collect,mylist);
+        gv_model.setAdapter(mydp2);
     }
+
+    Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 1:
+                    SharedPreferences preferences=getActivity().getSharedPreferences("wether", Context.MODE_PRIVATE);
+                    temperature.setText(preferences.getString("wendu","20")+"°");
+                    String mysun=preferences.getString("tianqi","晴");
+                    wether.setText(preferences.getString("tianqi","晴")+"\n"+preferences.getString("hignlow",""));
+                    wind.setText(preferences.getString("fengxiang","西北风")+"/"+preferences.getString("fengji","2级"));
+                    switch (mysun){
+                        case "晴":
+                            sun.setImageResource(R.drawable.sun);
+                            break;
+                        case "多云":
+                            sun.setImageResource(R.drawable.cloudy);
+                            break;
+                        case "雨":
+                        case "小雨":
+                        case "大雨":
+                        case "暴雨":
+                        case "中雨":
+                        case "阵雨":
+                            sun.setImageResource(R.drawable.rain);
+                            break;
+                        case "雪":
+                        case "小雪":
+                        case "中雪":
+                        case "大雪":
+                            sun.setImageResource(R.drawable.snow);
+                            break;
+                        case "阴":
+                            sun.setImageResource(R.drawable.yinday);
+                            break;
+                    }
+                break;
+            }
+        }
+    };
 }

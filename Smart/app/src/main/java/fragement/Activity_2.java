@@ -402,7 +402,8 @@ public class Activity_2 extends Fragment {
             list4.add(for_collect_equipment1);
             i4++;
         }
-        collect_room_adapter.notifyDataSetChanged();
+        collect_room_adapter=new Collect_room_Adapter(getActivity(),R.layout.gridview_for_collect,list);
+        gv_room.setAdapter(collect_room_adapter);
         collect_equipment_adapter1.notifyDataSetChanged();
         collect_equipment_adapter2.notifyDataSetChanged();
         collect_equipment_adapter3.notifyDataSetChanged();
