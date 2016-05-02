@@ -25,7 +25,7 @@ import savephoto.GetModelHeadImage;
 public class Room_Adapter extends ArrayAdapter<For_collect_room> {
     View view;
     int resourseId;
-    int[] headimage=GetModelHeadImage.modelhead;
+    int[] headimage=GetModelHeadImage.roomhead;
     List<For_collect_room> list;
     public Room_Adapter(Context context, int resource, List<For_collect_room> objects) {
         super(context, resource, objects);

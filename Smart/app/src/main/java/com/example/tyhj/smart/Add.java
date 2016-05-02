@@ -55,7 +55,7 @@ public class Add extends Activity {
     For_ModelHead fmd;
     Model_HeadImage_Adapter simpleAdapter;
     List<For_ModelHead> list;
-    int headImage[]= GetModelHeadImage.modelhead;
+    int headImage[]= GetModelHeadImage.roomhead;
     View view;
     Button add;
     @Override

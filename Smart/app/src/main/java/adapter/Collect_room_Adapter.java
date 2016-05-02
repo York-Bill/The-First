@@ -36,7 +36,7 @@ import static com.example.tyhj.smart.R.id.bt_toast_change;
 public class Collect_room_Adapter extends ArrayAdapter<For_collect_room> {
     View view;
     int resourseId;
-    int[] headimage=GetModelHeadImage.modelhead;
+    int[] headimage=GetModelHeadImage.roomhead;
     List<For_collect_room> list;
     public Collect_room_Adapter(Context context, int resource, List<For_collect_room> objects) {
         super(context, resource, objects);

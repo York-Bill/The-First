@@ -66,7 +66,7 @@ public class SetModel extends Activity {
     For_ModelHead fmd;
     Model_HeadImage_Adapter simpleAdapter;
     List<For_ModelHead> list;
-    int headImage[]= GetModelHeadImage.modelhead;
+    int headImage[]= GetModelHeadImage.mosiheah;
     String equipmentName[]=GetModelHeadImage.equipmentName;
     View footview;
     Button bt_add_equipment;

@@ -62,7 +62,7 @@ public class ManageMode extends Activity{
     Model_HeadImage_Adapter simpleAdapter;
     List<For_ModelHead> list;
     LinearLayout ll_add;
-    int[] length=GetModelHeadImage.modelhead;
+    int[] length=GetModelHeadImage.mosiheah;
     int width;
     int db_headcount=0;
     String db_name;

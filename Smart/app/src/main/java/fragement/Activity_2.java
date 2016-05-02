@@ -7,6 +7,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -36,9 +38,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import Api_sours.ListHeightUtils;
 import Api_sours.NoScrollGridView;
+import Api_sours.NoScrollListView;
 import activity_for_adapter.For_ModelHead;
 import activity_for_adapter.For_collect_equipment;
 import activity_for_adapter.For_collect_room;
@@ -57,10 +58,10 @@ public class Activity_2 extends Fragment {
     TextView tv_type_count_1,tv_type_count_2,tv_type_count_3,tv_type_count_4;
     ImageButton ib_extend_1,ib_extend_2,ib_extend_3,ib_extend_4;
     TextView tv_ad_equipment_count_1,tv_ad_equipment_count_2,tv_ad_equipment_count_3,tv_ad_equipment_count_4;
-    ListView lv_equipmentType_1,lv_equipmentType_2,lv_equipmentType_3,lv_equipmentType_4;
+    NoScrollListView lv_equipmentType_1,lv_equipmentType_2,lv_equipmentType_3,lv_equipmentType_4;
     View view;
     LinearLayout llIfFind;
-    int[] length= GetModelHeadImage.modelhead;
+    int[] length= GetModelHeadImage.equipmenthead;
     MyDateBase myDateBase;
     SQLiteDatabase mydb;
     For_collect_room for_collect_room;
@@ -81,7 +82,7 @@ public class Activity_2 extends Fragment {
         gv_room.setAdapter(collect_room_adapter);
         if(list.size()>0) llIfFind.setVisibility(View.GONE);
         else llIfFind.setVisibility(View.VISIBLE);
-        //ListHeightUtils.setListViewHeightBasedOnChildren(gv_room,getActivity());
+        //x.setListViewHeightBasedOnChildren(gv_room,getActivity());
         return view;
     }
     private void initWidget() {
@@ -96,10 +97,10 @@ public class Activity_2 extends Fragment {
         tv_ad_equipment_count_2= (TextView) view.findViewById(R.id.tv_type_2);
         tv_ad_equipment_count_3= (TextView) view.findViewById(R.id.tv_type_3);
         tv_ad_equipment_count_4= (TextView) view.findViewById(R.id.tv_type_4);
-        lv_equipmentType_1= (ListView) view.findViewById(R.id.lv_equipmentType_1);
-        lv_equipmentType_2= (ListView) view.findViewById(R.id.lv_equipmentType_2);
-        lv_equipmentType_3= (ListView) view.findViewById(R.id.lv_equipmentType_3);
-        lv_equipmentType_4= (ListView) view.findViewById(R.id.lv_equipmentType_4);
+        lv_equipmentType_1= (NoScrollListView) view.findViewById(R.id.lv_equipmentType_1);
+        lv_equipmentType_2= (NoScrollListView) view.findViewById(R.id.lv_equipmentType_2);
+        lv_equipmentType_3= (NoScrollListView) view.findViewById(R.id.lv_equipmentType_3);
+        lv_equipmentType_4= (NoScrollListView) view.findViewById(R.id.lv_equipmentType_4);
         tv_type_count_1= (TextView) view.findViewById(R.id.tv_ad_equipment_count_1);
         tv_type_count_2= (TextView) view.findViewById(R.id.tv_ad_equipment_count_2);
         tv_type_count_3= (TextView) view.findViewById(R.id.tv_ad_equipment_count_3);
@@ -150,7 +151,6 @@ public class Activity_2 extends Fragment {
         collect_equipment_adapter1=new Collect_equipment_Adapter_addRoom(getActivity(),R.layout.equipment_for_listview,flist1);
         //lv_equipmentType_1.addHeaderView(headview1);
         lv_equipmentType_1.setAdapter(collect_equipment_adapter1);
-        ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_1);
 
         cursor.close();
         //2
@@ -162,7 +162,6 @@ public class Activity_2 extends Fragment {
         }
         collect_equipment_adapter2=new Collect_equipment_Adapter_addRoom(getActivity(),R.layout.equipment_for_listview,flist2);
         lv_equipmentType_2.setAdapter(collect_equipment_adapter2);
-        ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_2);
 
         cursor.close();
         //3
@@ -174,8 +173,6 @@ public class Activity_2 extends Fragment {
         }
         collect_equipment_adapter3=new Collect_equipment_Adapter_addRoom(getActivity(),R.layout.equipment_for_listview,flist3);
         lv_equipmentType_3.setAdapter(collect_equipment_adapter3);
-        ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_3);
-
         //4
         cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"4"});
         while (cursor.moveToNext()){
@@ -185,7 +182,6 @@ public class Activity_2 extends Fragment {
         }
         collect_equipment_adapter4=new Collect_equipment_Adapter_addRoom(getActivity(),R.layout.equipment_for_listview,flist4);
         lv_equipmentType_4.setAdapter(collect_equipment_adapter4);
-        ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_4);
         cursor.close();
     }
 
@@ -262,7 +258,6 @@ public class Activity_2 extends Fragment {
                 }
                 tv_type_count_1.setText(list1.size()+"");
                 collect_equipment_adapter1.notifyDataSetChanged();
-                ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_1);
                 b1=!b1;
             }
         });
@@ -292,7 +287,6 @@ public class Activity_2 extends Fragment {
                 }
                 tv_type_count_2.setText(list2.size()+"");
                 collect_equipment_adapter2.notifyDataSetChanged();
-                ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_2);
                 b2=!b2;
             }
         });
@@ -322,7 +316,6 @@ public class Activity_2 extends Fragment {
                 }
                 tv_type_count_3.setText(list3.size()+"");
                 collect_equipment_adapter3.notifyDataSetChanged();
-                ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_3);
                 b3=!b3;
             }
         });
@@ -352,7 +345,6 @@ public class Activity_2 extends Fragment {
                 }
                 tv_type_count_4.setText(list4.size()+"");
                 collect_equipment_adapter4.notifyDataSetChanged();
-                ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_4);
                 b4=!b4;
             }
         });
@@ -378,6 +370,29 @@ public class Activity_2 extends Fragment {
                 list.add(for_collect_room);
             }
         }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                startThread();
+            }
+        }).start();
+        collect_room_adapter=new Collect_room_Adapter(getActivity(),R.layout.gridview_for_collect,list);
+        gv_room.setAdapter(collect_room_adapter);
+        flist1.clear();
+        flist2.clear();
+        flist4.clear();
+        flist3.clear();
+        b1=false;
+        b2=false;
+        b3=false;
+        b4=false;
+        setInitIcon();
+        if(list.size()>0) llIfFind.setVisibility(View.GONE);
+        else llIfFind.setVisibility(View.VISIBLE);
+    }
+
+    private void startThread() {
+        Cursor cursor;
         cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"1"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
@@ -402,28 +417,20 @@ public class Activity_2 extends Fragment {
             list4.add(for_collect_equipment1);
             i4++;
         }
-        collect_room_adapter=new Collect_room_Adapter(getActivity(),R.layout.gridview_for_collect,list);
-        gv_room.setAdapter(collect_room_adapter);
         collect_equipment_adapter1.notifyDataSetChanged();
         collect_equipment_adapter2.notifyDataSetChanged();
         collect_equipment_adapter3.notifyDataSetChanged();
         collect_equipment_adapter4.notifyDataSetChanged();
-        flist1.clear();
-        flist2.clear();
-        flist4.clear();
-        flist3.clear();
-        b1=false;
-        b2=false;
-        b3=false;
-        b4=false;
-        setInitIcon();
-        ListHeightUtils.setListViewHeightBasedOnChildren(gv_room,getActivity());
-        ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_1);
-        ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_2);
-        ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_3);
-        ListHeightUtils.setListViewHeightBasedOnChildren(lv_equipmentType_4);
-        initCount();
-        if(list.size()>0) llIfFind.setVisibility(View.GONE);
-        else llIfFind.setVisibility(View.VISIBLE);
+        handler.sendEmptyMessage(1);
     }
+    Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 1:
+                    initCount();
+                    break;
+            }
+        }
+    };
 }

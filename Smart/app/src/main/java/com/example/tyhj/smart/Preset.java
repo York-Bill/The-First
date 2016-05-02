@@ -39,7 +39,8 @@ public class Preset extends Activity {
     SQLiteDatabase sqLiteDatabase;
     String xq[]={"一","二","三","四","五","六","日"};
     int[] ifchose;
-    int[] headImage=GetModelHeadImage.modelhead;
+    int[] headImage=GetModelHeadImage.equipmenthead;
+    int[] headImage1=GetModelHeadImage.mosiheah;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,10 +65,11 @@ public class Preset extends Activity {
             }
             if(str.equals("周")){
                 str="一次";
-            }else {
-                if (cursor.getInt(6) == 1) str = str + "开";
-                else str = str + "关";
+            }else if(str.length()==15){
+                str="每天";
             }
+                if (cursor.getInt(6) == 1) str = str + " 开";
+            else str = str + " 关";
             if(cursor.getInt(3)==1){
                 b1=true;
             }
@@ -76,14 +78,20 @@ public class Preset extends Activity {
             String string;
             if(h<10&&m>=10){
                  string="0"+h+":"+m;
-            }else if(h>10&&m<10){
+            }else if(h>=10&&m<10){
                  string=h+":"+"0"+m;
             }else if(h<10&&h<10){
                  string="0"+h+":"+"0"+m;
             }else{
                  string=h+":"+m;
             }
-            for_preset=new For_Preset(cursor.getString(7),string, b1,headImage[cursor.getInt(4)],str,cursor.getString(5),cursor.getString(0));
+            String strx=cursor.getString(7);
+            if(strx.length()>6)
+                strx=strx.substring(0,6);
+            if(cursor.getString(5)==null)
+            for_preset=new For_Preset(strx,string, b1,headImage1[cursor.getInt(4)],str,cursor.getString(5),cursor.getString(0));
+            else
+                for_preset=new For_Preset(strx,string, b1,headImage[cursor.getInt(4)],str,cursor.getString(5),cursor.getString(0));
             list.add(for_preset);
         }
     }
@@ -136,5 +144,6 @@ public class Preset extends Activity {
         super.onStart();
         list.clear();
         initList();
+        preset_adapter.notifyDataSetChanged();
     }
 }

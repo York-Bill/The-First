@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,11 +52,12 @@ public class MainActivity extends AppCompatActivity
     ViewPager vp_home;
     View headerView;
     TextView tv_title;
-    ImageButton im_1,im_2,im_3;
+    ImageView im_1,im_2,im_3;
     ImageView menu_bg;
     ImageButton ib_twocode,ib_voice;
     DrawerLayout drawer;
     Toolbar toolbar;
+    LinearLayout ll1,ll2,ll3;
     private static final int TAB_COUNT = 3;
     Intent intent_TwoCode,intent_Suggest,intent_Login,intent_Setting;
     Thread thread_voice,thread_TowCode,thread_Suggest,thread_Login,thread_Setting;
@@ -65,6 +67,11 @@ public class MainActivity extends AppCompatActivity
     int[] menubg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        int x=AVUser.getCurrentUser().getInt("times");
+        if(x==0){
+            Intent in=new Intent(MainActivity.this,AddControlCenter.class);
+            startActivity(in);
+        }
         super.onCreate(savedInstanceState);
         if(internet()){
             DownloadTask downloadTask=new DownloadTask(MainActivity.this,GetModelHeadImage.getUserId());
@@ -105,17 +112,21 @@ public class MainActivity extends AppCompatActivity
     }
     //初始化控件
     private void initWidget() {
+        ll1= (LinearLayout) findViewById(R.id.ll1);
+        ll2= (LinearLayout) findViewById(R.id.ll2);
+        ll3= (LinearLayout) findViewById(R.id.ll3);
         ib_twocode= (ImageButton) findViewById(R.id.ib_twocode);
         ib_voice= (ImageButton) findViewById(R.id.ib_voice);
         vp_home= (ViewPager) findViewById(R.id.vp_home);
         vp_home.setOffscreenPageLimit(3);
-        im_1= (ImageButton) findViewById(R.id.ib_1);
-        im_2= (ImageButton) findViewById(R.id.ib_2);
-        im_3= (ImageButton) findViewById(R.id.ib_3);
+        im_1= (ImageView) findViewById(R.id.ib_1);
+        im_2= (ImageView) findViewById(R.id.ib_2);
+        im_3= (ImageView) findViewById(R.id.ib_3);
         tv_title= (TextView) findViewById(R.id.tv_title);
         menu_bg= (ImageView) headerView.findViewById(R.id.menu_bg);
         onClick();
         setIcon();
+        im_1.setImageResource(R.drawable.ic_quick1);
         initViewPager();
         initThread();
     }
@@ -156,13 +167,19 @@ public class MainActivity extends AppCompatActivity
                     ib_twocode.setVisibility(View.VISIBLE);
                     ib_voice.setVisibility(View.VISIBLE);
                     tv_title.setText("快速启动");
+                    setIcon();
+                    im_1.setImageResource(R.drawable.ic_quick1);
                 } else if (index == 1) {
                     ib_twocode.setVisibility(View.INVISIBLE);
                     ib_voice.setVisibility(View.INVISIBLE);
                     toolbar.setVisibility(View.VISIBLE);
                     tv_title.setText("全部设备");
+                    setIcon();
+                    im_2.setImageResource(R.drawable.ic_center1);
                 } else if (index == 2) {
                     toolbar.setVisibility(View.GONE);
+                    setIcon();
+                    im_3.setImageResource(R.drawable.ic_setx1);
                 }
             }
 
@@ -206,6 +223,24 @@ public class MainActivity extends AppCompatActivity
                 vp_home.setCurrentItem(2, false);
             }
         });
+        ll1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vp_home.setCurrentItem(0, false);
+            }
+        });
+        ll2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vp_home.setCurrentItem(1, false);
+            }
+        });
+        ll3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vp_home.setCurrentItem(2, false);
+            }
+        });
         menu_bg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -220,7 +255,7 @@ public class MainActivity extends AppCompatActivity
 
     //设置小图标
     private void setIcon() {
-        Picasso.with(MainActivity.this)
+        /*Picasso.with(MainActivity.this)
                 .load(R.drawable.ic_fly)
                 .resize(80,80)
                 .centerCrop()
@@ -231,13 +266,16 @@ public class MainActivity extends AppCompatActivity
                 .centerCrop()
                 .into(im_2);
         Picasso.with(MainActivity.this)
-                .load(R.drawable.ic_set)
+                .load(R.drawable.ic_setx)
                 .resize(80,80)
                 .centerCrop()
-                .into(im_3);
+                .into(im_3);*/
         Picasso.with(MainActivity.this)
                 .load(R.drawable.bg_menu_0)
                 .into(menu_bg);
+        im_1.setImageResource(R.drawable.ic_quick);
+        im_2.setImageResource(R.drawable.ic_center);
+        im_3.setImageResource(R.drawable.ic_setx);
     }
 
     //初始化侧栏菜单

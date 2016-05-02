@@ -92,6 +92,7 @@ public class Register extends Activity {
             user.setMobilePhoneNumber(et_register_phoneNumber.getText().toString());
             user.setPassword(et_register_password.getText().toString());
             user.setEmail(et_register_email.getText().toString());
+            user.put("pname",et_register_phoneNumber.getText().toString());
             user.signUpInBackground(new SignUpCallback() {
                 public void done(AVException e) {
                     if (e == null) {

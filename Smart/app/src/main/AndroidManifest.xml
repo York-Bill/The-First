@@ -41,6 +41,7 @@
         <activity android:name=".GetRoot"/>
         <activity android:name=".AddControlCenter"/>
         <activity android:name=".SetModel"/>
+        <activity android:name=".UserMessage"/>
         <activity android:name="twoCode.activity.ResultActivity"/>
         <activity android:name="twoCode.activity.CaptureActivity"/>
     </application>

@@ -37,7 +37,7 @@ public class Model_Adapter_2 extends ArrayAdapter<For_Model> {
     ViewH viewH;
     public MyDateBase mydb;
     SQLiteDatabase mysdb;
-    int[] headImages= GetModelHeadImage.modelhead;
+    int[] headImages= GetModelHeadImage.mosiheah;
     List<For_Model> obj;
     public Model_Adapter_2(Context context, int resource, List<For_Model> objects) {
         super(context, resource, objects);

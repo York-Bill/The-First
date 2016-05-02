@@ -31,7 +31,7 @@ public class Equipent_Center extends Activity {
     ImageButton ib_extend_c_1,ib_extend_c_2,ib_extend_c_3,ib_extend_c_4;
     TextView tv_ad_equipment_count_c_1,tv_ad_equipment_count_c_2,tv_ad_equipment_count_c_3,tv_ad_equipment_count_c_4;
     ListView lv_equipmentType_c_1,lv_equipmentType_c_2,lv_equipmentType_c_3,lv_equipmentType_c_4;
-    int[] length= GetModelHeadImage.modelhead;
+    int[] length= GetModelHeadImage.equipmenthead;
     MyDateBase myDateBase;
     SQLiteDatabase mydb;
     boolean b1,b2,b3,b4;

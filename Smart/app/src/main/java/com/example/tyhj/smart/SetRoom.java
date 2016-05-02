@@ -65,7 +65,8 @@ public class SetRoom extends Activity {
     For_ModelHead fmd;
     Model_HeadImage_Adapter simpleAdapter;
     List<For_ModelHead> list;
-    int headImage[]= GetModelHeadImage.modelhead;
+    int headImage[]= GetModelHeadImage.roomhead;
+    int headImagex[]= GetModelHeadImage.equipmenthead;
     String equipmentName[]=GetModelHeadImage.equipmentName;
     View footview;
     Button bt_add_equipment;
@@ -163,7 +164,7 @@ public class SetRoom extends Activity {
                                 } else{
                                     mydb.execSQL("insert into Equipment values(?,?,?,?,?,?,?,?)",new Object[]{id,equipmentName[x],
                                     x,y,roomName," ",0,0});
-                                    equipment=new For_collect_equipment(id,equipmentName[x], headImage[x],0,roomName);
+                                    equipment=new For_collect_equipment(id,equipmentName[x], headImagex[x],0,roomName);
                                     mylist.add(equipment);
                                     collect_equipment_adapter.notifyDataSetChanged();
                                     dialog1.dismiss();

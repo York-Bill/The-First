@@ -57,7 +57,7 @@
             android:layout_height="1dp" />
     <LinearLayout
         android:elevation="1dp"
-        android:background="#fbfbfb"
+        android:background="#fcfcfc"
         android:layout_marginTop="1dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -87,12 +87,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    <ListView
+    <Api_sours.NoScrollListView
         android:paddingLeft="10dp"
         android:id="@+id/lv_equipmentType_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </ListView>
+    </Api_sours.NoScrollListView>
     //2
     <LinearLayout
         android:elevation="1dp"
@@ -126,12 +126,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    <ListView
+    <Api_sours.NoScrollListView
         android:paddingLeft="10dp"
         android:id="@+id/lv_equipmentType_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </ListView>
+    </Api_sours.NoScrollListView>
     //3
     <LinearLayout
         android:elevation="1dp"
@@ -165,12 +165,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    <ListView
+    <Api_sours.NoScrollListView
         android:paddingLeft="10dp"
         android:id="@+id/lv_equipmentType_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </ListView>
+    </Api_sours.NoScrollListView>
     //4
     <LinearLayout
         android:elevation="1dp"
@@ -204,11 +204,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    <ListView
+    <Api_sours.NoScrollListView
         android:paddingLeft="10dp"
         android:id="@+id/lv_equipmentType_4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </ListView>
+    </Api_sours.NoScrollListView>
 </LinearLayout>
     </ScrollView>

@@ -27,6 +27,7 @@ import com.example.tyhj.smart.MyRoom;
 import com.example.tyhj.smart.Preset;
 import com.example.tyhj.smart.R;
 import com.example.tyhj.smart.SetRoom;
+import com.example.tyhj.smart.UserMessage;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -159,7 +160,8 @@ public class Activity_3 extends Fragment {
         ll6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent in6=new Intent(getActivity(), UserMessage.class);
+                getActivity().startActivity(in6);
             }
         });
     }

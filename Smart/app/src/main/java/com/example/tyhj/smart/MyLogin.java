@@ -63,7 +63,7 @@ public class MyLogin extends Activity {
         initWidget();
         initThread();
         clik();
-        thread.start();
+        //thread.start();
     }
 
     private void initWidget() {

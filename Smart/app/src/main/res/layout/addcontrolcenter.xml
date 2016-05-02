@@ -23,15 +23,22 @@
             android:layout_width="50dp"
             android:layout_height="?attr/actionBarSize" />
         <TextView
+            android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:textColor="#ffffff"
             android:gravity="left|center_vertical"
             android:paddingLeft="5dp"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
             android:textSize="16sp"
             android:text="控制中心管理"
             />
+            <ImageButton
+                android:id="@+id/ib_control_twocode"
+                android:background="@drawable/bt_press_2"
+                android:src="@drawable/ic_tool_twocode"
+                android:layout_width="50dp"
+                android:layout_height="?attr/actionBarSize" />
         </LinearLayout>
         <LinearLayout
             android:elevation="5dp"
@@ -104,6 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp" />
         <Button
+            android:id="@+id/bt_add_center"
             android:layout_marginTop="30dp"
             android:textColor="#ffffff"
             android:background="@drawable/bt_press_2"

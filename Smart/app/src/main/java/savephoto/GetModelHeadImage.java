@@ -32,7 +32,7 @@ public class GetModelHeadImage {
 
         };
         public static String[] equipmentName={
-                "电灯","冰箱","洗衣机","电视机","台灯","吊灯","饮水机","空调","电风扇","窗帘"
+                "开关","电灯","冰箱","空调"
         };
     public static int[] userHeadImage={
             R.mipmap.ic_userheadimage1,
@@ -45,23 +45,64 @@ public class GetModelHeadImage {
             R.mipmap.ic_userheadimage8,
             R.mipmap.ic_userheadimage9,
     };
-    public static int[] modelhead={
-            R.mipmap.ic_headimage_1,
-            R.mipmap.ic_headimage_2,
-            R.mipmap.ic_headimage_3,
-            R.mipmap.ic_headimage_4,
-            R.mipmap.ic_headimage_5,
-            R.mipmap.ic_headimage_6,
-            R.mipmap.ic_headimage_7,
-            R.mipmap.ic_headimage_8,
-            R.mipmap.ic_headimage_9,
-            R.mipmap.ic_headimage_10,
-            R.mipmap.ic_headimage_11,
-            R.mipmap.ic_headimage_12,
-            R.mipmap.ic_headimage_13,
-            R.mipmap.ic_headimage_14,
-            R.mipmap.ic_headimage_15,
-            R.mipmap.ic_headimage_16,
-            R.mipmap.ic_headimage_17,
+    public static int[] mosiheah={
+            R.mipmap.ic_mosi_0,
+            R.mipmap.ic_mosi_1,
+            R.mipmap.ic_mosi_2,
+            R.mipmap.ic_mosi_3,
+            R.mipmap.ic_mosi_4,
+            R.mipmap.ic_mosi_5,
+            R.mipmap.ic_mosi_6,
+            R.mipmap.ic_mosi_7,
+            R.mipmap.ic_mosi_8,
+            R.mipmap.ic_mosi_9,
+            R.mipmap.ic_mosi_10,
+            R.mipmap.ic_mosi_11,
+            R.mipmap.ic_mosi_12,
+            R.mipmap.ic_mosi_13,
+            R.mipmap.ic_mosi_14,
+            R.mipmap.ic_mosi_15,
+            R.mipmap.ic_mosi_16,
+            R.mipmap.ic_mosi_17,
+            R.mipmap.ic_mosi_18,
+            R.mipmap.ic_mosi_19,
+            R.mipmap.ic_mosi_20,
+            R.mipmap.ic_mosi_21,
+            R.mipmap.ic_mosi_22,
+            R.mipmap.ic_mosi_23,
+            R.mipmap.ic_mosi_24,
+            R.mipmap.ic_mosi_25,
+            R.mipmap.ic_mosi_26,
+            R.mipmap.ic_mosi_27,
+            R.mipmap.ic_mosi_28
+    };
+    public static int[] equipmenthead={
+            R.mipmap.ic_equipment_5,
+            R.mipmap.ic_equipment_8,
+            R.mipmap.ic_equipment_13,
+            R.mipmap.ic_equipment_22
+    };
+    public static int[] roomhead={
+            R.mipmap.ic_room_0,
+            R.mipmap.ic_room_1,
+            R.mipmap.ic_room_2,
+            R.mipmap.ic_room_3,
+            R.mipmap.ic_room_4,
+            R.mipmap.ic_room_5,
+            R.mipmap.ic_room_6,
+            R.mipmap.ic_room_7,
+            R.mipmap.ic_room_8,
+            R.mipmap.ic_room_9,
+            R.mipmap.ic_room_10,
+            R.mipmap.ic_room_11,
+            R.mipmap.ic_room_12,
+            R.mipmap.ic_room_13,
+            R.mipmap.ic_room_14,
+            R.mipmap.ic_room_15,
+            R.mipmap.ic_room_16,
+            R.mipmap.ic_room_17,
+            R.mipmap.ic_room_18,
+            R.mipmap.ic_room_19,
+            R.mipmap.ic_room_20,
     };
 }

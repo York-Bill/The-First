@@ -67,30 +67,39 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize">
-                <ImageButton
-                    android:background="@null"
-                    android:id="@+id/ib_1"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
+                <LinearLayout
+                    android:id="@+id/ll1"
+                    android:gravity="center"
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent" />
-                <ImageButton
-                    android:background="@null"
-                    android:id="@+id/ib_2"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/ib_1"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll2"
+                    android:gravity="center"
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent" />
-                <ImageButton
-                    android:background="@null"
-                    android:id="@+id/ib_3"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/ib_2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ll3"
+                    android:gravity="center"
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/ib_3"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>

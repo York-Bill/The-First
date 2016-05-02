@@ -43,7 +43,6 @@ public class Wether {
             while ((line=reader.readLine())!=null) {
                 reBuilder.append(line);
             }
-            System.out.println(reBuilder.toString());
             x(reBuilder.toString());
         } catch (MalformedURLException e) {
             // TODO 自动生成的 catch 块

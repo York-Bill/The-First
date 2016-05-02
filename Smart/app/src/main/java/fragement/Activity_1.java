@@ -59,7 +59,7 @@ public class Activity_1 extends Fragment {
     Cursor cursor;
     TextView temperature,wind,wether;
     NoScrollGridView gv_model;
-    int[] length=GetModelHeadImage.modelhead;
+    int[] length=GetModelHeadImage.equipmenthead;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
