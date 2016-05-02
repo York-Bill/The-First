@@ -1,6 +1,7 @@
 package com.example.tyhj.smart;
 
 import android.app.Activity;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -13,6 +14,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SaveCallback;
 
+import dataBase.MyDateBase;
 import savephoto.DownloadTask;
 import savephoto.GetModelHeadImage;
 
@@ -22,6 +24,8 @@ import savephoto.GetModelHeadImage;
 public class AddControlCenter extends Activity implements View.OnClickListener {
     ImageButton ib_back_controlCenter,ib_control_twocode;
     Button bt_add_center;
+    MyDateBase myDateBase;
+    SQLiteDatabase mydb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +61,19 @@ public class AddControlCenter extends Activity implements View.OnClickListener {
             public void done(AVException e) {
                 AVUser.getCurrentUser().put("times", 1);
                 AVUser.getCurrentUser().saveInBackground();
+                myDateBase=new MyDateBase(AddControlCenter.this,GetModelHeadImage.getUserId()+".db",null,1);
+                mydb=myDateBase.getWritableDatabase();
+                mydb.execSQL("insert into Room values(?,?,?)",new Object[]{"客厅",16,0});
+                mydb.execSQL("insert into Room values(?,?,?)",new Object[]{"卧室",13,0});
+                mydb.execSQL("insert into Room values(?,?,?)",new Object[]{"厨房",14,0});
+                mydb.execSQL("insert into Room values(?,?,?)",new Object[]{"浴室",19,0});
+                mydb.execSQL("insert into Model values (?,?,?)", new Object[]{"夜间模式",5,0});
+                mydb.execSQL("insert into Model values (?,?,?)", new Object[]{"夏日模式",27,0});
+                mydb.execSQL("insert into Model values (?,?,?)", new Object[]{"冬日模式",13,0});
+                mydb.execSQL("insert into Model values (?,?,?)", new Object[]{"离家模式",7,0});
+                mydb.execSQL("insert into Model values (?,?,?)", new Object[]{"早晨起床",26,0});
+                mydb.execSQL("insert into Model values (?,?,?)", new Object[]{"玩游戏",4,0});
+                mydb.execSQL("insert into Model values (?,?,?)", new Object[]{"吃饭",9,0});
             }
         });
     }

@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import Api_sours.Config;
+import Api_sours.OutActivity;
 import Api_sours.StatusBarUtil;
 import fragement.Activity_3;
 import fragement.Activity_1;
@@ -93,25 +94,12 @@ public class MainActivity extends AppCompatActivity
             }
         };
         initMenu();
-        initArray();
         initWidget();
         initThread();
     }
-    //初始化数组
-    private void initArray() {
-        menubg=new int[8];
-        menubg[0]=R.drawable.bg_menu_0;
-        menubg[1]=R.drawable.bg_menu_1;
-        menubg[2]=R.drawable.bg_menu_2;
-        menubg[3]=R.drawable.bg_menu_3;
-        menubg[4]=R.drawable.bg_menu_5;
-        menubg[5]=R.drawable.bg_menu_8;
-        menubg[6]=R.drawable.bg_menu_11;
-        menubg[7]=R.drawable.bg_menu_13;
-
-    }
     //初始化控件
     private void initWidget() {
+        OutActivity.setAc(MainActivity.this);
         ll1= (LinearLayout) findViewById(R.id.ll1);
         ll2= (LinearLayout) findViewById(R.id.ll2);
         ll3= (LinearLayout) findViewById(R.id.ll3);
@@ -239,16 +227,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 vp_home.setCurrentItem(2, false);
-            }
-        });
-        menu_bg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Random random = new Random();
-                int num = random.nextInt(7);
-                Picasso.with(MainActivity.this)
-                        .load(menubg[num])
-                        .into(menu_bg);
             }
         });
     }

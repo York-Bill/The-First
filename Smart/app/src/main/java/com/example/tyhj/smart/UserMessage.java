@@ -1,8 +1,11 @@
 package com.example.tyhj.smart;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -14,6 +17,7 @@ import android.widget.Toast;
 import com.avos.avoscloud.AVUser;
 import com.google.zxing.WriterException;
 
+import Api_sours.OutActivity;
 import savephoto.GetModelHeadImage;
 import twoCode.activity.EncodingHandler;
 
@@ -26,9 +30,10 @@ public class UserMessage extends Activity {
     TextView pname,phone_number,email,place,sex,area,psign;
     ImageButton two_image;
     ImageButton ic_back;
-    Button change;
+    Button change,turnoff;
     AVUser user;
     boolean show;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +64,7 @@ public class UserMessage extends Activity {
     }
 
     private void initWidget() {
+        turnoff= (Button) findViewById(R.id.turnoff);
         mytwocode= (ImageView) findViewById(R.id.mytwocode);
         ll_twocode= (LinearLayout) findViewById(R.id.ll_twocode);
         ic_back= (ImageButton) findViewById(R.id.button_back);
@@ -116,6 +122,32 @@ public class UserMessage extends Activity {
                     ll_twocode.setVisibility(View.VISIBLE);
                 }
                 show=!show;
+            }
+        });
+        turnoff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AVUser.logOut();
+                Intent in=new Intent(UserMessage.this,MyLogin.class);
+                startActivity(in);
+                OutActivity.out();
+                UserMessage.this.finish();
+            }
+        });
+        turnoff.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_BUTTON_PRESS:
+                    case MotionEvent.ACTION_DOWN:
+                        turnoff.setBackgroundColor(Color.parseColor("#f0ff3333"));
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_UP:
+                        turnoff.setBackgroundColor(Color.parseColor("#c0ff3333"));
+                        break;
+                }
+                return false;
             }
         });
     }
