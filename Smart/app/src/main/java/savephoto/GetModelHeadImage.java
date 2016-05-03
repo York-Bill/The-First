@@ -1,11 +1,41 @@
 package savephoto;
 
+import android.app.Activity;
+
 import com.example.tyhj.smart.R;
 
 /**
  * Created by Tyhj on 2016/4/4.
  */
 public class GetModelHeadImage {
+    private static Activity activity;
+
+    public static void setActivity(Activity activity) {
+        GetModelHeadImage.activity = activity;
+    }
+
+    public static void finishActivity(){
+        GetModelHeadImage.activity.finish();
+    }
+    private static String address;
+    private static String city;
+
+    public static String getAddress() {
+        return address;
+    }
+
+    public static String getCity() {
+        return city;
+    }
+
+    public static void setAddress(String address) {
+        GetModelHeadImage.address = address;
+    }
+
+    public static void setCity(String city) {
+        GetModelHeadImage.city = city;
+    }
+
     private static String userId;
     private static boolean ifFirst;
     public static  void setUserId(String userId) {

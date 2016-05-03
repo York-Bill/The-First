@@ -31,6 +31,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVUser;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.baidu.voicerecognition.android.ui.BaiduASRDigitalDialog;
 import com.baidu.voicerecognition.android.ui.DialogRecognitionListener;
 import com.squareup.picasso.Picasso;
@@ -39,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import Api_sours.Config;
+import Api_sours.MyLocation;
 import Api_sours.StatusBarUtil;
 import fragement.Activity_3;
 import fragement.Activity_1;
@@ -49,6 +52,7 @@ import twoCode.activity.CaptureActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private LocationClient mLocClient;
     ViewPager vp_home;
     View headerView;
     TextView tv_title;
@@ -73,6 +77,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(in);
         }
         super.onCreate(savedInstanceState);
+        GetModelHeadImage.setActivity(MainActivity.this);
+        initLocation();
         if(internet()){
             DownloadTask downloadTask=new DownloadTask(MainActivity.this,GetModelHeadImage.getUserId());
         }else {
@@ -96,6 +102,26 @@ public class MainActivity extends AppCompatActivity
         initArray();
         initWidget();
         initThread();
+    }
+
+    private void initLocation() {
+        mLocClient = ((MyLocation)getApplication()).mLocationClient;
+        ((MyLocation)getApplication()).SetLocationMainActivity(this);
+        setLocationOption();
+        mLocClient.start();
+        mLocClient.requestOfflineLocation();
+        //setLocationOption();
+        mLocClient.requestLocation();
+    }
+    //设置相关参数
+    private void setLocationOption(){
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        option.setOpenGps(true);				//打开gps
+        option.setCoorType("bd09ll");		//设置坐标类型
+        option.setIsNeedAddress(true);//设置地址信息，默认无地址信息
+        option.setScanSpan(1000);	//设置定位模式，小于1秒则一次定位;大于等于1秒则定时定位
+        mLocClient.setLocOption(option);
     }
     //初始化数组
     private void initArray() {
@@ -498,5 +524,10 @@ public class MainActivity extends AppCompatActivity
         boolean wifi=con.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
         if(internet||wifi) return true;
         else return false;
+    }
+    @Override
+    public void onDestroy() {
+        mLocClient.stop();
+        super.onDestroy();
     }
 }

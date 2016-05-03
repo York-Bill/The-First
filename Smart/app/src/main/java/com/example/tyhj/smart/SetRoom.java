@@ -147,7 +147,7 @@ public class SetRoom extends Activity {
                             @Override
                             public void onClick(View v) {
                                 Random random = new Random();
-                                x = random.nextInt(equipmentName.length);
+                                x = random.nextInt(4);
                                 String id = into.getText().toString();
                                 if (!haveInternet()) {
                                     Snackbar.make(v, "网络未连接", Snackbar.LENGTH_SHORT)
@@ -163,7 +163,7 @@ public class SetRoom extends Activity {
                                             .setAction("Action", null).show();
                                 } else{
                                     mydb.execSQL("insert into Equipment values(?,?,?,?,?,?,?,?)",new Object[]{id,equipmentName[x],
-                                    x,y,roomName," ",0,0});
+                                    x,x,roomName," ",0,0});
                                     equipment=new For_collect_equipment(id,equipmentName[x], headImagex[x],0,roomName);
                                     mylist.add(equipment);
                                     collect_equipment_adapter.notifyDataSetChanged();
@@ -241,7 +241,7 @@ public class SetRoom extends Activity {
         }
          cursor=mydb.rawQuery("select * from Equipment where room=?",new String[]{roomName});
         while (cursor.moveToNext()){
-            equipment=new For_collect_equipment(cursor.getString(0),cursor.getString(1),headImage[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
+            equipment=new For_collect_equipment(cursor.getString(0),cursor.getString(1),headImagex[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             mylist.add(equipment);
         }
         lv_set_room.addHeaderView(headView);

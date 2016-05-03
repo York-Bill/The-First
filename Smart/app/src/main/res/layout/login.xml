@@ -15,7 +15,7 @@
    </HorizontalScrollView>
     <LinearLayout
         android:id="@+id/ll"
-        android:background="#10000000"
+        android:background="#30000000"
         android:orientation="vertical"
         android:translationZ="3dp"
         android:elevation="2dp"

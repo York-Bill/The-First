@@ -142,7 +142,7 @@ public class Activity_2 extends Fragment {
 
     private void initAdapter() {
         //1
-        Cursor cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"1"});
+        Cursor cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"0"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list1.add(for_collect_equipment1);
@@ -154,7 +154,7 @@ public class Activity_2 extends Fragment {
 
         cursor.close();
         //2
-        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"2"});
+        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"1"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list2.add(for_collect_equipment1);
@@ -165,7 +165,7 @@ public class Activity_2 extends Fragment {
 
         cursor.close();
         //3
-        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"3"});
+        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"2"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list3.add(for_collect_equipment1);
@@ -174,7 +174,7 @@ public class Activity_2 extends Fragment {
         collect_equipment_adapter3=new Collect_equipment_Adapter_addRoom(getActivity(),R.layout.equipment_for_listview,flist3);
         lv_equipmentType_3.setAdapter(collect_equipment_adapter3);
         //4
-        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"4"});
+        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"3"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list4.add(for_collect_equipment1);
@@ -393,25 +393,25 @@ public class Activity_2 extends Fragment {
 
     private void startThread() {
         Cursor cursor;
-        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"1"});
+        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"0"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list1.add(for_collect_equipment1);
             i1++;
         }
-        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"2"});
+        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"1"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list2.add(for_collect_equipment1);
             i2++;
         }
-        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"3"});
+        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"2"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list3.add(for_collect_equipment1);
             i3++;
         }
-        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"4"});
+        cursor= mydb.rawQuery("select * from Equipment where type=?", new String[]{"3"});
         while (cursor.moveToNext()){
             for_collect_equipment1=new For_collect_equipment(cursor.getString(0),cursor.getString(1),length[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
             list4.add(for_collect_equipment1);

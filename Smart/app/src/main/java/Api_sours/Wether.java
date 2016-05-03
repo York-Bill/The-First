@@ -5,6 +5,9 @@ package Api_sours;
  */
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Handler;
+
+import com.baidu.location.LocationClient;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -20,6 +23,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+import savephoto.GetModelHeadImage;
+
 public class Wether {
     Context context;
     String wendu="";
@@ -28,10 +33,17 @@ public class Wether {
     String fengji="";
     String high="";
     String low="";
-    public  Wether(Context context){
+    Handler handler;
+    public  Wether(Context context, Handler handler){
+        this.handler=handler;
         this.context=context;
+        String str="http://wthrcdn.etouch.cn/WeatherApi?city=";
+        while (GetModelHeadImage.getAddress()==null||GetModelHeadImage.getCity()==null){
+
+        }
+        str=str+GetModelHeadImage.getCity().substring(0,GetModelHeadImage.getCity().length()-1);
         try {
-            URL url=new URL("http://wthrcdn.etouch.cn/WeatherApi?city=杭州");
+            URL url=new URL(str);
             HttpURLConnection connection=(HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(8000);
@@ -81,6 +93,7 @@ public class Wether {
                             low=xmlPullParser.nextText();
                             low=low.substring(3,low.length());
                         }
+
                 }
                 if(nodename!=null&&nodename.equals("night"))
                     break;
@@ -97,6 +110,9 @@ public class Wether {
         editor.putString("tianqi",tianqi);
         editor.putString("fengji",fengji);
         editor.putString("hignlow",low+"~"+high);
+        editor.putString("location", GetModelHeadImage.getAddress());
+        editor.putString("city",GetModelHeadImage.getCity());
+        handler.sendEmptyMessage(1);
         editor.commit();
     }
 }
