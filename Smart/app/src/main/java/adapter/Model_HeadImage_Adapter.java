@@ -25,7 +25,7 @@ import savephoto.GetModelHeadImage;
  * Created by Tyhj on 2016/4/4.
  */
 public class Model_HeadImage_Adapter extends ArrayAdapter<For_ModelHead> {
-    int[] imageId= GetModelHeadImage.roomhead;
+    int[] imageId= GetModelHeadImage.mosiheah ;
     int resourceId;
     View view;
     For_ModelHead fmd;
