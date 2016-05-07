@@ -36,6 +36,7 @@ public class Welcome extends Activity {
             GetModelHeadImage.setIfFirst(true);
             GetModelHeadImage.setUserId(user.getUsername());
             startActivity(in);
+            Welcome.this.finish();
         }else {
             GetModelHeadImage.setIfFirst(false);
         }

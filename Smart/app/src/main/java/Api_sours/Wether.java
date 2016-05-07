@@ -33,6 +33,7 @@ public class Wether {
     String fengji="";
     String high="";
     String low="";
+    String pm="";
     Handler handler;
     public  Wether(Context context, Handler handler){
         this.handler=handler;
@@ -92,6 +93,8 @@ public class Wether {
                         }else if("low".equals(nodename)){
                             low=xmlPullParser.nextText();
                             low=low.substring(3,low.length());
+                        }else if("pm25".equals(nodename)){
+                            pm=xmlPullParser.nextText();
                         }
 
                 }
@@ -110,6 +113,7 @@ public class Wether {
         editor.putString("tianqi",tianqi);
         editor.putString("fengji",fengji);
         editor.putString("hignlow",low+"~"+high);
+        editor.putString("pm25","PM2.5  "+pm);
         editor.putString("location", GetModelHeadImage.getAddress());
         editor.putString("city",GetModelHeadImage.getCity());
         handler.sendEmptyMessage(1);

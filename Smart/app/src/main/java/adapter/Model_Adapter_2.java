@@ -77,11 +77,11 @@ public class Model_Adapter_2 extends ArrayAdapter<For_Model> {
                 if (x != 100) {
                     if (!finalOp[0]) {
                         view.setBackgroundColor(Color.parseColor("#ccff33"));
-                        Snackbar.make(v, name + "已开启", Snackbar.LENGTH_SHORT)
+                        Snackbar.make(v, name + "模式已开启", Snackbar.LENGTH_SHORT)
                                 .setAction("Action", null).show();
                     } else {
                         view.setBackgroundColor(Color.parseColor("#fafafa"));
-                        Snackbar.make(v, name + "已关闭", Snackbar.LENGTH_SHORT)
+                        Snackbar.make(v, name + "模式已关闭", Snackbar.LENGTH_SHORT)
                                 .setAction("Action", null).show();
                     }
                     finalOp[0] = !finalOp[0];

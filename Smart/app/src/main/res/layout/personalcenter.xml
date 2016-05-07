@@ -36,7 +36,11 @@
         	android:layout_weight="1.2"
         	android:layout_height="match_parent"
         />
-        <TextView 
+        <TextView
+			android:text="我的信息"
+			android:gravity="center"
+			android:textColor="#ffffff"
+			android:textSize="17sp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="7"
@@ -101,7 +105,7 @@
 		android:layout_weight="1"
 	    android:singleLine="true"
         android:background="@null"
-	    android:id="@+id/pname" 
+	    android:id="@+id/pname"
 	    android:layout_gravity="right"
 	    android:layout_width="0dp"
 	    android:layout_height="match_parent"
@@ -132,7 +136,7 @@
 			android:layout_height="match_parent" />
 	<TextView
 		android:gravity="center_vertical"
-	    android:id="@+id/phone_number" 
+	    android:id="@+id/phone_number"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="right"
@@ -191,7 +195,7 @@
 	<EditText
 	    android:singleLine="true"
         android:background="@null"
-	    android:id="@+id/place" 
+	    android:id="@+id/place"
 	    android:layout_width="wrap_content"
 	    android:layout_height="match_parent"
 	    android:layout_gravity="right"
@@ -223,7 +227,7 @@
 	<EditText
 	    android:singleLine="true"
         android:background="@null"
-	    android:id="@+id/sex" 
+	    android:id="@+id/sex"
 	    android:layout_width="wrap_content"
 	    android:layout_height="match_parent"
 	    android:layout_gravity="right"
@@ -253,7 +257,7 @@
 			android:layout_width="0dp"
 			android:layout_height="match_parent" />
 	<EditText
-	    android:id="@+id/area" 
+	    android:id="@+id/area"
 	    android:hint="你的职业"
 	    android:layout_width="wrap_content"
 	    android:layout_height="match_parent"
@@ -286,7 +290,7 @@
 			android:layout_height="match_parent" />
 	<EditText
 		android:paddingRight="12dp"
-	    android:id="@+id/psign" 
+	    android:id="@+id/psign"
 	    android:layout_width="wrap_content"
 	    android:layout_height="match_parent"
 	    android:singleLine="true"
@@ -304,7 +308,7 @@
         android:layout_height="0dp"
         android:layout_weight="8.5"
         />
-	<Button 
+	<Button
 	    android:id="@+id/turnoff"
 	    android:text="退出账号"
 	    android:textSize="20sp"

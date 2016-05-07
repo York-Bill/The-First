@@ -230,4 +230,20 @@ public class ManageMode extends Activity{
             }
         });
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mylist.clear();
+        Cursor cursor=mydb.query("Model",null,null,null,null,null,null);
+        if(cursor.moveToNext()){
+            do{
+                String name=cursor.getString(0);
+                int headImage=cursor.getInt(1);
+                fm=new For_Model(name,headImage);
+                mylist.add(fm);
+            }while (cursor.moveToNext());
+        }
+        mydp.notifyDataSetChanged();
+    }
 }

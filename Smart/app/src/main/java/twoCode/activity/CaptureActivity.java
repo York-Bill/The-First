@@ -17,6 +17,7 @@ package twoCode.activity;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -34,7 +35,12 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
 import com.example.tyhj.smart.R;
 import com.google.zxing.Result;
 
@@ -181,13 +187,26 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	 * @param bundle
 	 *            The extras
 	 */
-	public void handleDecode(Result rawResult, Bundle bundle) {
+	public void handleDecode(Result rawResult, final Bundle bundle) {
 		inactivityTimer.onActivity();
 		beepManager.playBeepSoundAndVibrate();
 		bundle.putString("result", rawResult.getText());
-		startActivity(new Intent(CaptureActivity.this, ResultActivity.class).putExtras(bundle));
-		CaptureActivity.this.finish();
+		AVQuery<AVUser> userQuery = new AVQuery<>("_User");
+		userQuery.whereEqualTo("username",rawResult.getText());
+		userQuery.findInBackground(new FindCallback<AVUser>() {
+									   @Override
+									   public void done(List<AVUser> list, AVException e) {
+										   if (e == null && list.size() > 0) {
+											   startActivity(new Intent(CaptureActivity.this, ResultActivity.class).putExtras(bundle));
+											   CaptureActivity.this.finish();
+										   } else {
+
+										   }
+									   }
+								   });
 	}
+
+
 
 	private void initCamera(SurfaceHolder surfaceHolder) {
 		if (surfaceHolder == null) {

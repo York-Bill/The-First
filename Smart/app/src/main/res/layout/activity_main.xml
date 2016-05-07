@@ -7,6 +7,49 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
   >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.Toolbar
+            android:titleTextAppearance="@style/Toolbar.TitleText"
+            android:id="@+id/toolbar"
+            app:titleTextColor="#ffffff"
+            android:layout_width="match_parent"
+            android:elevation="3dp"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            >
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#ffffff"
+                    android:text=""
+                    android:id="@+id/tv_title"
+                    android:textSize="18sp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+                <ImageButton
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/ib_twocode"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_tool_twocode"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp" />
+                <ImageButton
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/ib_voice"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_menu_voice"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp" />
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,54 +57,14 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <android.support.v7.widget.Toolbar
-                android:titleTextAppearance="@style/Toolbar.TitleText"
-                android:id="@+id/toolbar"
-                app:titleTextColor="#ffffff"
-                android:layout_width="match_parent"
-                android:elevation="3dp"
-                android:gravity="center_horizontal"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorPrimary"
-                >
-                <LinearLayout
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                <TextView
-                    android:layout_gravity="center_vertical"
-                    android:textColor="#ffffff"
-                    android:text="快速启动"
-                    android:id="@+id/tv_title"
-                    android:textSize="18sp"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content" />
-                    <ImageButton
-                        android:layout_marginRight="20dp"
-                        android:id="@+id/ib_twocode"
-                        android:layout_gravity="center"
-                        android:background="@drawable/ic_tool_twocode"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp" />
-                    <ImageButton
-                        android:layout_marginRight="20dp"
-                        android:id="@+id/ib_voice"
-                        android:layout_gravity="center"
-                        android:background="@drawable/ic_menu_voice"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp" />
-                </LinearLayout>
-                </android.support.v7.widget.Toolbar>
-            <android.support.v4.view.ViewPager
+            <Api_sours.MyViewPager
                 android:background="#efefef"
                 android:elevation="-3dp"
                 android:layout_weight="9"
                 android:id="@+id/vp_home"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
-            </android.support.v4.view.ViewPager>
+            </Api_sours.MyViewPager>
             <LinearLayout
                 android:elevation="5dp"
                 android:orientation="horizontal"
@@ -103,6 +106,7 @@
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>
+    </RelativeLayout>
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"

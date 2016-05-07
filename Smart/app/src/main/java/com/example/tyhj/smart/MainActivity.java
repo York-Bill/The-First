@@ -42,6 +42,7 @@ import java.util.Random;
 
 import Api_sours.Config;
 import Api_sours.MyLocation;
+import Api_sours.MyViewPager;
 import Api_sours.StatusBarUtil;
 import fragement.Activity_3;
 import fragement.Activity_1;
@@ -53,7 +54,7 @@ import twoCode.activity.CaptureActivity;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private LocationClient mLocClient;
-    ViewPager vp_home;
+    MyViewPager vp_home;
     View headerView;
     TextView tv_title;
     ImageView im_1,im_2,im_3;
@@ -143,7 +144,7 @@ public class MainActivity extends AppCompatActivity
         ll3= (LinearLayout) findViewById(R.id.ll3);
         ib_twocode= (ImageButton) findViewById(R.id.ib_twocode);
         ib_voice= (ImageButton) findViewById(R.id.ib_voice);
-        vp_home= (ViewPager) findViewById(R.id.vp_home);
+        vp_home= (MyViewPager) findViewById(R.id.vp_home);
         vp_home.setOffscreenPageLimit(3);
         im_1= (ImageView) findViewById(R.id.ib_1);
         im_2= (ImageView) findViewById(R.id.ib_2);
@@ -190,15 +191,17 @@ public class MainActivity extends AppCompatActivity
             public void onPageSelected(int index) {
                 if (index == 0) {
                     toolbar.setVisibility(View.VISIBLE);
+                    toolbar.setBackgroundColor(Color.parseColor("#00000000"));
                     ib_twocode.setVisibility(View.VISIBLE);
                     ib_voice.setVisibility(View.VISIBLE);
-                    tv_title.setText("快速启动");
+                    tv_title.setText("");
                     setIcon();
                     im_1.setImageResource(R.drawable.ic_quick1);
                 } else if (index == 1) {
                     ib_twocode.setVisibility(View.INVISIBLE);
                     ib_voice.setVisibility(View.INVISIBLE);
                     toolbar.setVisibility(View.VISIBLE);
+                    toolbar.setBackgroundColor(Color.parseColor("#2a9e09"));
                     tv_title.setText("全部设备");
                     setIcon();
                     im_2.setImageResource(R.drawable.ic_center1);

@@ -103,8 +103,7 @@ public class GetModelHeadImage {
             R.mipmap.ic_mosi_24,
             R.mipmap.ic_mosi_25,
             R.mipmap.ic_mosi_26,
-            R.mipmap.ic_mosi_27,
-            R.mipmap.ic_mosi_28
+            R.mipmap.ic_mosi_27
     };
     public static int[] equipmenthead={
             R.mipmap.ic_equipment_5,

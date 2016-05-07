@@ -228,7 +228,7 @@ public class MyLogin extends Activity {
         if (!cursor.moveToNext()){
             sqLiteDatabase.execSQL("insert into User values (?,?,?,?,?,?,?,?,?)", new Object[]{
                     et_number_1.getText().toString(),
-                    et_number_1.getText().toString(),
+                    AVUser.getCurrentUser().getString("pname"),
                     "这个同学很懒，什么都没有留下~",
                     et_number_1.getText().toString(),
                     et_password_1.getText().toString(),

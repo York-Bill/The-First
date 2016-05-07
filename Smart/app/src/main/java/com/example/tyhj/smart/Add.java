@@ -33,7 +33,7 @@ import activity_for_adapter.For_Model;
 import activity_for_adapter.For_ModelHead;
 import activity_for_adapter.For_collect_equipment;
 import adapter.Collect_equipment_Adapter;
-import adapter.Model_HeadImage_Adapter;
+import adapter.Room_HeadImage_Adapter;
 import dataBase.MyDateBase;
 import savephoto.GetModelHeadImage;
 
@@ -53,7 +53,7 @@ public class Add extends Activity {
     MyDateBase myDateBase;
     SQLiteDatabase mydb;
     For_ModelHead fmd;
-    Model_HeadImage_Adapter simpleAdapter;
+    Room_HeadImage_Adapter simpleAdapter;
     List<For_ModelHead> list;
     int headImage[]= GetModelHeadImage.roomhead;
     View view;
@@ -151,7 +151,7 @@ public class Add extends Activity {
             fmd=new For_ModelHead(i);
             list.add(fmd);
         }
-        simpleAdapter=new Model_HeadImage_Adapter(Add.this, R.layout.headimage_for_gridview,list);
+        simpleAdapter=new Room_HeadImage_Adapter(Add.this, R.layout.headimage_for_gridview,list);
         gv_head.setAdapter(simpleAdapter);
         gv_head.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

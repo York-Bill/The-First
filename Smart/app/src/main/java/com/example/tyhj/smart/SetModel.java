@@ -67,6 +67,7 @@ public class SetModel extends Activity {
     Model_HeadImage_Adapter simpleAdapter;
     List<For_ModelHead> list;
     int headImage[]= GetModelHeadImage.mosiheah;
+    int equipheadimaeg[]=GetModelHeadImage.equipmenthead;
     String equipmentName[]=GetModelHeadImage.equipmentName;
     View footview;
     Button bt_add_equipment;
@@ -91,11 +92,12 @@ public class SetModel extends Activity {
                 mydb.execSQL("insert into InModel values (?,?,?,?)",new Object[]{roomName,eqList.get(position).id,name1,0});
                 Snackbar.make(view, "已添加", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
+                mylist.clear();
                 Cursor cursor2=mydb.rawQuery("select * from InModel where modelId=?",new String[]{roomName});
                 while (cursor2.moveToNext()){
                     Cursor cursor= mydb.rawQuery("select * from Equipment where id=?", new String[]{cursor2.getString(1)});
                     if (cursor.moveToNext()){
-                        equipment=new For_collect_equipment(cursor.getString(0),cursor.getString(1),headImage[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
+                        equipment=new For_collect_equipment(cursor.getString(0),cursor.getString(1),equipheadimaeg[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
                         mylist.add(equipment);
                     }
                 }
@@ -228,7 +230,7 @@ public class SetModel extends Activity {
         while (cursor2.moveToNext()){
             Cursor cursor= mydb.rawQuery("select * from Equipment where id=?", new String[]{cursor2.getString(1)});
             if (cursor.moveToNext()){
-                equipment=new For_collect_equipment(cursor.getString(0),cursor.getString(1),headImage[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
+                equipment=new For_collect_equipment(cursor.getString(0),cursor.getString(1),equipheadimaeg[cursor.getInt(2)],cursor.getInt(6),cursor.getString(4));
                 mylist.add(equipment);
             }
         }

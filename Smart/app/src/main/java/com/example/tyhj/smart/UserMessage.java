@@ -2,6 +2,7 @@ package com.example.tyhj.smart;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.avos.avoscloud.AVUser;
 import com.google.zxing.WriterException;
 
+import dataBase.MyDateBase;
 import savephoto.GetModelHeadImage;
 import twoCode.activity.EncodingHandler;
 
@@ -91,6 +93,10 @@ public class UserMessage extends Activity {
                 if(!psign.getText().toString().equals(""))
                     user.put("signature",psign.getText().toString());
                 user.saveInBackground();
+                MyDateBase mydateBase = new MyDateBase(UserMessage.this, GetModelHeadImage.getUserId() + ".db", null, 1);
+                SQLiteDatabase sqLiteDatabase = mydateBase.getWritableDatabase();
+                sqLiteDatabase.execSQL("update User set signature=?",new String[]{psign.getText().toString()});
+                sqLiteDatabase.execSQL("update User set name=?",new String[]{pname.getText().toString()});
                 Toast.makeText(UserMessage.this,"已保存",Toast.LENGTH_SHORT).show();
             }
         });
@@ -126,6 +132,7 @@ public class UserMessage extends Activity {
             @Override
             public void onClick(View v) {
                 Intent in=new Intent(UserMessage.this,MyLogin.class);
+                AVUser.logOut();
                 startActivity(in);
                 GetModelHeadImage.finishActivity();
                 UserMessage.this.finish();
@@ -136,9 +143,10 @@ public class UserMessage extends Activity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()){
                     case MotionEvent.ACTION_DOWN:
-                        turnoff.setBackgroundColor(Color.parseColor("#c0ff3333"));
+                        turnoff.setBackgroundColor(Color.parseColor("#f0ff3333"));
                         break;
                     case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
                     case MotionEvent.ACTION_BUTTON_PRESS:
                         turnoff.setBackgroundColor(Color.parseColor("#b0ff3333"));
                 }

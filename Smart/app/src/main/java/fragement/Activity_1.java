@@ -45,8 +45,9 @@ import savephoto.GetModelHeadImage;
  * Created by Tyhj on 2016/3/31.
  */
 public class Activity_1 extends Fragment {
+    LinearLayout ll_wetherbg;
     boolean x=true;
-    TextView location,city;
+    TextView location,city,pm25;
     MyDateBase myDateBase;
     public SQLiteDatabase mydb;
     ListView list_model;
@@ -72,13 +73,15 @@ public class Activity_1 extends Fragment {
         list1=new ArrayList<For_collect_equipment>();
         headview_model = LayoutInflater.from(getActivity()).inflate(R.layout.activity1_head, null, true);
         gv_model= (NoScrollGridView) headview_model.findViewById(R.id.gv_model);
-        temperature= (TextView) headview_model.findViewById(R.id.temperature);
-        location= (TextView) headview_model.findViewById(R.id.location);
-        city= (TextView) headview_model.findViewById(R.id.city);
-        wind= (TextView) headview_model.findViewById(R.id.wind);
-        wether= (TextView) headview_model.findViewById(R.id.wether);
+        temperature= (TextView) view.findViewById(R.id.temperature);
+        pm25= (TextView) view.findViewById(R.id.pm25);
+        location= (TextView) view.findViewById(R.id.location);
+        city= (TextView) view.findViewById(R.id.city);
+        wind= (TextView) view.findViewById(R.id.wind);
+        wether= (TextView) view.findViewById(R.id.wether);
         wether.setText("晴\n"+"20℃~25℃ ");
-        sun= (ImageView) headview_model.findViewById(R.id.sun);
+        ll_wetherbg= (LinearLayout) view.findViewById(R.id.ll_wetherbg);
+        sun= (ImageView) view.findViewById(R.id.sun);
         getModelList();
         mydp2=new Model_Adapter_2(getActivity(),R.layout.gridview_for_collect,mylist);
         collect_equipment_adapter1=new Collect_equipment_Adapter_addRoom(getActivity(),R.layout.equipment_for_listview,list1);
@@ -149,15 +152,18 @@ public class Activity_1 extends Fragment {
                     temperature.setText(preferences.getString("wendu","20")+"°");
                     String mysun=preferences.getString("tianqi","晴");
                     wether.setText(preferences.getString("tianqi","晴")+"\n"+preferences.getString("hignlow",""));
-                    wind.setText(preferences.getString("fengxiang","西北风")+"/"+preferences.getString("fengji","2级"));
+                    wind.setText(preferences.getString("fengxiang","西北风")+"  "+preferences.getString("fengji","2级"));
                     location.setText(MyLocation.getPlace().Sheng+MyLocation.getPlace().Shi+MyLocation.getPlace().Xian);
                     city.setText(preferences.getString("city","杭州"));
+                    pm25.setText(preferences.getString("pm25","PM2.5/45"));
                     switch (mysun){
                         case "晴":
                             sun.setImageResource(R.drawable.sun);
+                            ll_wetherbg.setBackgroundResource(R.mipmap.wetherbg_sun);
                             break;
                         case "多云":
                             sun.setImageResource(R.drawable.cloudy);
+                            ll_wetherbg.setBackgroundResource(R.mipmap.wetherbg_clude);
                             break;
                         case "雨":
                         case "小雨":
@@ -166,15 +172,18 @@ public class Activity_1 extends Fragment {
                         case "中雨":
                         case "阵雨":
                             sun.setImageResource(R.drawable.rain);
+                            ll_wetherbg.setBackgroundResource(R.mipmap.wetherbg_rain);
                             break;
                         case "雪":
                         case "小雪":
                         case "中雪":
                         case "大雪":
                             sun.setImageResource(R.drawable.snow);
+                            ll_wetherbg.setBackgroundResource(R.mipmap.wetherbg_xue);
                             break;
                         case "阴":
                             sun.setImageResource(R.drawable.yinday);
+                            ll_wetherbg.setBackgroundResource(R.mipmap.wetherbg_yin);
                             break;
                     }
                 break;
