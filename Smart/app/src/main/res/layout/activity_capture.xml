@@ -5,6 +5,13 @@
     android:background="@android:color/transparent"
     android:fitsSystemWindows="true"
     android:orientation="vertical" >
+    <ImageView
+        android:layout_marginTop="28dp"
+        android:elevation="5dp"
+        android:id="@+id/ibTwoBack"
+        android:src="@drawable/ic_back"
+        android:layout_width="40dp"
+        android:layout_height="30dp" />
     <SurfaceView
         android:id="@+id/capture_preview"
         android:layout_width="match_parent"

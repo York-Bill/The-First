@@ -29,10 +29,12 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -73,7 +75,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	private RelativeLayout scanContainer;
 	private RelativeLayout scanCropView;
 	private ImageView scanLine;
-
+	ImageView ibTwoBack;
 	private Rect mCropRect = null;
 
 	public Handler getHandler() {
@@ -94,7 +96,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 		scanContainer = (RelativeLayout) findViewById(R.id.capture_container);
 		scanCropView = (RelativeLayout) findViewById(R.id.capture_crop_view);
 		scanLine = (ImageView) findViewById(R.id.capture_scan_line);
-
+		ibTwoBack= (ImageView) findViewById(R.id.ibTwoBack);
 		inactivityTimer = new InactivityTimer(this);
 		beepManager = new BeepManager(this);
 
@@ -104,6 +106,12 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 		animation.setRepeatCount(-1);
 		animation.setRepeatMode(Animation.RESTART);
 		scanLine.startAnimation(animation);
+		ibTwoBack.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				CaptureActivity.this.finish();
+			}
+		});
 	}
 
 	@Override

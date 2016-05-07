@@ -1,6 +1,8 @@
 package savephoto;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
 
 import com.example.tyhj.smart.R;
 
@@ -9,7 +11,13 @@ import com.example.tyhj.smart.R;
  */
 public class GetModelHeadImage {
     private static Activity activity;
-
+    public static boolean getInternet(Context context){
+        ConnectivityManager con=(ConnectivityManager)context.getSystemService(Activity.CONNECTIVITY_SERVICE);
+        boolean internet=con.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting();
+        boolean wifi=con.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
+        if(internet||wifi) return true;
+        else return false;
+    }
     public static void setActivity(Activity activity) {
         GetModelHeadImage.activity = activity;
     }

@@ -79,71 +79,46 @@
         </ListView>
     </LinearLayout>
     <LinearLayout
+        android:padding="5dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:paddingTop="30dp"
-            android:paddingBottom="5dp"
-            android:textSize="13sp"
-            android:text="用户账号"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:layout_marginTop="10dp"
-            android:textColorHint="#999999"
-            android:paddingLeft="20dp"
-            android:hint="你将授权的账号"
-            android:singleLine="true"
-            android:textSize="17sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
         <LinearLayout
-            android:padding="4dp"
-            android:layout_marginTop="20dp"
-            android:background="#ffffff"
+            android:paddingRight="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageButton
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/ic_two"
-                android:layout_width="50dp"
-                android:layout_height="50dp" />
-            <LinearLayout
-                android:layout_weight="1"
-                android:paddingLeft="20dp"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="match_parent">
-                <TextView
-                    android:textColor="#000000"
-                    android:text="扫一扫"
-                    android:textSize="17sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:text="扫描二维码添加授权"
-                    android:textSize="14sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+        <EditText
+            android:paddingBottom="5dp"
+            android:id="@+id/etgetuserid"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:paddingTop="20dp"
+            android:layout_marginTop="10dp"
+            android:textColorHint="#999999"
+            android:paddingLeft="20dp"
+            android:hint="输入你将授权的账号"
+            android:singleLine="true"
+            android:textSize="17sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
             <ImageView
-                android:layout_marginRight="10dp"
-                android:background="@drawable/right_piont"
-                android:layout_gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:id="@+id/ivsaoTwo"
+                android:background="#dddddd"
+                android:elevation="5dp"
+                android:src="@drawable/ic_menu_twocode"
+                android:layout_gravity="center"
+                android:layout_width="35dp"
+                android:layout_height="35dp" />
         </LinearLayout>
         <Button
             android:background="@drawable/bt_press_2"
             android:layout_marginTop="20dp"
             android:textColor="#ffffff"
             android:gravity="center"
-            android:text="立即授权"
+            android:text="查找"
             android:textSize="18sp"
-            android:id="@+id/bt_saveSuggest"
+            android:id="@+id/btfinduser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
